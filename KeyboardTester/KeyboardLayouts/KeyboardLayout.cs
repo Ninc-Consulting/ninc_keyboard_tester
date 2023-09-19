@@ -8,6 +8,13 @@ namespace KeyboardTester.KeyboardLayouts
 
         public Size KeyboardLayoutSize;
 
+        protected static int BaseLength;
+
+        public KeyboardLayout(int baseLength)
+        {
+            BaseLength = baseLength;
+        }
+
         protected void AddControls(ControlCollection controls)
         {
             foreach (var key in Keys)

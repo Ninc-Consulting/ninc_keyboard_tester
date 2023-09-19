@@ -6,12 +6,12 @@ namespace KeyboardTester
 {
     internal class KeyboardHandler
     {
-        public KeyboardHandler(ControlCollection controls, Margins margins, KeyboarLayoutEnum keyboarLayoutEnum = KeyboarLayoutEnum.Cherry)
+        public KeyboardHandler(ControlCollection controls, int baseLength, KeyboarLayoutEnum keyboarLayoutEnum = KeyboarLayoutEnum.Cherry)
         {
             KeyboardLayout = keyboarLayoutEnum switch
             {
-                KeyboarLayoutEnum.Cherry => KeyboardLayout = new CherryKeyboardLayout(controls, margins),
-                KeyboarLayoutEnum.Laptop => KeyboardLayout = new LaptopKeyboardLayout(controls, margins),    // TODO: Create a laptop keyboard layout
+                KeyboarLayoutEnum.Cherry => KeyboardLayout = new CherryKeyboardLayout(controls, baseLength),
+                KeyboarLayoutEnum.Laptop => KeyboardLayout = new LaptopKeyboardLayout(controls, baseLength),    // TODO: Create a laptop keyboard layout
                 _ => throw new ArgumentException($"Unknown keyboard layout: {keyboarLayoutEnum}"),
             };
         }
@@ -38,7 +38,7 @@ namespace KeyboardTester
                 {
                     if (Convert.ToBoolean(GetAsyncKeyState(Keys.RMenu)))
                     {
-                        // The ALT GR key triggers two key events, first left control and then left alt.
+                        // The ALT GR key triggers two key events, first left control and then right menu.
                         // Do nothing when the event for the left control key is triggered.
                         return;
                     }
