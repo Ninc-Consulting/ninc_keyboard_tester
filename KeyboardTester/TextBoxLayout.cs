@@ -17,7 +17,7 @@ namespace KeyboardTester
 
         public Size TextBoxLayoutSize;
 
-        private static readonly Size _size = new(300, 50);
+        private static readonly Size _textBoxSize = new(300, 50);
         private static readonly Size _buttonSize = new(150, 50);
         private static readonly int _offset = 50;
 
@@ -29,14 +29,14 @@ namespace KeyboardTester
 
         private void DoLayout(Size keboardLayoutSize, Margins margins)
         {
-            var yCoordinate = keboardLayoutSize.Height + 50;
+            var yCoordinate = keboardLayoutSize.Height + 200;
             var xCoordinate = margins.Left;
 
             KeyValueText.BackColor = SystemColors.Control;
             KeyValueText.BorderStyle = BorderStyle.None;
             KeyValueText.Location = new Point(xCoordinate, yCoordinate);
             KeyValueText.Name = "KeyValueText";
-            KeyValueText.Size = _size;
+            KeyValueText.Size = _textBoxSize;
             KeyValueText.TabIndex = 12;
             KeyValueText.Text = "KeyValue";
             KeyValueText.TextAlign = HorizontalAlignment.Center;
@@ -44,9 +44,9 @@ namespace KeyboardTester
 
             KeyCodeText.BackColor = SystemColors.Control;
             KeyCodeText.BorderStyle = BorderStyle.None;
-            KeyCodeText.Location = new Point(xCoordinate += _size.Width + _offset, yCoordinate);
+            KeyCodeText.Location = new Point(xCoordinate += _textBoxSize.Width + _offset, yCoordinate);
             KeyCodeText.Name = "KeyCodeText";
-            KeyCodeText.Size = _size;
+            KeyCodeText.Size = _textBoxSize;
             KeyCodeText.TabIndex = 13;
             KeyCodeText.Text = "KeyCode";
             KeyCodeText.TextAlign = HorizontalAlignment.Center;
@@ -54,9 +54,9 @@ namespace KeyboardTester
 
             KeyDataText.BackColor = SystemColors.Control;
             KeyDataText.BorderStyle = BorderStyle.None;
-            KeyDataText.Location = new Point(xCoordinate += _size.Width + _offset, yCoordinate);
+            KeyDataText.Location = new Point(xCoordinate += _textBoxSize.Width + _offset, yCoordinate);
             KeyDataText.Name = "KeyDataText";
-            KeyDataText.Size = _size;
+            KeyDataText.Size = _textBoxSize;
             KeyDataText.TabIndex = 14;
             KeyDataText.Text = "KeyData";
             KeyDataText.TextAlign = HorizontalAlignment.Center;
@@ -64,44 +64,44 @@ namespace KeyboardTester
 
             xCoordinate = margins.Left;
 
-            KeyValueValue.Location = new Point(xCoordinate, yCoordinate + _size.Height);
+            KeyValueValue.Location = new Point(xCoordinate, yCoordinate + _textBoxSize.Height);
             KeyValueValue.Name = "KeyValueValue";
-            KeyValueValue.Size = _size;
+            KeyValueValue.Size = _textBoxSize;
             KeyValueValue.TabIndex = 9;
             KeyValueValue.TextAlign = HorizontalAlignment.Center;
             KeyValueValue.TabStop = false;
 
-            KeyCodeValue.Location = new Point(xCoordinate += _size.Width + _offset, yCoordinate + _size.Height);
+            KeyCodeValue.Location = new Point(xCoordinate += _textBoxSize.Width + _offset, yCoordinate + _textBoxSize.Height);
             KeyCodeValue.Name = "KeyCodeValue";
-            KeyCodeValue.Size = _size;
+            KeyCodeValue.Size = _textBoxSize;
             KeyCodeValue.TabIndex = 10;
             KeyCodeValue.TextAlign = HorizontalAlignment.Center;
             KeyCodeValue.TabStop = false;
 
-            KeyDataValue.Location = new Point(xCoordinate += _size.Width + _offset, yCoordinate + _size.Height);
+            KeyDataValue.Location = new Point(xCoordinate += _textBoxSize.Width + _offset, yCoordinate + _textBoxSize.Height);
             KeyDataValue.Name = "KeyDataValue";
-            KeyDataValue.Size = _size;
+            KeyDataValue.Size = _textBoxSize;
             KeyDataValue.TabIndex = 11;
             KeyDataValue.TextAlign = HorizontalAlignment.Center;
             KeyDataValue.TabStop = false;
 
             xCoordinate = keboardLayoutSize.Width - margins.Right;
 
-            ExitButton.Location = new Point(xCoordinate -= _buttonSize.Width, yCoordinate + _size.Height);
+            ExitButton.Location = new Point(xCoordinate -= _buttonSize.Width, yCoordinate + _textBoxSize.Height);
             ExitButton.Name = "exitButton";
             ExitButton.Size = _buttonSize;
             ExitButton.Text = "Exit";
             ExitButton.UseVisualStyleBackColor = true;
             ExitButton.TabStop = false;
 
-            ResetButton.Location = new Point(xCoordinate -= _buttonSize.Width + _offset, yCoordinate + _size.Height);
+            ResetButton.Location = new Point(xCoordinate -= _buttonSize.Width + _offset, yCoordinate + _textBoxSize.Height);
             ResetButton.Name = "resetButton";
             ResetButton.Size = _buttonSize;
             ResetButton.Text = "Reset";
             ResetButton.UseVisualStyleBackColor = true;
             ResetButton.TabStop = false;
 
-            TextBoxLayoutSize = new Size(xCoordinate + margins.Right, yCoordinate + _size.Height + margins.Bottom);
+            TextBoxLayoutSize = new Size(xCoordinate + margins.Right, yCoordinate + _textBoxSize.Height + margins.Bottom);
         }
 
         private void AddControls(ControlCollection controls)

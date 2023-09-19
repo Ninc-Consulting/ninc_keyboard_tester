@@ -25,36 +25,23 @@ namespace KeyboardTester
         private void CustomInitializeComponent()
         {
             // TODO: Create drop-down so user can switch keyboard layouts
+
+            // TODO: Set the size of the layouts based on the Screen.PrimaryScreen.Bounds
+
             _keyboardHandler = new(Controls, _margins, KeyboarLayoutEnum.Cherry);
             _textBoxLayout = new(Controls, _keyboardHandler.KeyboardLayout.KeyboardLayoutSize, _margins);
             _textBoxLayout.ResetButton.Click += ResetButton_Click;
             _textBoxLayout.ExitButton.Click += ExitButton_Click;
+            ClientSize = GetSize(_keyboardHandler.KeyboardLayout.KeyboardLayoutSize, _textBoxLayout.TextBoxLayoutSize);
+            StartPosition = FormStartPosition.Manual;
+            Location = new Point((Screen.PrimaryScreen.Bounds.Width - ClientSize.Width) / 2, (Screen.PrimaryScreen.Bounds.Height - ClientSize.Height) / 2);
         }
 
         private Size GetSize(Size keyboardLayoutSize, Size textBoxLayoutSize)
         {
-            var resultWidth = 0;
-            var resultHeight = 0;
-
-            if (keyboardLayoutSize.Width > textBoxLayoutSize.Width)
-            {
-                resultWidth = keyboardLayoutSize.Width;
-            }
-            else
-            {
-                resultWidth = textBoxLayoutSize.Width;
-            }
-
-            if (keyboardLayoutSize.Height > textBoxLayoutSize.Height)
-            {
-                resultHeight = keyboardLayoutSize.Height;
-            }
-            else
-            {
-                resultHeight = textBoxLayoutSize.Height;
-            }
-
-            return new Size(resultWidth, resultHeight);
+            return new Size(
+                Math.Max(keyboardLayoutSize.Width, textBoxLayoutSize.Width),
+                Math.Max(keyboardLayoutSize.Height, textBoxLayoutSize.Height));
         }
 
         #region Windows Form Designer generated code
@@ -71,12 +58,9 @@ namespace KeyboardTester
             // 
             AutoScaleDimensions = new SizeF(17F, 41F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = GetSize(_keyboardHandler.KeyboardLayout.KeyboardLayoutSize, _textBoxLayout.TextBoxLayoutSize);
             KeyPreview = true;
             Name = "KeyboardTesterForm";
             Text = "KeyboardTester";
-            StartPosition = FormStartPosition.Manual;
-            Location = new Point((Screen.PrimaryScreen.Bounds.Width - ClientSize.Width) / 2, (Screen.PrimaryScreen.Bounds.Height - ClientSize.Height) / 3);
             ResumeLayout(false);
             PerformLayout();
         }

@@ -22,7 +22,7 @@ namespace KeyboardTester
             if (KeyboardLayout.Keys.ContainsKey(e.KeyValue))
             {
                 if (e.KeyCode == Keys.ShiftKey)
-                {
+                { 
                     if (Convert.ToBoolean(GetAsyncKeyState(Keys.LShiftKey)))
                     {
                         KeyboardLayout.Keys[e.KeyValue].BackColor = Color.Purple;
@@ -33,6 +33,43 @@ namespace KeyboardTester
                         KeyboardLayout.Keys[-e.KeyValue].BackColor = Color.Purple;
                         KeyboardLayout.Keys[-e.KeyValue].ForeColor = Color.White;
                     }
+                }
+                else if (e.KeyCode == Keys.ControlKey)
+                {
+                    if (Convert.ToBoolean(GetAsyncKeyState(Keys.RMenu)))
+                    {
+                        // The ALT GR key triggers two key events, first left control and then left alt.
+                        // Do nothing when the event for the left control key is triggered.
+                        return;
+                    }
+                    else if (Convert.ToBoolean(GetAsyncKeyState(Keys.LControlKey)))
+                    {
+                        KeyboardLayout.Keys[e.KeyValue].BackColor = Color.Purple;
+                        KeyboardLayout.Keys[e.KeyValue].ForeColor = Color.White;
+                    }
+                    else if (Convert.ToBoolean(GetAsyncKeyState(Keys.RControlKey)))
+                    {
+                        KeyboardLayout.Keys[-e.KeyValue].BackColor = Color.Purple;
+                        KeyboardLayout.Keys[-e.KeyValue].ForeColor = Color.White;
+                    }
+                }
+                else if (e.KeyCode == Keys.Menu)
+                {
+                    if (Convert.ToBoolean(GetAsyncKeyState(Keys.LMenu)))
+                    {
+                        KeyboardLayout.Keys[e.KeyValue].BackColor = Color.Purple;
+                        KeyboardLayout.Keys[e.KeyValue].ForeColor = Color.White;
+                    }
+                    else if (Convert.ToBoolean(GetAsyncKeyState(Keys.RMenu)))
+                    {
+                        KeyboardLayout.Keys[-e.KeyValue].BackColor = Color.Purple;
+                        KeyboardLayout.Keys[-e.KeyValue].ForeColor = Color.White;
+                    }
+                }
+                else if (e.KeyCode == Keys.Enter)
+                {
+                    KeyboardLayout.Keys[-e.KeyValue].BackColor = Color.Purple;
+                    KeyboardLayout.Keys[-e.KeyValue].ForeColor = Color.White;
                 }
                 else
                 {
