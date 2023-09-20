@@ -118,7 +118,6 @@ namespace KeyboardTester.KeyboardLayouts
 
         // Sizes
         private static readonly int _offset = Convert.ToInt32(BaseLength * 0.05);
-        private static readonly Font _font = new("Segoe UI", Convert.ToInt32(BaseLength * 0.10));
 
         private static readonly Size _squareSize = new(BaseLength, BaseLength);  
         private static readonly Size _squareSizeHalfHeight = new(BaseLength, BaseLength / 2);
@@ -131,49 +130,21 @@ namespace KeyboardTester.KeyboardLayouts
         private static readonly Size _spaceBarSize = new(Convert.ToInt32(BaseLength * 5) + _offset, BaseLength);
         private static readonly Size _reverseRectangleSize2 = new(BaseLength, BaseLength * 2 + _offset);
 
-        public CherryKeyboardLayout(ControlCollection controls, int baseLength) : base (baseLength)
+        public CherryKeyboardLayout(ControlCollection controls, int baseLength) : base (controls, baseLength)
         {
-            InitiateKeys();
-            SetCommonAttributes();
-            base.AddControls(controls);
+            var keys = InitiateCherryKeyboardLayout();
+            base.AddKeysToBaseClass(keys);
         }
 
-        private void InitiateKeys()
+        private List<Key> InitiateCherryKeyboardLayout()
         {
-            var rowKeys = InitiateFirstRow();
-            PositionFirstRow(rowKeys);
-            AddKeysToBaseClass(rowKeys);
+            var keys = InitiateKeys();
+            DoLayout(keys);
 
-            var startingYCoordinate = rowKeys.First().Location.Y + rowKeys.First().Height + _squareSizeHalfHeight.Height;
-            rowKeys = InitiateSecondRow();
-            PositionSecondRow(rowKeys, startingYCoordinate);
-            AddKeysToBaseClass(rowKeys);
-
-            startingYCoordinate = rowKeys.First().Location.Y + rowKeys.First().Height + _offset;
-            rowKeys = InitiateThirdRow();
-            PositionThirdRow(rowKeys, startingYCoordinate);
-            AddKeysToBaseClass(rowKeys);
-
-            startingYCoordinate = rowKeys.First().Location.Y + rowKeys.First().Height + _offset;
-            rowKeys = InitiateFourthRow();
-            PositionFourthRow(rowKeys, startingYCoordinate);
-            AddKeysToBaseClass(rowKeys);
-
-            startingYCoordinate = rowKeys.First().Location.Y + rowKeys.First().Height + _offset;
-            rowKeys = InitiateFifthRow();
-            PositionFifthRow(rowKeys, startingYCoordinate);
-            AddKeysToBaseClass(rowKeys);
-
-            startingYCoordinate = rowKeys.First().Location.Y + rowKeys.First().Height + _offset;
-            rowKeys = InitiateSixthRow();
-            PositionSixthRow(rowKeys, startingYCoordinate);
-            AddKeysToBaseClass(rowKeys);
-
-            SetKeyboardLayoutSize();
+            return keys;
         }
 
-        #region FirstRow
-        private List<Key> InitiateFirstRow()
+        private List<Key> InitiateKeys()
         {
             var keys = new List<Key>();
 
@@ -356,40 +327,6 @@ namespace KeyboardTester.KeyboardLayouts
             _calculator.Text = "Calc";
             _calculator.TextAlign = ContentAlignment.MiddleCenter;
             keys.Add(_calculator);
-
-            return keys;
-        }
-
-        private static void PositionFirstRow(List<Key> keys)
-        {
-            var xCoordinate = BaseLength;
-            var yCoordinate = BaseLength;
-
-            foreach (var key in keys)
-            {
-                key.Location = new Point(xCoordinate, yCoordinate);
-                xCoordinate += key.Width + _offset;
-
-                if (key.Name == "F4" || key.Name == "F12" || key.Name == "Pause")
-                {
-                    xCoordinate += _squareSizeHalfHeight.Width / 2;
-                }
-                else if (key.Name == "F8")
-                {
-                    xCoordinate += _squareSizeHalfHeight.Width / 2 + _offset;
-                }
-                else if (key.Name == "Escape")
-                        {
-                    xCoordinate += _squareSizeHalfHeight.Width + _offset;
-                }
-            }
-        }
-        #endregion FirstRow
-
-        #region SecondRow
-        private List<Key> InitiateSecondRow()
-        {
-            var keys = new List<Key>();
 
             _oem5.KeyValue = 220;
             _oem5.KeyCode = Forms.Keys.Oem5;
@@ -580,33 +517,6 @@ namespace KeyboardTester.KeyboardLayouts
             _subtract.TextAlign = ContentAlignment.TopLeft;
             keys.Add(_subtract);
 
-            return keys;
-        }
-
-        private static void PositionSecondRow(List<Key> rowKeys, int startingYCoordinate)
-        {
-            var xCoordinate = BaseLength;
-            var yCoordinate = startingYCoordinate;
-
-            foreach ( var key in rowKeys)
-            {
-                key.Location = new Point(xCoordinate, yCoordinate);
-                xCoordinate += key.Width + _offset;
-
-                if (key.Name == "Back" || key.Name == "PageUp")
-                {
-                    xCoordinate += Convert.ToInt32(_squareSize.Width / 2);
-                }
-            }
-        }
-        #endregion SecondRow
-
-        #region ThirdRow
-
-        private List<Key> InitiateThirdRow()
-        {
-            var keys = new List<Key>();
-
             _tab.KeyValue = 9;
             _tab.KeyCode = Forms.Keys.Tab;
             _tab.KeyData = Forms.Keys.Tab;
@@ -796,36 +706,6 @@ namespace KeyboardTester.KeyboardLayouts
             _add.TextAlign = ContentAlignment.TopLeft;
             keys.Add(_add);
 
-            return keys;
-        }
-
-        private static void PositionThirdRow(List<Key> rowKeys, int startingYCoordinate)
-        {
-            var xCoordinate = BaseLength;
-            var yCoordinate = startingYCoordinate;
-
-            foreach (var key in rowKeys)
-            {
-                key.Location = new Point(xCoordinate, yCoordinate);
-                xCoordinate += key.Width + _offset;
-
-                if (key.Name == "Oem1")
-                {
-                    xCoordinate += Convert.ToInt32(_squareSize.Width * 0.20) + _offset;
-                }
-                else if (key.Name == "Return" || key.Name == "PageDown")
-                {
-                    xCoordinate += Convert.ToInt32(_squareSize.Width / 2);
-                }
-            }
-        }
-        #endregion ThirdRow
-
-        #region FourthRow
-        private List<Key> InitiateFourthRow()
-        {
-            var keys = new List<Key>();
-
             _caps.KeyValue = 20;
             _caps.KeyCode = Forms.Keys.Capital;
             _caps.KeyData = Forms.Keys.Capital;
@@ -969,32 +849,6 @@ namespace KeyboardTester.KeyboardLayouts
             _numPad6.Text = "6";
             _numPad6.TextAlign = ContentAlignment.TopLeft;
             keys.Add(_numPad6);
-
-            return keys;
-        }
-
-        private static void PositionFourthRow(List<Key> rowKeys, int startingYCoordinate)
-        {         
-            var xCoordinate = BaseLength;
-            var yCoordinate = startingYCoordinate;
-
-            foreach (var key in rowKeys)
-            {
-                key.Location = new Point(xCoordinate, yCoordinate);
-                xCoordinate += key.Width + _offset;
-
-                if (key.Name == "OemQuestion")
-                {
-                    xCoordinate += Convert.ToInt32((_squareSize.Width * 5.25) + (4 * _offset));
-                }
-            }
-        }
-        #endregion FourthRow
-
-        #region FifthRow
-        private List<Key> InitiateFifthRow()
-        {
-            var keys = new List<Key>();
 
             _leftShift.KeyValue = 16;
             _leftShift.KeyCode = Forms.Keys.ShiftKey;
@@ -1158,32 +1012,6 @@ namespace KeyboardTester.KeyboardLayouts
             _enter.TextAlign = ContentAlignment.BottomCenter;
             keys.Add(_enter);
 
-            return keys;
-        }
-
-        private static void PositionFifthRow(List<Key> rowKeys, int startingYCoordinate)
-        {
-            var xCoordinate = BaseLength;
-            var yCoordinate = startingYCoordinate;
-
-            foreach (var key in rowKeys)
-            {
-                key.Location = new Point(xCoordinate, yCoordinate);
-                xCoordinate += key.Width + _offset;
-
-                if (key.Name == "RightShift" || key.Name == "Up")
-                {
-                    xCoordinate += Convert.ToInt32((_squareSize.Width * 1.5) + _offset);
-                }
-            }
-        }
-        #endregion FifthRow
-
-        #region SixthRow
-        private List<Key> InitiateSixthRow()
-        {
-            var keys = new List<Key>();
-
             _leftControl.KeyValue = 17;
             _leftControl.KeyCode = Forms.Keys.ControlKey;
             _leftControl.KeyData = Forms.Keys.ControlKey | Forms.Keys.Control;
@@ -1303,58 +1131,57 @@ namespace KeyboardTester.KeyboardLayouts
             return keys;
         }
 
-
-        private static void PositionSixthRow(List<Key> rowKeys, int startingYCoordinate)
+        private static void DoLayout(List<Key> keys)
         {
             var xCoordinate = BaseLength;
-            var yCoordinate = startingYCoordinate;
+            var yCoordinate = BaseLength;
 
-            foreach (var key in rowKeys)
+            foreach (var key in keys)
             {
                 key.Location = new Point(xCoordinate, yCoordinate);
                 xCoordinate += key.Width + _offset;
 
-                if (key.Name == "RightControl" || key.Name == "Right")
+                if (key.Name == "F4" || key.Name == "F12" || key.Name == "Pause")
                 {
-                    xCoordinate += Convert.ToInt32((_squareSize.Width / 2));
+                    xCoordinate += BaseLength / 2;
+                }
+                else if (key.Name == "F8")
+                {
+                    xCoordinate += BaseLength / 2 + _offset;
+                }
+                else if (key.Name == "Escape")
+                        {
+                    xCoordinate += BaseLength + _offset;
+                }
+                else if (key.Name == "Back" || key.Name == "PageUp" || key.Name == "Return" || key.Name == "PageDown" || key.Name == "RightControl" || key.Name == "Right")
+                {
+                    xCoordinate += BaseLength / 2;
+                }
+                else if (key.Name == "Oem1")
+                {
+                    xCoordinate += Convert.ToInt32(BaseLength * 0.20) + _offset;
+                }
+                else if (key.Name == "OemQuestion")
+                {
+                    xCoordinate += Convert.ToInt32((BaseLength * 5.25) + (4 * _offset));
+                }
+                else if (key.Name == "RightShift" || key.Name == "Up")
+                {
+                    xCoordinate += Convert.ToInt32((BaseLength * 1.5) + _offset);
+                }
+
+                // New row
+                if (key.Name == "LaunchApplication2")
+                {
+                    xCoordinate = BaseLength;
+                    yCoordinate += key.Height * 2;
+                }
+                else if (key.Name == "Subtract" || key.Name == "Add" || key.Name == "NumPad6" || key.Name == "Enter")
+                {
+                    xCoordinate = BaseLength;
+                    yCoordinate += BaseLength + _offset;
                 }
             }
-        }
-        #endregion SixthRow
-
-        private void AddKeysToBaseClass(List<Key> rowKeys)
-        {
-            foreach (var key in rowKeys)
-            {
-                base.Keys.Add(key.KeyValue, key);
-            }           
-        }
-
-        private void SetCommonAttributes()
-        {
-            foreach (var key in base.Keys)
-            {
-                key.Value.TabStop = false;
-                key.Value.Font = _font;
-                key.Value.BackColor = Color.FromArgb(0, 250, 250, 250);
-                key.Value.ForeColor = Color.Black;
-            }
-        }
-
-        private void SetKeyboardLayoutSize()
-        {
-            var maxX = 0;
-            var maxY = 0;
-
-            foreach(var key in base.Keys.Values)
-            {
-                maxX = Math.Max(maxX, key.Location.X + key.Width);
-                maxY = Math.Max(maxY, key.Location.Y + key.Height);
-            }
-
-            maxX += BaseLength;
-            maxY += BaseLength;
-            KeyboardLayoutSize = new Size(maxX, maxY);
         }
     }
 }

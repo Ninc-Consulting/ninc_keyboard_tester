@@ -1,5 +1,6 @@
 ﻿using KeyboardTester.KeyboardLayouts;
-using System.Drawing.Printing;
+using System.Diagnostics;
+using System.Reflection;
 using static System.Windows.Forms.Control;
 
 namespace KeyboardTester
@@ -11,10 +12,11 @@ namespace KeyboardTester
             KeyboardLayout = keyboarLayoutEnum switch
             {
                 KeyboarLayoutEnum.Cherry => KeyboardLayout = new CherryKeyboardLayout(controls, baseLength),
-                KeyboarLayoutEnum.Laptop => KeyboardLayout = new LaptopKeyboardLayout(controls, baseLength),    // TODO: Create a laptop keyboard layout
+                KeyboarLayoutEnum.Laptop => KeyboardLayout = new LaptopKeyboardLayout(controls, baseLength),
                 _ => throw new ArgumentException($"Unknown keyboard layout: {keyboarLayoutEnum}"),
             };
         }
+
         public KeyboardLayout KeyboardLayout { get; private set; }
 
         public void KeyPressed(KeyEventArgs e)
@@ -66,11 +68,11 @@ namespace KeyboardTester
                         KeyboardLayout.Keys[-e.KeyValue].ForeColor = Color.White;
                     }
                 }
-                else if (e.KeyCode == Keys.Enter)
-                {
-                    KeyboardLayout.Keys[-e.KeyValue].BackColor = Color.Purple;
-                    KeyboardLayout.Keys[-e.KeyValue].ForeColor = Color.White;
-                }
+                //else if (e.KeyCode == Keys.Enter)
+                //{
+                //    KeyboardLayout.Keys[-e.KeyValue].BackColor = Color.Purple;
+                //    KeyboardLayout.Keys[-e.KeyValue].ForeColor = Color.White;
+                //}
                 else
                 {
                     KeyboardLayout.Keys[e.KeyValue].BackColor = Color.Purple;

@@ -1,6 +1,4 @@
-﻿using System.Drawing.Printing;
-
-namespace KeyboardTester
+﻿namespace KeyboardTester
 {
     partial class KeyboardTesterForm
     {
@@ -32,16 +30,32 @@ namespace KeyboardTester
             // TODO: Create drop-down so user can switch keyboard layouts
 
             _dropDownMenu = new ComboBox();
+            _dropDownMenu.Name = "DropDownMenu";
             _dropDownMenu.Location = new Point(_baseLength, 0);
             _dropDownMenu.DropDownStyle = ComboBoxStyle.DropDownList;
             Controls.Add(_dropDownMenu);
 
-            _dropDownMenu.DataSource = new ComboBoxKeyboardLayoutItem[] {
-                new ComboBoxKeyboardLayoutItem{ KeyboarLayoutEnum = KeyboarLayoutEnum.Cherry, KeyboardLayoutText = "Keyboard layout: 'Cherry'" },
-                new ComboBoxKeyboardLayoutItem{ KeyboarLayoutEnum = KeyboarLayoutEnum.Laptop, KeyboardLayoutText = "Keyboard layout: 'Laptop'" }
+            var comboBoxItems = new List<ComboBoxKeyboardLayoutItem>();
+            var cherryItem = new ComboBoxKeyboardLayoutItem()
+            {
+                KeyboarLayoutEnum = KeyboarLayoutEnum.Cherry,
+                KeyboardLayoutText = "Keyboard layout: 'Cherry'"
             };
+            comboBoxItems.Add(cherryItem);
+            var laptopItem = new ComboBoxKeyboardLayoutItem()
+            {
+                KeyboarLayoutEnum = KeyboarLayoutEnum.Laptop,
+                KeyboardLayoutText = "Keyboard layout: 'Laptop'"
+            };
+            comboBoxItems.Add(laptopItem);
+            _dropDownMenu.DataSource = comboBoxItems;
             _dropDownMenu.DisplayMember = "KeyboardLayoutText";
             _dropDownMenu.ValueMember = "KeyboarLayoutEnum";
+            _dropDownMenu.SelectedItem = cherryItem;
+            //_dropDownMenu.DataSource = new ComboBoxKeyboardLayoutItem[] {
+            //    new ComboBoxKeyboardLayoutItem{ KeyboarLayoutEnum = KeyboarLayoutEnum.Cherry, KeyboardLayoutText = "Keyboard layout: 'Cherry'" },
+            //    new ComboBoxKeyboardLayoutItem{ KeyboarLayoutEnum = KeyboarLayoutEnum.Laptop, KeyboardLayoutText = "Keyboard layout: 'Laptop'" }
+            //};
             _dropDownMenu.Font = new("Segoe UI", Convert.ToInt32(_baseLength * 0.10));
             _dropDownMenu.Width = DropDownWidth(_dropDownMenu);
             _dropDownMenu.TabStop = false;
@@ -67,7 +81,7 @@ namespace KeyboardTester
             return maxWidth + Convert.ToInt32(_baseLength / 2); // Add _baselength divided by 2 to account for the dropdown button
         }
 
-        private void CustomInitializeComponent(KeyboarLayoutEnum keyboarLayoutEnum = KeyboarLayoutEnum.Laptop)
+        private void CustomInitializeComponent(KeyboarLayoutEnum keyboarLayoutEnum = KeyboarLayoutEnum.Cherry)
         {
             _keyboardHandler = new(Controls, _baseLength, keyboarLayoutEnum);
             _textBoxLayout = new(Controls, _keyboardHandler.KeyboardLayout.KeyboardLayoutSize, _baseLength);
