@@ -1,5 +1,4 @@
 ﻿using Forms = System.Windows.Forms;
-using static System.Windows.Forms.Control;
 
 namespace KeyboardTester.KeyboardLayouts
 {
@@ -130,7 +129,7 @@ namespace KeyboardTester.KeyboardLayouts
         private static readonly Size _spaceBarSize = new(Convert.ToInt32(BaseLength * 5) + _offset, BaseLength);
         private static readonly Size _reverseRectangleSize2 = new(BaseLength, BaseLength * 2 + _offset);
 
-        public CherryKeyboardLayout(ControlCollection controls, int baseLength) : base (controls, baseLength)
+        public CherryKeyboardLayout(int baseLength) : base (baseLength)
         {
             var keys = InitiateCherryKeyboardLayout();
             base.AddKeysToBaseClass(keys);
@@ -850,7 +849,7 @@ namespace KeyboardTester.KeyboardLayouts
             _numPad6.TextAlign = ContentAlignment.TopLeft;
             keys.Add(_numPad6);
 
-            _leftShift.KeyValue = 16;
+            _leftShift.KeyValue = 160;
             _leftShift.KeyCode = Forms.Keys.ShiftKey;
             _leftShift.KeyData = Forms.Keys.ShiftKey | Forms.Keys.Shift;
             _leftShift.Name = "LeftShift";
@@ -958,7 +957,7 @@ namespace KeyboardTester.KeyboardLayouts
             _oemMinus.TextAlign = ContentAlignment.BottomLeft;
             keys.Add(_oemMinus);
 
-            _rightShift.KeyValue = -16;  // Inverting the KeyValue to distinguish between left and right shift since they both have the same KeyValue
+            _rightShift.KeyValue = 161; 
             _rightShift.KeyCode = Forms.Keys.ShiftKey;
             _rightShift.KeyData = Forms.Keys.ShiftKey | Forms.Keys.Shift;
             _rightShift.Name = "RightShift";
@@ -1003,16 +1002,16 @@ namespace KeyboardTester.KeyboardLayouts
             _numPad3.TextAlign = ContentAlignment.TopLeft;
             keys.Add(_numPad3);
 
-            _enter.KeyValue = -13;
-            _enter.KeyCode = Forms.Keys.Return;
-            _enter.KeyData = Forms.Keys.Return;
+            _enter.KeyValue = -13;  // Inverting the KeyValue to distinguish between regular Return and NumPad Enter since they both have the same KeyValue
+            _enter.KeyCode = Forms.Keys.Enter;
+            _enter.KeyData = Forms.Keys.Enter;
             _enter.Name = "Enter";
             _enter.Size = _reverseRectangleSize2;
             _enter.Text = "ENTER";
             _enter.TextAlign = ContentAlignment.BottomCenter;
             keys.Add(_enter);
 
-            _leftControl.KeyValue = 17;
+            _leftControl.KeyValue = 162;
             _leftControl.KeyCode = Forms.Keys.ControlKey;
             _leftControl.KeyData = Forms.Keys.ControlKey | Forms.Keys.Control;
             _leftControl.Name = "LeftControl";
@@ -1030,7 +1029,7 @@ namespace KeyboardTester.KeyboardLayouts
             _leftWindows.TextAlign = ContentAlignment.BottomLeft;
             keys.Add(_leftWindows);
 
-            _alt.KeyValue = 18;
+            _alt.KeyValue = 164;
             _alt.KeyCode = Forms.Keys.Menu;
             _alt.KeyData = Forms.Keys.Menu | Forms.Keys.Alt;
             _alt.Name = "Alt";
@@ -1047,7 +1046,7 @@ namespace KeyboardTester.KeyboardLayouts
             _space.Text = "";
             keys.Add(_space);
 
-            _altGr.KeyValue = -18;    // Inverting the KeyValue to distinguish between left and right Alt since they both have the same KeyValue
+            _altGr.KeyValue = 165;
             _altGr.KeyCode = Forms.Keys.Menu;
             _altGr.KeyData = Forms.Keys.Menu | Forms.Keys.Control | Forms.Keys.Alt;
             _altGr.Name = "AltGr";
@@ -1074,7 +1073,7 @@ namespace KeyboardTester.KeyboardLayouts
             _apps.TextAlign = ContentAlignment.BottomLeft;
             keys.Add(_apps);
 
-            _rightControl.KeyValue = -17;
+            _rightControl.KeyValue = 163;
             _rightControl.KeyCode = Forms.Keys.ControlKey;
             _rightControl.KeyData = Forms.Keys.ControlKey | Forms.Keys.Control;
             _rightControl.Name = "RightControl";

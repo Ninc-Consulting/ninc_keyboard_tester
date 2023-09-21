@@ -1,5 +1,4 @@
 ﻿using Forms = System.Windows.Forms;
-using static System.Windows.Forms.Control;
 
 namespace KeyboardTester.KeyboardLayouts
 {
@@ -107,7 +106,7 @@ namespace KeyboardTester.KeyboardLayouts
         private static readonly Size _rectangleSize2_25 = new(Convert.ToInt32(BaseLength * 2.25) + _offset, BaseLength);
         private static readonly Size _spaceBarSize = new(Convert.ToInt32(BaseLength * 3.5) + _offset, BaseLength);
 
-        public LaptopKeyboardLayout(ControlCollection controls, int baseLength) : base (controls, baseLength)
+        public LaptopKeyboardLayout(int baseLength) : base (baseLength)
         {
             var keys = InitiateLaptopKeyboarLayout();
             base.AddKeysToBaseClass(keys);

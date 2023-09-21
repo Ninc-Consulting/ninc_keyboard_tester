@@ -1,8 +1,4 @@
-﻿using System.DirectoryServices.ActiveDirectory;
-using System.Drawing.Printing;
-using static System.Windows.Forms.Control;
-
-namespace KeyboardTester
+﻿namespace KeyboardTester
 {
     internal class TextBoxLayout
     {
@@ -18,12 +14,12 @@ namespace KeyboardTester
         public Size TextBoxLayoutSize;
 
         private static int _baseLength;
-        private static int _offset;// = Convert.ToInt32(_baseLength / 2);
-        private static Size _textBoxSize;// = new(_baseLength * 3, Convert.ToInt32(_baseLength / 2));
-        private static Size _buttonSize;// = new(Convert.ToInt32(_baseLength * 1.5), Convert.ToInt32(_baseLength / 2));
-        private static Font? _font;// = new("Segoe UI", Convert.ToInt32(_baseLength * 0.10));
+        private static int _offset;
+        private static Size _textBoxSize;
+        private static Size _buttonSize;
+        private static Font? _font;
 
-        public TextBoxLayout(ControlCollection controls, Size keboardLayoutSize, int baseLength)
+        public TextBoxLayout(Size keboardLayoutSize, int baseLength)
         {
             _baseLength = baseLength;
             _offset = Convert.ToInt32(_baseLength / 2);
@@ -32,7 +28,6 @@ namespace KeyboardTester
             _font = new("Segoe UI", Convert.ToInt32(_baseLength * 0.10));
 
             DoLayout(keboardLayoutSize, baseLength);
-            AddControls(controls);
         }
 
         private void DoLayout(Size keboardLayoutSize, int baseLength)
@@ -54,10 +49,10 @@ namespace KeyboardTester
             KeyCodeText.BackColor = SystemColors.Control;
             KeyCodeText.BorderStyle = BorderStyle.None;
             KeyCodeText.Location = new Point(xCoordinate += _textBoxSize.Width + _offset, yCoordinate);
-            KeyCodeText.Name = "KeyCodeText";
+            KeyCodeText.Name = "KeyNameText";
             KeyCodeText.Size = _textBoxSize;
             KeyCodeText.TabIndex = 13;
-            KeyCodeText.Text = "KeyCode";
+            KeyCodeText.Text = "KeyName";
             KeyCodeText.TextAlign = HorizontalAlignment.Center;
             KeyCodeText.TabStop = false;
             KeyCodeText.Font = _font;
@@ -65,10 +60,10 @@ namespace KeyboardTester
             KeyDataText.BackColor = SystemColors.Control;
             KeyDataText.BorderStyle = BorderStyle.None;
             KeyDataText.Location = new Point(xCoordinate += _textBoxSize.Width + _offset, yCoordinate);
-            KeyDataText.Name = "KeyDataText";
+            KeyDataText.Name = "KeyFlagsText";
             KeyDataText.Size = _textBoxSize;
             KeyDataText.TabIndex = 14;
-            KeyDataText.Text = "KeyData";
+            KeyDataText.Text = "KeyFlags";
             KeyDataText.TextAlign = HorizontalAlignment.Center;
             KeyDataText.TabStop = false;
             KeyDataText.Font = _font;
@@ -84,7 +79,7 @@ namespace KeyboardTester
             KeyValueValue.Font = _font;
 
             KeyCodeValue.Location = new Point(xCoordinate += _textBoxSize.Width + _offset, yCoordinate + _textBoxSize.Height);
-            KeyCodeValue.Name = "KeyCodeValue";
+            KeyCodeValue.Name = "KeyNameValue";
             KeyCodeValue.Size = _textBoxSize;
             KeyCodeValue.TabIndex = 10;
             KeyCodeValue.TextAlign = HorizontalAlignment.Center;
@@ -92,7 +87,7 @@ namespace KeyboardTester
             KeyCodeValue.Font = _font;
 
             KeyDataValue.Location = new Point(xCoordinate += _textBoxSize.Width + _offset, yCoordinate + _textBoxSize.Height);
-            KeyDataValue.Name = "KeyDataValue";
+            KeyDataValue.Name = "KeyFlagsValue";
             KeyDataValue.Size = _textBoxSize;
             KeyDataValue.TabIndex = 11;
             KeyDataValue.TextAlign = HorizontalAlignment.Center;
@@ -102,7 +97,7 @@ namespace KeyboardTester
             xCoordinate = keboardLayoutSize.Width - baseLength;
 
             ExitButton.Location = new Point(xCoordinate -= _buttonSize.Width, yCoordinate + _textBoxSize.Height);
-            ExitButton.Name = "exitButton";
+            ExitButton.Name = "ExitButton";
             ExitButton.Size = _buttonSize;
             ExitButton.Text = "Exit";
             ExitButton.UseVisualStyleBackColor = true;
@@ -110,7 +105,7 @@ namespace KeyboardTester
             ExitButton.Font = _font;
 
             ResetButton.Location = new Point(xCoordinate -= _buttonSize.Width + _offset, yCoordinate + _textBoxSize.Height);
-            ResetButton.Name = "resetButton";
+            ResetButton.Name = "ResetButton";
             ResetButton.Size = _buttonSize;
             ResetButton.Text = "Reset";
             ResetButton.UseVisualStyleBackColor = true;
@@ -120,23 +115,11 @@ namespace KeyboardTester
             TextBoxLayoutSize = new Size(xCoordinate + baseLength, yCoordinate + _textBoxSize.Height + baseLength);
         }
 
-        private void AddControls(ControlCollection controls)
+        public void SetTextBoxValues(KeyboardHook.KeyboardHookEventArgs e)
         {
-            controls.Add(KeyValueValue);
-            controls.Add(KeyCodeValue);
-            controls.Add(KeyDataValue);
-            controls.Add(KeyValueText);
-            controls.Add(KeyCodeText);
-            controls.Add(KeyDataText);
-            controls.Add(ResetButton);
-            controls.Add(ExitButton);
-        }
-
-        public void SetTextBoxValues(KeyEventArgs e)
-        {
-            KeyValueValue.Text = e.KeyValue.ToString();
-            KeyCodeValue.Text = e.KeyCode.ToString();
-            KeyDataValue.Text = e.KeyData.ToString();
+            KeyValueValue.Text = e.KeyCode.ToString();
+            KeyCodeValue.Text = e.KeyName.ToString();
+            KeyDataValue.Text = Convert.ToString(e.KeyFlags, 2).PadLeft(8, '0');
         }
     }
 }

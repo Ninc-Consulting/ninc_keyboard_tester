@@ -8,45 +8,21 @@ namespace KeyboardTester
         {
             InitiateDropDownMenu();
             CustomInitializeComponent();
-            InitializeComponent();
-            PreviewKeyDown += new PreviewKeyDownEventHandler(Form_PreviewKeyDown);
-            KeyDown += new KeyEventHandler(Form_KeyDown);
-            KeyUp += new KeyEventHandler(Form_KeyUp);
-            Program.kh.KeyIntercepted += new KeyboardHook.KeyboardHookEventHandler(kh_KeyIntercepted);
-        }
-
-        private void kh_KeyIntercepted(KeyboardHook.KeyboardHookEventArgs e)
-        {
-            if (e.PassThrough)
+            if (Program.kh is not null)
             {
-                this.TopMost = false;
+                Program.kh.KeyIntercepted += new KeyboardHook.KeyboardHookEventHandler(Kh_KeyIntercepted);
             }
-            Debug.WriteLine(e.KeyName);
-            Debug.WriteLine(e.KeyCode);
-            Debug.WriteLine("====================");
         }
 
-        private void Form_PreviewKeyDown(object? sender, PreviewKeyDownEventArgs e)
+        private void Kh_KeyIntercepted(KeyboardHook.KeyboardHookEventArgs e)
         {
-            e.IsInputKey = true;
-        }
-
-        // The KeyUp event is captured since the print screen key is never fired during the KeyDown event
-        private void Form_KeyUp(object? sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.PrintScreen)
+            var keyUpFlag = 0b10000000;
+            //if (e.KeyEventType == KeyboardHook.KeyEventType.KeyDown)
+            if ((e.KeyFlags & keyUpFlag) == 0) // True if keyUpFlag is not set i.e. it is a KeyDownEvent
             {
                 _keyboardHandler.KeyPressed(e);
                 _textBoxLayout.SetTextBoxValues(e);
             }
-            e.Handled = true;
-        }
-
-        private void Form_KeyDown(object? sender, KeyEventArgs e)
-        {
-            _keyboardHandler.KeyPressed(e);
-            _textBoxLayout.SetTextBoxValues(e);
-            e.Handled = true;
         }
 
         public void DropDownMenu_SelectedValueChanged(object? sender, EventArgs e)
@@ -60,7 +36,6 @@ namespace KeyboardTester
                 Controls.Remove(textBoxControl);
             }
             CustomInitializeComponent((KeyboarLayoutEnum)_dropDownMenu.SelectedValue);
-            InitializeComponent();
             ActiveControl = null;
         }
 
