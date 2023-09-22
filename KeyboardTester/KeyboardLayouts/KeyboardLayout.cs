@@ -10,7 +10,7 @@
         public KeyboardLayout(int baseLength)
         {
             BaseLength = baseLength;
-            _font = new("Segoe UI", Convert.ToInt32(BaseLength * 0.10));
+            _font = new("Segoe UI", Convert.ToInt32(BaseLength * 0.14));
         }
 
         protected void AddKeysToBaseClass(List<Key> keys)

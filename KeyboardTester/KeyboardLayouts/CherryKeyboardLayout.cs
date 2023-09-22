@@ -21,7 +21,7 @@ namespace KeyboardTester.KeyboardLayouts
         private readonly Key _printScreen = new();
         private readonly Key _scroll = new();
         private readonly Key _pause = new();
-        private readonly Key _lWin = new();
+        private readonly Key _lockScreen = new();
         private readonly Key _browserHome = new();
         private readonly Key _launchMail = new();
         private readonly Key _calculator = new();
@@ -291,14 +291,14 @@ namespace KeyboardTester.KeyboardLayouts
             _pause.TextAlign = ContentAlignment.TopCenter;
             keys.Add(_pause);
 
-            _lWin.KeyValue = -998;  // No difference to left windows key, removed for now
-            _lWin.KeyCode = Forms.Keys.LWin;
-            _lWin.KeyData = Forms.Keys.LWin;
-            _lWin.Name = "LWin";
-            _lWin.Size = _squareSizeHalfHeight;
-            _lWin.Text = "Lock";
-            _lWin.TextAlign = ContentAlignment.MiddleCenter;
-            keys.Add(_lWin);
+            _lockScreen.KeyValue = -1;  // No difference to left windows key, use dummy value for now
+            _lockScreen.KeyCode = Forms.Keys.None;
+            _lockScreen.KeyData = Forms.Keys.None;
+            _lockScreen.Name = "LockScreen";
+            _lockScreen.Size = _squareSizeHalfHeight;
+            _lockScreen.Text = "Lock";
+            _lockScreen.TextAlign = ContentAlignment.MiddleCenter;
+            keys.Add(_lockScreen);
 
             _browserHome.KeyValue = 172;
             _browserHome.KeyCode = Forms.Keys.BrowserHome;
@@ -935,7 +935,7 @@ namespace KeyboardTester.KeyboardLayouts
             _oemComma.KeyData = Forms.Keys.Oemcomma;
             _oemComma.Name = "Oemcomma";
             _oemComma.Size = _squareSize;
-            _oemComma.Text = ",";
+            _oemComma.Text = ";\n,";
             _oemComma.TextAlign = ContentAlignment.BottomLeft;
             keys.Add(_oemComma);
 
@@ -944,7 +944,7 @@ namespace KeyboardTester.KeyboardLayouts
             _oemPeriod.KeyData = Forms.Keys.OemPeriod;
             _oemPeriod.Name = "OemPeriod";
             _oemPeriod.Size = _squareSize;
-            _oemPeriod.Text = ".";
+            _oemPeriod.Text = ":\n.";
             _oemPeriod.TextAlign = ContentAlignment.BottomLeft;
             keys.Add(_oemPeriod);
 
@@ -953,7 +953,7 @@ namespace KeyboardTester.KeyboardLayouts
             _oemMinus.KeyData = Forms.Keys.OemMinus;
             _oemMinus.Name = "OemMinua";
             _oemMinus.Size = _squareSize;
-            _oemMinus.Text = "-";
+            _oemMinus.Text = "_\n-";
             _oemMinus.TextAlign = ContentAlignment.BottomLeft;
             keys.Add(_oemMinus);
 

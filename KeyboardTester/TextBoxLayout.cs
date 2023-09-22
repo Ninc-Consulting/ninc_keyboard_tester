@@ -25,7 +25,7 @@
             _offset = Convert.ToInt32(_baseLength / 2);
             _textBoxSize = new(_baseLength * 3, Convert.ToInt32(_baseLength / 2));
             _buttonSize = new(Convert.ToInt32(_baseLength * 1.5), Convert.ToInt32(_baseLength / 2));
-            _font = new("Segoe UI", Convert.ToInt32(_baseLength * 0.10));
+            _font = new("Segoe UI", Convert.ToInt32(_baseLength * 0.14));
 
             DoLayout(keboardLayoutSize, baseLength);
         }

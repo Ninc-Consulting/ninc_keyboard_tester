@@ -3,6 +3,7 @@ namespace KeyboardTester
     internal static class Program
     {
         public static KeyboardHook? kh;
+
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>

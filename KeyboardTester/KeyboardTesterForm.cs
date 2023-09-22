@@ -1,5 +1,3 @@
-using System.Diagnostics;
-
 namespace KeyboardTester
 {
     public partial class KeyboardTesterForm : Form
@@ -16,9 +14,7 @@ namespace KeyboardTester
 
         private void Kh_KeyIntercepted(KeyboardHook.KeyboardHookEventArgs e)
         {
-            var keyUpFlag = 0b10000000;
-            //if (e.KeyEventType == KeyboardHook.KeyEventType.KeyDown)
-            if ((e.KeyFlags & keyUpFlag) == 0) // True if keyUpFlag is not set i.e. it is a KeyDownEvent
+            if (e.KeyEventType == KeyboardHook.KeyEventType.KeyDown)
             {
                 _keyboardHandler.KeyPressed(e);
                 _textBoxLayout.SetTextBoxValues(e);

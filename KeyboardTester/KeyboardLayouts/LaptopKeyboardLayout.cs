@@ -98,12 +98,14 @@ namespace KeyboardTester.KeyboardLayouts
         private static readonly int _offset = Convert.ToInt32(BaseLength * 0.05);
 
         private static readonly Size _squareSize = new(BaseLength, BaseLength);
-        private static readonly Size _squareSize0_9 = new(Convert.ToInt32(BaseLength * 0.9), Convert.ToInt32(BaseLength * 0.75));
+        private static readonly Size _squareSize0_85 = new(Convert.ToInt32(BaseLength * 0.83), Convert.ToInt32(BaseLength * 0.83));
+        private static readonly Size _squareSize0_86 = new(Convert.ToInt32(BaseLength * 0.86), Convert.ToInt32(BaseLength * 0.85));
+        private static readonly Size _rectangleSize0_75 = new(Convert.ToInt32(BaseLength * 0.75), BaseLength);
         private static readonly Size _rectangleSize0_9 = new(Convert.ToInt32(BaseLength * 0.9), BaseLength);
         private static readonly Size _rectangleSize1_25 = new(Convert.ToInt32(BaseLength * 1.25) + _offset, BaseLength);
         private static readonly Size _rectangleSize1_5 = new(Convert.ToInt32(BaseLength * 1.5) + _offset, BaseLength);
-        private static readonly Size _rectangleSize1_75 = new(Convert.ToInt32(BaseLength * 1.75) + _offset, BaseLength);
-        private static readonly Size _rectangleSize2_25 = new(Convert.ToInt32(BaseLength * 2.25) + _offset, BaseLength);
+        private static readonly Size _rectangleSize2 = new(BaseLength * 2 + _offset, BaseLength);
+        private static readonly Size _rectangleSize2_1 = new(Convert.ToInt32(BaseLength * 2.1) + _offset, BaseLength);
         private static readonly Size _spaceBarSize = new(Convert.ToInt32(BaseLength * 3.5) + _offset, BaseLength);
 
         public LaptopKeyboardLayout(int baseLength) : base (baseLength)
@@ -128,7 +130,7 @@ namespace KeyboardTester.KeyboardLayouts
             _escape.KeyCode = Forms.Keys.Escape;
             _escape.KeyData = Forms.Keys.Escape;
             _escape.Name = "Escape";
-            _escape.Size = _squareSize0_9;
+            _escape.Size = _squareSize0_86;
             _escape.Text = "ESC";
             _escape.TextAlign = ContentAlignment.MiddleCenter;
             keys.Add(_escape);
@@ -137,7 +139,7 @@ namespace KeyboardTester.KeyboardLayouts
             _f1.KeyCode = Forms.Keys.F1;
             _f1.KeyData = Forms.Keys.F1;
             _f1.Name = "F1";
-            _f1.Size = _squareSize0_9;
+            _f1.Size = _squareSize0_86;
             _f1.Text = "F1";
             _f1.TextAlign = ContentAlignment.TopCenter;
             keys.Add(_f1);
@@ -146,7 +148,7 @@ namespace KeyboardTester.KeyboardLayouts
             _f2.KeyCode = Forms.Keys.F2;
             _f2.KeyData = Forms.Keys.F2;
             _f2.Name = "F2";
-            _f2.Size = _squareSize0_9;
+            _f2.Size = _squareSize0_86;
             _f2.Text = "F2";
             _f2.TextAlign = ContentAlignment.TopCenter;
             keys.Add(_f2);
@@ -155,7 +157,7 @@ namespace KeyboardTester.KeyboardLayouts
             _f3.KeyCode = Forms.Keys.F3;
             _f3.KeyData = Forms.Keys.F3;
             _f3.Name = "F3";
-            _f3.Size = _squareSize0_9;
+            _f3.Size = _squareSize0_86;
             _f3.Text = "F3";
             _f3.TextAlign = ContentAlignment.TopCenter;
             keys.Add(_f3);
@@ -164,7 +166,7 @@ namespace KeyboardTester.KeyboardLayouts
             _f4.KeyCode = Forms.Keys.F4;
             _f4.KeyData = Forms.Keys.F4;
             _f4.Name = "F4";
-            _f4.Size = _squareSize0_9;
+            _f4.Size = _squareSize0_86;
             _f4.Text = "F4";
             _f4.TextAlign = ContentAlignment.TopCenter;
             keys.Add(_f4);
@@ -173,7 +175,7 @@ namespace KeyboardTester.KeyboardLayouts
             _f5.KeyCode = Forms.Keys.F5;
             _f5.KeyData = Forms.Keys.F5;
             _f5.Name = "F5";
-            _f5.Size = _squareSize0_9;
+            _f5.Size = _squareSize0_86;
             _f5.Text = "F5";
             _f5.TextAlign = ContentAlignment.TopCenter;
             keys.Add(_f5);
@@ -182,7 +184,7 @@ namespace KeyboardTester.KeyboardLayouts
             _f6.KeyCode = Forms.Keys.F6;
             _f6.KeyData = Forms.Keys.F6;
             _f6.Name = "F6";
-            _f6.Size = _squareSize0_9;
+            _f6.Size = _squareSize0_86;
             _f6.Text = "F6";
             _f6.TextAlign = ContentAlignment.TopCenter;
             keys.Add(_f6);
@@ -191,7 +193,7 @@ namespace KeyboardTester.KeyboardLayouts
             _f7.KeyCode = Forms.Keys.F7;
             _f7.KeyData = Forms.Keys.F7;
             _f7.Name = "F7";
-            _f7.Size = _squareSize0_9;
+            _f7.Size = _squareSize0_86;
             _f7.Text = "F7";
             _f7.TextAlign = ContentAlignment.TopCenter;
             keys.Add(_f7);
@@ -200,7 +202,7 @@ namespace KeyboardTester.KeyboardLayouts
             _f8.KeyCode = Forms.Keys.F8;
             _f8.KeyData = Forms.Keys.F8;
             _f8.Name = "F8";
-            _f8.Size = _squareSize0_9;
+            _f8.Size = _squareSize0_86;
             _f8.Text = "F8";
             _f8.TextAlign = ContentAlignment.TopCenter;
             keys.Add(_f8);
@@ -209,7 +211,7 @@ namespace KeyboardTester.KeyboardLayouts
             _f9.KeyCode = Forms.Keys.F9;
             _f9.KeyData = Forms.Keys.F9;
             _f9.Name = "F9";
-            _f9.Size = _squareSize0_9;
+            _f9.Size = _squareSize0_86;
             _f9.Text = "F9";
             _f9.TextAlign = ContentAlignment.TopCenter;
             keys.Add(_f9);
@@ -218,7 +220,7 @@ namespace KeyboardTester.KeyboardLayouts
             _f10.KeyCode = Forms.Keys.F10;
             _f10.KeyData = Forms.Keys.F10;
             _f10.Name = "F10";
-            _f10.Size = _squareSize0_9;
+            _f10.Size = _squareSize0_86;
             _f10.Text = "F10";
             _f10.TextAlign = ContentAlignment.TopCenter;
             keys.Add(_f10);
@@ -227,7 +229,7 @@ namespace KeyboardTester.KeyboardLayouts
             _f11.KeyCode = Forms.Keys.F11;
             _f11.KeyData = Forms.Keys.F11;
             _f11.Name = "F11";
-            _f11.Size = _squareSize0_9;
+            _f11.Size = _squareSize0_86;
             _f11.Text = "F11";
             _f11.TextAlign = ContentAlignment.TopCenter;
             keys.Add(_f11);
@@ -236,7 +238,7 @@ namespace KeyboardTester.KeyboardLayouts
             _f12.KeyCode = Forms.Keys.F12;
             _f12.KeyData = Forms.Keys.F12;
             _f12.Name = "F12";
-            _f12.Size = _squareSize0_9;
+            _f12.Size = _squareSize0_86;
             _f12.Text = "F12";
             _f12.TextAlign = ContentAlignment.TopCenter;
             keys.Add(_f12);
@@ -245,7 +247,7 @@ namespace KeyboardTester.KeyboardLayouts
             _numLock.KeyCode = Forms.Keys.NumLock;
             _numLock.KeyData = Forms.Keys.NumLock;
             _numLock.Name = "NumLock";
-            _numLock.Size = _squareSize0_9;
+            _numLock.Size = _squareSize0_86;
             _numLock.Text = "NumLk";
             _numLock.TextAlign = ContentAlignment.MiddleCenter;
             keys.Add(_numLock);
@@ -254,7 +256,7 @@ namespace KeyboardTester.KeyboardLayouts
             _printScreen.KeyCode = Forms.Keys.PrintScreen;
             _printScreen.KeyData = Forms.Keys.PrintScreen;
             _printScreen.Name = "PrintScreen";
-            _printScreen.Size = _squareSize0_9;
+            _printScreen.Size = _squareSize0_86;
             _printScreen.Text = "PrtSc\nSysRq";
             _printScreen.TextAlign = ContentAlignment.MiddleCenter;
             keys.Add(_printScreen);
@@ -263,7 +265,7 @@ namespace KeyboardTester.KeyboardLayouts
             _scroll.KeyCode = Forms.Keys.Scroll;
             _scroll.KeyData = Forms.Keys.Scroll;
             _scroll.Name = "Scroll";
-            _scroll.Size = _squareSize0_9;
+            _scroll.Size = _squareSize0_86;
             _scroll.Text = "ScrLk";
             _scroll.TextAlign = ContentAlignment.MiddleCenter;
             keys.Add(_scroll);
@@ -272,7 +274,7 @@ namespace KeyboardTester.KeyboardLayouts
             _pause.KeyCode = Forms.Keys.Pause;
             _pause.KeyData = Forms.Keys.Pause;
             _pause.Name = "Pause";
-            _pause.Size = _squareSize0_9;
+            _pause.Size = _squareSize0_86;
             _pause.Text = "Pause\nBreak";
             _pause.TextAlign = ContentAlignment.MiddleCenter;
             keys.Add(_pause);
@@ -281,7 +283,7 @@ namespace KeyboardTester.KeyboardLayouts
             _oem5.KeyCode = Forms.Keys.Oem5;
             _oem5.KeyData = Forms.Keys.Oem5;
             _oem5.Name = "Oem5";
-            _oem5.Size = _rectangleSize0_9;
+            _oem5.Size = _rectangleSize0_75;
             _oem5.Text = "§½";
             _oem5.TextAlign = ContentAlignment.BottomLeft;
             keys.Add(_oem5);
@@ -416,7 +418,7 @@ namespace KeyboardTester.KeyboardLayouts
             _tab.KeyCode = Forms.Keys.Tab;
             _tab.KeyData = Forms.Keys.Tab;
             _tab.Name = "Tab";
-            _tab.Size = _rectangleSize1_5;
+            _tab.Size = _rectangleSize1_25;
             _tab.Text = "↹";
             _tab.TextAlign = ContentAlignment.MiddleCenter;
             keys.Add(_tab);
@@ -533,7 +535,7 @@ namespace KeyboardTester.KeyboardLayouts
             _oemQuestion.KeyCode = Forms.Keys.OemQuestion;
             _oemQuestion.KeyData = Forms.Keys.OemQuestion;
             _oemQuestion.Name = "OemQuestion";
-            _oemQuestion.Size = _rectangleSize0_9;
+            _oemQuestion.Size = _rectangleSize0_75;
             _oemQuestion.Text = "*";
             _oemQuestion.TextAlign = ContentAlignment.TopLeft;
             keys.Add(_oemQuestion);
@@ -551,7 +553,7 @@ namespace KeyboardTester.KeyboardLayouts
             _caps.KeyCode = Forms.Keys.Capital;
             _caps.KeyData = Forms.Keys.Capital;
             _caps.Name = "Caps";
-            _caps.Size = _rectangleSize1_75;
+            _caps.Size = _rectangleSize1_5;
             _caps.Text = "Caps Lock";
             _caps.TextAlign = ContentAlignment.MiddleCenter;
             keys.Add(_caps);
@@ -659,7 +661,7 @@ namespace KeyboardTester.KeyboardLayouts
             _return.KeyCode = Forms.Keys.Return;
             _return.KeyData = Forms.Keys.Return;
             _return.Name = "Return";
-            _return.Size = _rectangleSize1_25;
+            _return.Size = _rectangleSize1_5;
             _return.Text = "Enter ↩";
             _return.TextAlign = ContentAlignment.MiddleCenter;
             keys.Add(_return);
@@ -673,11 +675,11 @@ namespace KeyboardTester.KeyboardLayouts
             _pageDown.TextAlign = ContentAlignment.MiddleCenter;
             keys.Add(_pageDown);
 
-            _leftShift.KeyValue = 16;
+            _leftShift.KeyValue = 160;
             _leftShift.KeyCode = Forms.Keys.ShiftKey;
             _leftShift.KeyData = Forms.Keys.ShiftKey | Forms.Keys.Shift;
             _leftShift.Name = "LeftShift";
-            _leftShift.Size = _rectangleSize2_25;
+            _leftShift.Size = _rectangleSize2;
             _leftShift.Text = "↑ Shift";
             _leftShift.TextAlign = ContentAlignment.MiddleCenter;
             keys.Add(_leftShift);
@@ -772,11 +774,11 @@ namespace KeyboardTester.KeyboardLayouts
             _oemMinus.TextAlign = ContentAlignment.BottomLeft;
             keys.Add(_oemMinus);
 
-            _rightShift.KeyValue = -16;  // Inverting the KeyValue to distinguish between left and right shift since they both have the same KeyValue
+            _rightShift.KeyValue = 161;
             _rightShift.KeyCode = Forms.Keys.ShiftKey;
             _rightShift.KeyData = Forms.Keys.ShiftKey | Forms.Keys.Shift;
             _rightShift.Name = "RightShift";
-            _rightShift.Size = _rectangleSize2_25;
+            _rightShift.Size = _rectangleSize2_1;
             _rightShift.Text = "↑ Shift";
             _rightShift.TextAlign = ContentAlignment.MiddleCenter;
             keys.Add(_rightShift);
@@ -785,12 +787,12 @@ namespace KeyboardTester.KeyboardLayouts
             _end.KeyCode = Forms.Keys.End;
             _end.KeyData = Forms.Keys.End;
             _end.Name = "End";
-            _end.Size = _squareSize;
+            _end.Size = _rectangleSize0_9;
             _end.Text = "End";
             _end.TextAlign = ContentAlignment.MiddleCenter;
             keys.Add(_end);
 
-            _leftControl.KeyValue = 17;
+            _leftControl.KeyValue = 162;
             _leftControl.KeyCode = Forms.Keys.ControlKey;
             _leftControl.KeyData = Forms.Keys.ControlKey | Forms.Keys.Control;
             _leftControl.Name = "LeftControl";
@@ -799,9 +801,8 @@ namespace KeyboardTester.KeyboardLayouts
             _leftControl.TextAlign = ContentAlignment.MiddleCenter;
             keys.Add(_leftControl);
 
-            //_leftControl.KeyValue = -999;
-            //_leftControl.KeyCode = Forms.Keys.ControlKey;
-            //_leftControl.KeyData = Forms.Keys.ControlKey | Forms.Keys.Control;
+            // No KeyValue for Fn button since it doesn't trigger any key event.
+            // Fn only alters the values of other keys when they are pressed.
             _fn.Name = "Fn";
             _fn.Size = _squareSize;
             _fn.Text = "Fn";
@@ -817,7 +818,7 @@ namespace KeyboardTester.KeyboardLayouts
             _leftWindows.TextAlign = ContentAlignment.MiddleCenter;
             keys.Add(_leftWindows);
 
-            _alt.KeyValue = 18;
+            _alt.KeyValue = 164;
             _alt.KeyCode = Forms.Keys.Menu;
             _alt.KeyData = Forms.Keys.Menu | Forms.Keys.Alt;
             _alt.Name = "Alt";
@@ -843,7 +844,7 @@ namespace KeyboardTester.KeyboardLayouts
             _space.Text = "";
             keys.Add(_space);
 
-            _altGr.KeyValue = -18;    // Inverting the KeyValue to distinguish between left and right Alt since they both have the same KeyValue
+            _altGr.KeyValue = 165;
             _altGr.KeyCode = Forms.Keys.Menu;
             _altGr.KeyData = Forms.Keys.Menu | Forms.Keys.Control | Forms.Keys.Alt;
             _altGr.Name = "AltGr";
@@ -883,7 +884,7 @@ namespace KeyboardTester.KeyboardLayouts
             _up.KeyCode = Forms.Keys.Up;
             _up.KeyData = Forms.Keys.Up;
             _up.Name = "Up";
-            _up.Size = _squareSize0_9;
+            _up.Size = _squareSize0_85;
             _up.Text = "↑";
             _up.TextAlign = ContentAlignment.MiddleCenter;
             keys.Add(_up);
@@ -892,7 +893,7 @@ namespace KeyboardTester.KeyboardLayouts
             _left.KeyCode = Forms.Keys.Left;
             _left.KeyData = Forms.Keys.Left;
             _left.Name = "Left";
-            _left.Size = _squareSize0_9;
+            _left.Size = _squareSize0_85;
             _left.Text = "←";
             _left.TextAlign = ContentAlignment.MiddleCenter;
             keys.Add(_left);
@@ -901,7 +902,7 @@ namespace KeyboardTester.KeyboardLayouts
             _down.KeyCode = Forms.Keys.Down;
             _down.KeyData = Forms.Keys.Down;
             _down.Name = "Down";
-            _down.Size = _squareSize0_9;
+            _down.Size = _squareSize0_85;
             _down.Text = "↓";
             _down.TextAlign = ContentAlignment.MiddleCenter;
             keys.Add(_down);
@@ -910,7 +911,7 @@ namespace KeyboardTester.KeyboardLayouts
             _right.KeyCode = Forms.Keys.Right;
             _right.KeyData = Forms.Keys.Right;
             _right.Name = "Right";
-            _right.Size = _squareSize0_9;
+            _right.Size = _squareSize0_85;
             _right.Text = "→";
             _right.TextAlign = ContentAlignment.MiddleCenter;
             keys.Add(_right);
@@ -934,7 +935,7 @@ namespace KeyboardTester.KeyboardLayouts
                 }
                 else if (key.Name == "Delete")
                 {
-                    xCoordinate += _squareSize0_9.Width + _offset;
+                    xCoordinate += _squareSize0_85.Width + _offset;
                 }
 
                 if (key.Name == "Pause" || key.Name == "Home" || key.Name == "PageUp" || key.Name == "PageDown" || key.Name == "End")

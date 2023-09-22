@@ -3,6 +3,6 @@
     public enum KeyboarLayoutEnum
     {
         Cherry,
-        Laptop
+        Toughbook
     }
 }

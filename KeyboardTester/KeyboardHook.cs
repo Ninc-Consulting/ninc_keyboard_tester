@@ -42,14 +42,7 @@ namespace KeyboardTester
     /// </summary>
     public class KeyboardHook : IDisposable
     {
-        //Keyboard API constants
-        private const int WH_KEYBOARD_LL = 13;
-        private const int WM_KEYUP = 0x0101;
-        private const int WM_KEYDOWN = 0x0100;
-        private const int WM_SYSKEYDOWN = 0x0104;
-
         //Variables used in the call to SetWindowsHookEx
-        private readonly HookHandlerDelegate _proc;
         private readonly IntPtr _hookID = IntPtr.Zero;
         internal delegate IntPtr HookHandlerDelegate(int nCode, IntPtr wParam, ref KBDLLHOOKSTRUCT lParam);
 
@@ -75,14 +68,17 @@ namespace KeyboardTester
         /// </summary>
         public KeyboardHook()
         {
-            _proc = new HookHandlerDelegate(HookCallback);
+            //Keyboard API constant
+            var whKeyboardLl = 13;
+
+            var proc = new HookHandlerDelegate(HookCallback);
             using Process curProcess = Process.GetCurrentProcess();
             if (curProcess.MainModule is not null)
             {
                 using ProcessModule curModule = curProcess.MainModule;
                 if (curModule.ModuleName is not null)
                 {
-                    _hookID = NativeMethods.SetWindowsHookEx(WH_KEYBOARD_LL, _proc, NativeMethods.GetModuleHandle(curModule.ModuleName), 0);
+                    _hookID = NativeMethods.SetWindowsHookEx(whKeyboardLl, proc, NativeMethods.GetModuleHandle(curModule.ModuleName), 0);
                 }
             }
         }
@@ -133,8 +129,7 @@ namespace KeyboardTester
         public enum KeyEventType
         {
             KeyUp,
-            KeyDown,
-            Other
+            KeyDown
         }
 
         /// <summary>
@@ -182,18 +177,24 @@ namespace KeyboardTester
 
             public KeyboardHookEventArgs(int wParam, int vkCode, int vkFlags)
             {
+                var wmKeyDown = 0x0100;
+                var wmKeyUp = 0x0101;
+                var wmSysKeyDown = 0x0104;
+                var wmSysKeyUp = 0x0105;
+
                 _keyName = ((Keys)vkCode).ToString();
                 _keyCode = vkCode;
                 _keyFlags = vkFlags;
-                _keyEventType = wParam switch
-                {
-                    WM_KEYUP => KeyEventType.KeyUp,
-                    WM_KEYDOWN => KeyEventType.KeyDown,
-                    WM_SYSKEYDOWN => KeyEventType.KeyDown,
-                    _ => KeyEventType.Other,
-                };
-            }
 
+                if (wParam == wmKeyUp || wParam == wmSysKeyUp)
+                {
+                    _keyEventType = KeyEventType.KeyUp;
+                }
+                else if (wParam == wmKeyDown || wParam == wmSysKeyDown)
+                {
+                    _keyEventType = KeyEventType.KeyDown;
+                }
+            }
         }
         #endregion
 

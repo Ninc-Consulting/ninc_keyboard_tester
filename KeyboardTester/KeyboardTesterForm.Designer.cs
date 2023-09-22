@@ -1,12 +1,10 @@
-﻿using System.Windows.Forms;
-
-namespace KeyboardTester
+﻿namespace KeyboardTester
 {
     partial class KeyboardTesterForm
     {
         private TextBoxLayout _textBoxLayout;
         private KeyboardHandler _keyboardHandler;
-        private static readonly int _baseLength = CalculateBaseLength();
+        private static readonly int _baseLength = Screen.FromPoint(Cursor.Position).Bounds.Width / 30;
         private ComboBox _dropDownMenu;
 
         /// <summary>
@@ -41,46 +39,46 @@ namespace KeyboardTester
             comboBoxItems.Add(cherryItem);
             var laptopItem = new ComboBoxKeyboardLayoutItem()
             {
-                KeyboarLayoutEnum = KeyboarLayoutEnum.Laptop,
-                KeyboardLayoutText = "Keyboard layout: 'Laptop'"
+                KeyboarLayoutEnum = KeyboarLayoutEnum.Toughbook,
+                KeyboardLayoutText = "Keyboard layout: 'Toughbook'"
             };
             comboBoxItems.Add(laptopItem);
 
+            _dropDownMenu.Font = new("Segoe UI", Convert.ToInt32(_baseLength * 0.14));
             _dropDownMenu.DataSource = comboBoxItems;
             _dropDownMenu.DisplayMember = "KeyboardLayoutText";
             _dropDownMenu.ValueMember = "KeyboarLayoutEnum";
-            _dropDownMenu.SelectedItem = cherryItem;
+            _dropDownMenu.SelectedItem = laptopItem;
             _dropDownMenu.Name = "DropDownMenu";
-            _dropDownMenu.Location = new Point(_baseLength, 0);
+            _dropDownMenu.Location = new Point(_baseLength, _baseLength / 4);
             _dropDownMenu.DropDownStyle = ComboBoxStyle.DropDownList;
-            _dropDownMenu.Font = new("Segoe UI", Convert.ToInt32(_baseLength * 0.10));
             _dropDownMenu.TabStop = false;
-            _dropDownMenu.Width = DropDownWidth();
+            _dropDownMenu.Width = GetDropDownWidth();
             _dropDownMenu.SelectedValueChanged += DropDownMenu_SelectedValueChanged;
-
         }
 
-        private int DropDownWidth()
+        private int GetDropDownWidth()
         {
             int maxWidth = 0;
             int temp = 0;
-            Label label = new Label();
 
             foreach (ComboBoxKeyboardLayoutItem item in _dropDownMenu.Items)
             {
-                label.Text = item.KeyboardLayoutText;
-                temp = label.PreferredWidth;
+                var text = item.KeyboardLayoutText;
+                Size size = TextRenderer.MeasureText(text, _dropDownMenu.Font);
+                temp = size.Width;
                 if (temp > maxWidth)
                 {
                     maxWidth = temp;
                 }
             }
-            label.Dispose();
-            return maxWidth + Convert.ToInt32(_baseLength / 2); // Add _baselength divided by 2 to account for the dropdown button
+            return maxWidth + Convert.ToInt32(_baseLength / 2); // Add _baselength divided by 2 to account for the width of the dropdown button
         }
 
-        private void CustomInitializeComponent(KeyboarLayoutEnum keyboarLayoutEnum = KeyboarLayoutEnum.Cherry)
+        private void CustomInitializeComponent(KeyboarLayoutEnum keyboarLayoutEnum = KeyboarLayoutEnum.Toughbook)
         {
+            // TODO: Make all controls resize with the form
+
             SuspendLayout();
             _keyboardHandler = new(_baseLength, keyboarLayoutEnum);
             Controls.AddRange(_keyboardHandler.KeyboardLayout.Keys.Values.ToArray());
@@ -90,15 +88,17 @@ namespace KeyboardTester
             _textBoxLayout.ExitButton.Click += ExitButton_Click;
             AddTextBoxLayoutToControls();
 
-            AutoScaleDimensions = new SizeF(10F, 25F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = GetSize(_keyboardHandler.KeyboardLayout.KeyboardLayoutSize, _textBoxLayout.TextBoxLayoutSize);
-            StartPosition = FormStartPosition.Manual;
-            Location = new Point((Screen.PrimaryScreen.Bounds.Width - ClientSize.Width) / 2, (Screen.PrimaryScreen.Bounds.Height - ClientSize.Height) / 2);
-            KeyPreview = true;
             Margin = new Padding(2);
             Name = "KeyboardTesterForm";
             Text = "KeyboardTester";
+            StartPosition = FormStartPosition.Manual;
+            Rectangle screen = Screen.FromPoint(Cursor.Position).Bounds;
+            Width = _keyboardHandler.KeyboardLayout.KeyboardLayoutSize.Width;
+            Height = _keyboardHandler.KeyboardLayout.KeyboardLayoutSize.Height;
+            var clientWidth = Width >= screen.Width ? screen.Width : (screen.Width + Width) / 2;
+            int clientHeight = Height >= screen.Height ? screen.Height : (screen.Height + Height) / 2;
+            Location = new Point(screen.Left + (screen.Width - clientWidth) / 2, screen.Top + (screen.Height - clientHeight) / 2);
+            ClientSize = GetSize(_keyboardHandler.KeyboardLayout.KeyboardLayoutSize, _textBoxLayout.TextBoxLayoutSize);
             ResumeLayout(false);
         }
 
@@ -119,16 +119,6 @@ namespace KeyboardTester
             return new Size(
                 Math.Max(keyboardLayoutSize.Width, textBoxLayoutSize.Width),
                 Math.Max(keyboardLayoutSize.Height, textBoxLayoutSize.Height));
-        }
-
-        private static int CalculateBaseLength()
-        {
-            var baseLegth = Screen.PrimaryScreen.Bounds.Height / 20;
-            if (baseLegth < 50)
-            {
-                baseLegth = 50;
-            }
-            return ((int)Math.Round(baseLegth / 100.0)) * 100;
         }
     }
 }

@@ -10,7 +10,7 @@ namespace KeyboardTester
             KeyboardLayout = keyboarLayoutEnum switch
             {
                 KeyboarLayoutEnum.Cherry => KeyboardLayout = new CherryKeyboardLayout(baseLength),
-                KeyboarLayoutEnum.Laptop => KeyboardLayout = new LaptopKeyboardLayout(baseLength),
+                KeyboarLayoutEnum.Toughbook => KeyboardLayout = new LaptopKeyboardLayout(baseLength),
                 _ => throw new ArgumentException($"Unknown keyboard layout: {keyboarLayoutEnum}"),
             };
         }
@@ -19,12 +19,14 @@ namespace KeyboardTester
 
         public void KeyPressed(KeyboardHookEventArgs e)
         {
+            // TODO: Add error handling, the application crashes without any message if a key is pressed that is not in the layout
+
             var altKeyFlag = 0b100000;
             var extendedKeyFlag = 0b1;
             var keyValue = e.KeyCode;
 
             // The Alt Gr key triggers two key events
-            // First left control with a flag that indicates that an Alt key is pressed and then right menu.
+            // First left control with a flag that indicates that an Alt key is pressed and then right menu (Alt Gr).
             // Do nothing when the event for the left control key is triggered.
             if (e.KeyCode == (int)Keys.LControlKey && Convert.ToBoolean(e.KeyFlags & altKeyFlag))
             {
