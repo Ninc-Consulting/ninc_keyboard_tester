@@ -2,9 +2,10 @@
 {
     partial class KeyboardTesterForm
     {
-        private TextBoxLayout _textBoxLayout;
-        private KeyboardHandler _keyboardHandler;
         private static readonly int _baseLength = Screen.FromPoint(Cursor.Position).Bounds.Width / 30;
+
+        private TextBoxLayout _textBoxLayout;
+        private KeyboardLayout _keyboardLayout;
         private ComboBox _dropDownMenu;
 
         /// <summary>
@@ -33,22 +34,22 @@
             var comboBoxItems = new List<ComboBoxKeyboardLayoutItem>();
             var cherryItem = new ComboBoxKeyboardLayoutItem()
             {
-                KeyboarLayoutEnum = KeyboarLayoutEnum.Cherry,
+                KeyboarLayoutType = KeyboarLayoutType.Cherry,
                 KeyboardLayoutText = "Keyboard layout: 'Cherry'"
             };
             comboBoxItems.Add(cherryItem);
-            var laptopItem = new ComboBoxKeyboardLayoutItem()
+            var toughbookItem = new ComboBoxKeyboardLayoutItem()
             {
-                KeyboarLayoutEnum = KeyboarLayoutEnum.Toughbook,
+                KeyboarLayoutType = KeyboarLayoutType.Toughbook,
                 KeyboardLayoutText = "Keyboard layout: 'Toughbook'"
             };
-            comboBoxItems.Add(laptopItem);
+            comboBoxItems.Add(toughbookItem);
 
-            _dropDownMenu.Font = new("Segoe UI", Convert.ToInt32(_baseLength * 0.14));
+            _dropDownMenu.Font = ScaledFont;
             _dropDownMenu.DataSource = comboBoxItems;
             _dropDownMenu.DisplayMember = "KeyboardLayoutText";
             _dropDownMenu.ValueMember = "KeyboarLayoutEnum";
-            _dropDownMenu.SelectedItem = laptopItem;
+            _dropDownMenu.SelectedItem = toughbookItem;
             _dropDownMenu.Name = "DropDownMenu";
             _dropDownMenu.Location = new Point(_baseLength, _baseLength / 4);
             _dropDownMenu.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -75,30 +76,32 @@
             return maxWidth + Convert.ToInt32(_baseLength / 2); // Add _baselength divided by 2 to account for the width of the dropdown button
         }
 
-        private void CustomInitializeComponent(KeyboarLayoutEnum keyboarLayoutEnum = KeyboarLayoutEnum.Toughbook)
+        private void CustomInitializeComponent(KeyboarLayoutType keyboarLayoutEnum = KeyboarLayoutType.Toughbook)
         {
             // TODO: Make all controls resize with the form
 
             SuspendLayout();
-            _keyboardHandler = new(_baseLength, keyboarLayoutEnum);
-            Controls.AddRange(_keyboardHandler.KeyboardLayout.Keys.Values.ToArray());
 
-            _textBoxLayout = new(_keyboardHandler.KeyboardLayout.KeyboardLayoutSize, _baseLength);
+            _keyboardLayout = keyboarLayoutEnum switch
+            {
+                KeyboarLayoutType.Cherry => new CherryKeyboardLayout(_baseLength),
+                KeyboarLayoutType.Toughbook => new ToughbookKeyboardLayout(_baseLength),
+                _ => throw new ArgumentException($"Unknown keyboard layout: {keyboarLayoutEnum}"),
+            };
+
+            Controls.AddRange(_keyboardLayout.LayoutKeys.Values.ToArray());
+
+            _textBoxLayout = new(_keyboardLayout.KeyboardLayoutSize, _baseLength);
             _textBoxLayout.ResetButton.Click += ResetButton_Click;
             _textBoxLayout.ExitButton.Click += ExitButton_Click;
             AddTextBoxLayoutToControls();
 
-            Margin = new Padding(2);
             Name = "KeyboardTesterForm";
             Text = "KeyboardTester";
             StartPosition = FormStartPosition.Manual;
             Rectangle screen = Screen.FromPoint(Cursor.Position).Bounds;
-            Width = _keyboardHandler.KeyboardLayout.KeyboardLayoutSize.Width;
-            Height = _keyboardHandler.KeyboardLayout.KeyboardLayoutSize.Height;
-            var clientWidth = Width >= screen.Width ? screen.Width : (screen.Width + Width) / 2;
-            int clientHeight = Height >= screen.Height ? screen.Height : (screen.Height + Height) / 2;
-            Location = new Point(screen.Left + (screen.Width - clientWidth) / 2, screen.Top + (screen.Height - clientHeight) / 2);
-            ClientSize = GetSize(_keyboardHandler.KeyboardLayout.KeyboardLayoutSize, _textBoxLayout.TextBoxLayoutSize);
+            ClientSize = GetSize(_keyboardLayout.KeyboardLayoutSize, _textBoxLayout.TextBoxLayoutSize);
+            Location = new Point(screen.Left + (screen.Width - Width) / 2, screen.Top + (screen.Height - Height) / 2);
             ResumeLayout(false);
         }
 

@@ -2,13 +2,19 @@ namespace KeyboardTester
 {
     public partial class KeyboardTesterForm : Form
     {
+        public static Font? ScaledFont { get; private set; }
+
         public KeyboardTesterForm()
         {
+            var scaleRate = DeviceDpi / 96f * 100;
+            ScaledFont = new ("Segoe UI", _baseLength * 0.14f / scaleRate * 100);
+
             InitiateDropDownMenu();
             CustomInitializeComponent();
-            if (Program.kh is not null)
+
+            if (Program.KeyboardHook is not null)
             {
-                Program.kh.KeyIntercepted += new KeyboardHook.KeyboardHookEventHandler(Kh_KeyIntercepted);
+                Program.KeyboardHook.KeyIntercepted += new KeyboardHook.KeyboardHookEventHandler(Kh_KeyIntercepted);
             }
         }
 
@@ -16,39 +22,41 @@ namespace KeyboardTester
         {
             if (e.KeyEventType == KeyboardHook.KeyEventType.KeyDown)
             {
-                _keyboardHandler.KeyPressed(e);
+                _keyboardLayout.KeyDownEvent(e);
                 _textBoxLayout.SetTextBoxValues(e);
             }
         }
 
-        public void DropDownMenu_SelectedValueChanged(object? sender, EventArgs e)
+        private void DropDownMenu_SelectedValueChanged(object? sender, EventArgs e)
         {
             foreach (var keyControl in Controls.OfType<Button>().ToList())
             {
                 Controls.Remove(keyControl);
             }
+
             foreach (var textBoxControl in Controls.OfType<TextBox>().ToList())
             {
                 Controls.Remove(textBoxControl);
             }
-            CustomInitializeComponent((KeyboarLayoutEnum)_dropDownMenu.SelectedValue);
+
+            CustomInitializeComponent((KeyboarLayoutType)_dropDownMenu.SelectedValue);
             ActiveControl = null;
         }
 
-        public void ResetButton_Click(object? sender, EventArgs e)
+        private void ResetButton_Click(object? sender, EventArgs e)
         {
-            _textBoxLayout.KeyValueValue.Text = "";
-            _textBoxLayout.KeyCodeValue.Text = "";
-            _textBoxLayout.KeyDataValue.Text = "";
+            _textBoxLayout.KeyValueValue.Text = string.Empty;
+            _textBoxLayout.KeyCodeValue.Text = string.Empty;
+            _textBoxLayout.KeyDataValue.Text = string.Empty;
 
-            foreach (var key in _keyboardHandler.KeyboardLayout.Keys.Values)
+            foreach (var key in _keyboardLayout.LayoutKeys.Values)
             {
                 key.BackColor = Color.FromArgb(0, 250, 250, 250);
                 key.ForeColor = Color.Black;
             }
         }
 
-        public void ExitButton_Click(object? sender, EventArgs e)
+        private void ExitButton_Click(object? sender, EventArgs e)
         {
             Close();
         }

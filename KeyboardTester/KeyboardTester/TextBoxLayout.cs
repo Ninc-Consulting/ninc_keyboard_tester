@@ -2,32 +2,37 @@
 {
     internal class TextBoxLayout
     {
-        public TextBox KeyValueText = new();
-        public TextBox KeyCodeText = new();
-        public TextBox KeyDataText = new();
-        public TextBox KeyValueValue = new();
-        public TextBox KeyCodeValue = new();
-        public TextBox KeyDataValue = new();
-        public Button ResetButton = new();
-        public Button ExitButton = new();
+        public TextBox KeyValueText { get; private set; } = new ();
+        public TextBox KeyCodeText { get; private set; } = new ();
+        public TextBox KeyDataText { get; private set; } = new ();
+        public TextBox KeyValueValue { get; private set; } = new ();
+        public TextBox KeyCodeValue { get; private set; } = new ();
+        public TextBox KeyDataValue { get; private set; } = new ();
+        public Button ResetButton { get; private set; } = new ();
+        public Button ExitButton { get; private set; } = new ();
 
-        public Size TextBoxLayoutSize;
+        public Size TextBoxLayoutSize { get; private set; }
 
-        private static int _baseLength;
-        private static int _offset;
-        private static Size _textBoxSize;
-        private static Size _buttonSize;
-        private static Font? _font;
+        private readonly int _offset;
+        private readonly Size _textBoxSize;
+        private readonly Size _buttonSize;
+        private readonly Font? _font;
 
         public TextBoxLayout(Size keboardLayoutSize, int baseLength)
         {
-            _baseLength = baseLength;
-            _offset = Convert.ToInt32(_baseLength / 2);
-            _textBoxSize = new(_baseLength * 3, Convert.ToInt32(_baseLength / 2));
-            _buttonSize = new(Convert.ToInt32(_baseLength * 1.5), Convert.ToInt32(_baseLength / 2));
-            _font = new("Segoe UI", Convert.ToInt32(_baseLength * 0.14));
+            _offset = Convert.ToInt32(baseLength / 2);
+            _textBoxSize = new (baseLength * 3, Convert.ToInt32(baseLength / 2));
+            _buttonSize = new (Convert.ToInt32(baseLength * 1.5), Convert.ToInt32(baseLength / 2));
+            _font = KeyboardTesterForm.ScaledFont;
 
             DoLayout(keboardLayoutSize, baseLength);
+        }
+
+        public void SetTextBoxValues(KeyboardHook.KeyboardHookEventArgs e)
+        {
+            KeyValueValue.Text = e.KeyCode.ToString();
+            KeyCodeValue.Text = e.KeyName.ToString();
+            KeyDataValue.Text = Convert.ToString(e.KeyFlags, 2).PadLeft(8, '0');
         }
 
         private void DoLayout(Size keboardLayoutSize, int baseLength)
@@ -46,9 +51,10 @@
             KeyValueText.TabStop = false;
             KeyValueText.Font = _font;
 
+            xCoordinate += _textBoxSize.Width + _offset;
             KeyCodeText.BackColor = SystemColors.Control;
             KeyCodeText.BorderStyle = BorderStyle.None;
-            KeyCodeText.Location = new Point(xCoordinate += _textBoxSize.Width + _offset, yCoordinate);
+            KeyCodeText.Location = new Point(xCoordinate, yCoordinate);
             KeyCodeText.Name = "KeyNameText";
             KeyCodeText.Size = _textBoxSize;
             KeyCodeText.TabIndex = 13;
@@ -59,7 +65,7 @@
 
             KeyDataText.BackColor = SystemColors.Control;
             KeyDataText.BorderStyle = BorderStyle.None;
-            KeyDataText.Location = new Point(xCoordinate += _textBoxSize.Width + _offset, yCoordinate);
+            KeyDataText.Location = new Point(xCoordinate + _textBoxSize.Width + _offset, yCoordinate);
             KeyDataText.Name = "KeyFlagsText";
             KeyDataText.Size = _textBoxSize;
             KeyDataText.TabIndex = 14;
@@ -78,7 +84,8 @@
             KeyValueValue.TabStop = false;
             KeyValueValue.Font = _font;
 
-            KeyCodeValue.Location = new Point(xCoordinate += _textBoxSize.Width + _offset, yCoordinate + _textBoxSize.Height);
+            xCoordinate += _textBoxSize.Width + _offset;
+            KeyCodeValue.Location = new Point(xCoordinate, yCoordinate + _textBoxSize.Height);
             KeyCodeValue.Name = "KeyNameValue";
             KeyCodeValue.Size = _textBoxSize;
             KeyCodeValue.TabIndex = 10;
@@ -86,7 +93,7 @@
             KeyCodeValue.TabStop = false;
             KeyCodeValue.Font = _font;
 
-            KeyDataValue.Location = new Point(xCoordinate += _textBoxSize.Width + _offset, yCoordinate + _textBoxSize.Height);
+            KeyDataValue.Location = new Point(xCoordinate + _textBoxSize.Width + _offset, yCoordinate + _textBoxSize.Height);
             KeyDataValue.Name = "KeyFlagsValue";
             KeyDataValue.Size = _textBoxSize;
             KeyDataValue.TabIndex = 11;
@@ -96,7 +103,8 @@
 
             xCoordinate = keboardLayoutSize.Width - baseLength;
 
-            ExitButton.Location = new Point(xCoordinate -= _buttonSize.Width, yCoordinate + _textBoxSize.Height);
+            xCoordinate -= _buttonSize.Width;
+            ExitButton.Location = new Point(xCoordinate, yCoordinate + _textBoxSize.Height);
             ExitButton.Name = "ExitButton";
             ExitButton.Size = _buttonSize;
             ExitButton.Text = "Exit";
@@ -104,7 +112,8 @@
             ExitButton.TabStop = false;
             ExitButton.Font = _font;
 
-            ResetButton.Location = new Point(xCoordinate -= _buttonSize.Width + _offset, yCoordinate + _textBoxSize.Height);
+            xCoordinate -= _buttonSize.Width + _offset;
+            ResetButton.Location = new Point(xCoordinate, yCoordinate + _textBoxSize.Height);
             ResetButton.Name = "ResetButton";
             ResetButton.Size = _buttonSize;
             ResetButton.Text = "Reset";
@@ -113,13 +122,6 @@
             ResetButton.Font = _font;
 
             TextBoxLayoutSize = new Size(xCoordinate + baseLength, yCoordinate + _textBoxSize.Height + baseLength);
-        }
-
-        public void SetTextBoxValues(KeyboardHook.KeyboardHookEventArgs e)
-        {
-            KeyValueValue.Text = e.KeyCode.ToString();
-            KeyCodeValue.Text = e.KeyName.ToString();
-            KeyDataValue.Text = Convert.ToString(e.KeyFlags, 2).PadLeft(8, '0');
         }
     }
 }
