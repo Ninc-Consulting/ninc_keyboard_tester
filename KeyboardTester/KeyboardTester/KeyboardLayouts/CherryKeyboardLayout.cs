@@ -7,20 +7,20 @@ namespace KeyboardTester.KeyboardLayouts
         // Sizes
         private static readonly int _offset = Convert.ToInt32(BaseLength * 0.05);
 
-        private static readonly Size _squareSize = new (BaseLength, BaseLength);
-        private static readonly Size _squareSizeHalfHeight = new (BaseLength, BaseLength / 2);
-        private static readonly Size _rectangleSize1_25 = new (Convert.ToInt32(BaseLength * 1.25) + _offset, BaseLength);
-        private static readonly Size _rectangleSize1_5 = new (Convert.ToInt32(BaseLength * 1.5) + _offset, BaseLength);
-        private static readonly Size _rectangleSize1_7 = new (Convert.ToInt32(BaseLength * 1.7) + _offset, BaseLength);
-        private static readonly Size _rectangleSize1_75 = new (Convert.ToInt32(BaseLength * 1.75) + _offset, BaseLength);
-        private static readonly Size _rectangleSize2 = new ((BaseLength * 2) + _offset, BaseLength);
-        private static readonly Size _rectangleSize2_75 = new (Convert.ToInt32(BaseLength * 2.75) + _offset, BaseLength);
-        private static readonly Size _reverseRectangleSize2 = new (BaseLength, (BaseLength * 2) + _offset);
-        private static readonly Size _spacebarSize = new (Convert.ToInt32(BaseLength * 5) + _offset, BaseLength);
-        private static readonly Size _returnSize = new (Convert.ToInt32(BaseLength * 1.25), (BaseLength * 2) + _offset);
+        private static readonly Size _squareSize = new(BaseLength, BaseLength);
+        private static readonly Size _squareSizeHalfHeight = new(BaseLength, BaseLength / 2);
+        private static readonly Size _rectangleSize1_25 = new(Convert.ToInt32(BaseLength * 1.25) + _offset, BaseLength);
+        private static readonly Size _rectangleSize1_5 = new(Convert.ToInt32(BaseLength * 1.5) + _offset, BaseLength);
+        private static readonly Size _rectangleSize1_7 = new(Convert.ToInt32(BaseLength * 1.7) + _offset, BaseLength);
+        private static readonly Size _rectangleSize1_75 = new(Convert.ToInt32(BaseLength * 1.75) + _offset, BaseLength);
+        private static readonly Size _rectangleSize2 = new((BaseLength * 2) + _offset, BaseLength);
+        private static readonly Size _rectangleSize2_75 = new(Convert.ToInt32(BaseLength * 2.75) + _offset, BaseLength);
+        private static readonly Size _reverseRectangleSize2 = new(BaseLength, (BaseLength * 2) + _offset);
+        private static readonly Size _spacebarSize = new(Convert.ToInt32(BaseLength * 5) + _offset, BaseLength);
+        private static readonly Size _returnSize = new(Convert.ToInt32(BaseLength * 1.25), (BaseLength * 2) + _offset);
 
         // Dummy button
-        private readonly Key _lockScreen = new ();
+        private readonly Key _lockScreen = new();
 
         public CherryKeyboardLayout(int baseLength)
             : base(baseLength)
@@ -604,7 +604,7 @@ namespace KeyboardTester.KeyboardLayouts
                     xCoordinate += (BaseLength / 2) + _offset;
                 }
                 else if (key.KeyCode == Keys.Escape)
-                        {
+                {
                     xCoordinate += BaseLength + _offset;
                 }
                 else if (key.KeyCode == Keys.Back || key.KeyCode == Keys.PageUp || (key.KeyCode == Keys.Return && key.KeyCodeValue > 0) || key.KeyCode == Keys.PageDown || key.KeyCode == Keys.RControlKey || key.KeyCode == Keys.Right)

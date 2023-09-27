@@ -2,14 +2,14 @@
 {
     public class TextLayout
     {
-        public TextBox KeyCodeText { get; private set; } = new ();
-        public TextBox KeyNameText { get; private set; } = new ();
-        public TextBox KeyFlagText { get; private set; } = new ();
-        public TextBox KeyCodeValue { get; private set; } = new ();
-        public TextBox KeyNameValue { get; private set; } = new ();
-        public TextBox KeyFlagValue { get; private set; } = new ();
-        public Button ResetButton { get; private set; } = new ();
-        public Button ExitButton { get; private set; } = new ();
+        public TextBox KeyCodeText { get; private set; } = new();
+        public TextBox KeyNameText { get; private set; } = new();
+        public TextBox KeyFlagText { get; private set; } = new();
+        public TextBox KeyCodeValue { get; private set; } = new();
+        public TextBox KeyNameValue { get; private set; } = new();
+        public TextBox KeyFlagValue { get; private set; } = new();
+        public Button ResetButton { get; private set; } = new();
+        public Button ExitButton { get; private set; } = new();
 
         public Size Size { get; private set; }
 
@@ -21,8 +21,8 @@
         public TextLayout(Size keboardLayoutSize, int baseLength)
         {
             _offset = Convert.ToInt32(baseLength / 2);
-            _textBoxSize = new (baseLength * 3, Convert.ToInt32(baseLength / 2));
-            _buttonSize = new (Convert.ToInt32(baseLength * 1.5), Convert.ToInt32(baseLength / 2));
+            _textBoxSize = new(baseLength * 3, Convert.ToInt32(baseLength / 2));
+            _buttonSize = new(Convert.ToInt32(baseLength * 1.5), Convert.ToInt32(baseLength / 2));
             _font = KeyboardTesterForm.ScaledFont;
 
             DoLayout(keboardLayoutSize, baseLength);

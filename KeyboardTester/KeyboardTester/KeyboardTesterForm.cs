@@ -7,7 +7,7 @@ namespace KeyboardTester
         public KeyboardTesterForm(KeyboarLayoutType keyboarLayoutEnum = KeyboarLayoutType.Toughbook)
         {
             var scaleRate = DeviceDpi / 96f * 100;
-            ScaledFont = new ("Segoe UI", _baseLength * 0.14f / scaleRate * 100);
+            ScaledFont = new("Segoe UI", _baseLength * 0.14f / scaleRate * 100);
 
             InitiateDropDownMenu();
             CustomInitializeComponent(keyboarLayoutEnum);
