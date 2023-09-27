@@ -1,11 +1,13 @@
-﻿namespace KeyboardTester.KeyboardLayouts
+﻿using KeyboardTester.Util;
+
+namespace KeyboardTester.KeyboardLayouts
 {
     public class KeyboardLayout
     {
         public Dictionary<int, Key> LayoutKeys { get; private set; } = new Dictionary<int, Key>();
         public Size Size { get; private set; }
         protected static int BaseLength { get; private set; }
-        protected KeyboardKeys KeyboardKeys { get; private set; } = new KeyboardKeys();
+        protected KeyResource KeyResource { get; private set; } = new KeyResource();
 
         public KeyboardLayout(int baseLength)
         {

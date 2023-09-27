@@ -1,3 +1,6 @@
+using KeyboardTester.Util;
+using System.Drawing;
+
 namespace KeyboardTester
 {
     public partial class KeyboardTesterForm : Form
@@ -29,6 +32,11 @@ namespace KeyboardTester
 
         private void DropDownMenu_SelectedValueChanged(object? sender, EventArgs e)
         {
+            if ((KeyboarLayoutType)DropDownMenu.SelectedValue == KeyboarLayoutType.None)
+            {
+                return;
+            }
+
             foreach (var keyControl in Controls.OfType<Button>().ToList())
             {
                 Controls.Remove(keyControl);

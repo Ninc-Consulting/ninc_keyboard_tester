@@ -1,4 +1,7 @@
-﻿namespace KeyboardTester
+﻿using KeyboardTester.Layouts;
+using KeyboardTester.Util;
+
+namespace KeyboardTester
 {
     partial class KeyboardTesterForm
     {
@@ -32,6 +35,12 @@
             Controls.Add(DropDownMenu);
 
             var comboBoxItems = new List<ComboBoxKeyboardLayoutItem>();
+            var chooseLayoutItem = new ComboBoxKeyboardLayoutItem()
+            {
+                KeyboarLayoutType = KeyboarLayoutType.None,
+                KeyboardLayoutText = "Choose a keyboard layout"
+            };
+            comboBoxItems.Add(chooseLayoutItem);
             var cherryItem = new ComboBoxKeyboardLayoutItem()
             {
                 KeyboarLayoutType = KeyboarLayoutType.Cherry,
@@ -49,7 +58,7 @@
             DropDownMenu.DataSource = comboBoxItems;
             DropDownMenu.DisplayMember = "KeyboardLayoutText";
             DropDownMenu.ValueMember = "KeyboarLayoutType";
-            DropDownMenu.SelectedItem = toughbookItem;
+            DropDownMenu.SelectedItem = chooseLayoutItem;
             DropDownMenu.Name = "DropDownMenu";
             DropDownMenu.Location = new Point(_baseLength, _baseLength / 4);
             DropDownMenu.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -95,7 +104,7 @@
             AddTextBoxLayoutToControls();
 
             Name = "KeyboardTesterForm";
-            Text = "KeyboardTester";
+            Text = "NINC Keyboard Tester";
             StartPosition = FormStartPosition.Manual;
             Rectangle screen = Screen.FromPoint(Cursor.Position).Bounds;
             ClientSize = GetTotalSize();

@@ -1,6 +1,6 @@
-﻿namespace KeyboardTester
+﻿namespace KeyboardTester.Util
 {
-    public class KeyboardKeys
+    public class KeyResource
     {
         public Key Back { get; private set; }
         public Key Tab { get; private set; }
@@ -124,7 +124,7 @@
         public Key Oem102 { get; private set; }
         public Key Fn { get; private set; }
 
-        public KeyboardKeys()
+        public KeyResource()
         {
             Back = new Key()
             {

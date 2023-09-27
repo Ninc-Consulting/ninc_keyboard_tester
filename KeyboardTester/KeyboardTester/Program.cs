@@ -2,7 +2,7 @@ namespace KeyboardTester
 {
     internal static class Program
     {
-        // Using a custom keyboard hook to trap keystrokes before any other application can process them, since the .NET Framework is anable to do so.
+        // Using a custom keyboard hook to trap keystrokes before any other application can process them since the .NET Framework is anable to do so.
         // This prevents, for example, the windows menu to open when the windows key is spressed.
         public static KeyboardHook? KeyboardHook { get; private set; }
 

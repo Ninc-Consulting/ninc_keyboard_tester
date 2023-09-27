@@ -1,4 +1,4 @@
-﻿namespace KeyboardTester
+﻿namespace KeyboardTester.Layouts
 {
     public class TextLayout
     {
@@ -30,7 +30,7 @@
 
         public void SetTextBoxValues(KeyboardHookEventArgs e)
         {
-            KeyCodeValue.Text = e.KeyCode.ToString();
+            KeyCodeValue.Text = "0x" + Convert.ToString(e.KeyCode, 16).PadLeft(2, '0').ToUpper();
             KeyNameValue.Text = e.KeyName;
             KeyFlagValue.Text = Convert.ToString(e.KeyFlags, 2).PadLeft(8, '0');
         }
