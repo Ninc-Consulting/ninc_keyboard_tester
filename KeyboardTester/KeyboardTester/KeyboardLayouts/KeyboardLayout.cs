@@ -2,24 +2,17 @@
 {
     public class KeyboardLayout
     {
-        public Dictionary<int, Key> LayoutKeys { get; } = new Dictionary<int, Key>();
-
-        public Size KeyboardLayoutSize { get; private set; }
-
+        public Dictionary<int, Key> LayoutKeys { get; private set; } = new Dictionary<int, Key>();
+        public Size Size { get; private set; }
         protected static int BaseLength { get; private set; }
+        protected KeyboardKeys KeyboardKeys { get; private set; } = new KeyboardKeys();
 
         public KeyboardLayout(int baseLength)
         {
             BaseLength = baseLength;
         }
 
-        /// <summary>
-        /// Handles the KeyDownEvent and sets the background of the key pressed to purple.
-        /// Returns true if the keystroke was handled correctly or false if it was ignored.
-        /// </summary>
-        /// <param name="e"></param>
-        /// <returns>Bool.</returns>
-        public bool KeyDownEvent(KeyboardHookEventArgs e)
+        public void KeyDownEvent(KeyboardHookEventArgs e)
         {
             var altKeyFlag = 0b100000;
             var extendedKeyFlag = 0b1;
@@ -28,16 +21,16 @@
             if (!LayoutKeys.ContainsKey(e.KeyCode))
             {
                 var caption = "Key not found!";
-                var message = $"'{e.KeyName} - {e.KeyCode}' was not found in '{GetType().ToString().Split('.')[^1]}'";
+                var message = $"'{e.KeyName} - {e.KeyCode}' was not found in '{GetType().ToString().Split('.')[^1]}'.";
                 MessageBox.Show(message, caption, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return false;
+                return;
             }
 
             // Since we can't intercept the NumLock functionality in the webhook, we have to handle each key manually.
             // Do nothing if NumLock is activated but a NumPad key is pressed
             if (NumPadKeyIsPressedWhileNumLockIsActivated(e))
             {
-                return false;
+                return;
             }
 
             // The Alt Gr key triggers two key events
@@ -45,7 +38,7 @@
             // Do nothing when the event for the left control key is triggered.
             if (e.KeyCode == (int)Keys.LControlKey && Convert.ToBoolean(e.KeyFlags & altKeyFlag))
             {
-                return false;
+                return;
             }
 
             var keyCode = e.KeyCode;
@@ -58,18 +51,38 @@
 
             LayoutKeys[keyCode].BackColor = ColorTranslator.FromHtml("#6c3891");
             LayoutKeys[keyCode].ForeColor = Color.White;
-            return true;
         }
 
-        protected void AddKeysToBaseClass(List<Key> keys)
+        protected void AddKeyToLayout(Key key)
         {
-            foreach (var key in keys)
+            LayoutKeys.Add(key.KeyCodeValue, key);
+        }
+
+        protected void SetCommonAttributes()
+        {
+            foreach (var key in LayoutKeys.Values)
             {
-                LayoutKeys.Add(key.KeyValue, key);
+                key.TabStop = false;
+                key.Font = KeyboardTesterForm.ScaledFont;
+                key.BackColor = Color.FromArgb(0, 250, 250, 250);
+                key.ForeColor = Color.Black;
+            }
+        }
+
+        protected void SetKeyboardLayoutSize()
+        {
+            var maxX = 0;
+            var maxY = 0;
+
+            foreach (var key in LayoutKeys.Values)
+            {
+                maxX = Math.Max(maxX, key.Location.X + key.Width);
+                maxY = Math.Max(maxY, key.Location.Y + key.Height);
             }
 
-            SetCommonAttributes();
-            SetKeyboardLayoutSize();
+            maxX += BaseLength;
+            maxY += BaseLength;
+            Size = new Size(maxX, maxY);
         }
 
         private static bool NumPadKeyIsPressedWhileNumLockIsActivated(KeyboardHookEventArgs e)
@@ -103,33 +116,6 @@
 
             // The pressed key is an alternative NumPad key and the extended flag indicates that the NumPad key was pressed
             return true;
-        }
-
-        private void SetCommonAttributes()
-        {
-            foreach (var key in LayoutKeys.Values)
-            {
-                key.TabStop = false;
-                key.Font = KeyboardTesterForm.ScaledFont;
-                key.BackColor = Color.FromArgb(0, 250, 250, 250);
-                key.ForeColor = Color.Black;
-            }
-        }
-
-        private void SetKeyboardLayoutSize()
-        {
-            var maxX = 0;
-            var maxY = 0;
-
-            foreach (var key in LayoutKeys.Values)
-            {
-                maxX = Math.Max(maxX, key.Location.X + key.Width);
-                maxY = Math.Max(maxY, key.Location.Y + key.Height);
-            }
-
-            maxX += BaseLength;
-            maxY += BaseLength;
-            KeyboardLayoutSize = new Size(maxX, maxY);
         }
     }
 }

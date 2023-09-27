@@ -27,7 +27,7 @@ namespace KeyboardTester
             // Asks the user if they want to restart the application when an unhandled exception has been thrown
             var exception = (Exception)e.ExceptionObject;
             var caption = "Fatal error!";
-            var message = $"{exception.Message}.\n\nThe application is shutting down, do you want to restart the application?";
+            var message = $"{exception.Message}\n\nThe application is shutting down, do you want to restart the application?";
             var result = MessageBox.Show(message, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Error);
 
             if (result == DialogResult.Yes)

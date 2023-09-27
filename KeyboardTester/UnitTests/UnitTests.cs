@@ -1,3 +1,5 @@
+using KeyboardTester;
+
 namespace UnitTests
 {
     [TestClass]
@@ -5,52 +7,80 @@ namespace UnitTests
     {
         private const int _keyDownEvent = 0x0100;
 
-        private const byte _extendedFlag = 0b1;
-        private const byte _altFlag = 0b100000;
-        private const byte _noFlag = 0;
+        private const int _extendedFlag = 0b1;
+        private const int _altFlag = 0b100000;
+        private const int _noFlag = 0;
 
         [TestMethod]
-        public void SendA_ToKeyDownEvent_ReturnsTrue()
+        public void A010_SendA_ToKeyDownEvent_ColorChanges()
         {
             // Arrange
-            var keyEventArgs = new KeyboardHookEventArgs(_keyDownEvent, (int)Keys.A, _noFlag);
-            var keyboardLayout = new CherryKeyboardLayout(100);
+            var form = new KeyboardTesterForm(KeyboarLayoutType.Cherry);
+            var key = form.KeyboardLayout.LayoutKeys
+                .Select(x => x.Value)
+                .Single(x => x.KeyCode == Keys.A);
+            var previousBackColor = key.BackColor;
+            var keyEventArgs = new KeyboardHookEventArgs(_keyDownEvent, key.KeyCodeValue, _noFlag);
 
             // Act
-            var result = keyboardLayout.KeyDownEvent(keyEventArgs);
+            form.KeyboardLayout.KeyDownEvent(keyEventArgs);
 
             // Assert
-            Assert.IsTrue(result);
+            Assert.AreNotEqual(previousBackColor, key.BackColor);
         }
 
         [TestMethod]
-        public void SendLControlWithAltFlag_ToKeyDownEvent_ReturnsFalse()
+        public void A020_SendLControlWithAltFlag_ToKeyDownEvent_ColorDoesNotChange()
         {
             // Arrange
-            var keyEventArgs = new KeyboardHookEventArgs(_keyDownEvent, (int)Keys.LControlKey, _altFlag);
-            var keyboardLayout = new CherryKeyboardLayout(100);
+            var form = new KeyboardTesterForm(KeyboarLayoutType.Cherry);
+            var key = form.KeyboardLayout.LayoutKeys
+                .Select(x => x.Value)
+                .Single(x => x.KeyCode == Keys.LControlKey);
+            var previousBackColor = key.BackColor;
+            var keyEventArgs = new KeyboardHookEventArgs(_keyDownEvent, key.KeyCodeValue, _altFlag);
 
             // Act
-            var result = keyboardLayout.KeyDownEvent(keyEventArgs);
+            form.KeyboardLayout.KeyDownEvent(keyEventArgs);
 
             // Assert
-            Assert.IsFalse(result);
+            Assert.AreEqual(previousBackColor, key.BackColor);
         }
 
         [TestMethod]
-        [DataRow(_extendedFlag, true)]
-        [DataRow(_noFlag, false)]
-        public void SendDeleteWithAndWithoutExtendedFlag_ToKeyDownEvent_ReturnCorrectResult(byte flag, bool expectedResult)
+        public void A030_SendDeleteWithExtendedFlag_ToKeyDownEvent_ColorChanges()
         {
             // Arrange
-            var keyEventArgs = new KeyboardHookEventArgs(_keyDownEvent, (int)Keys.Delete, flag);
-            var keyboardLayout = new CherryKeyboardLayout(100);
+            var form = new KeyboardTesterForm(KeyboarLayoutType.Cherry);
+            var key = form.KeyboardLayout.LayoutKeys
+                .Select(x => x.Value)
+                .Single(x => x.KeyCode == Keys.Delete);
+            var previousBackColor = key.BackColor;
+            var keyEventArgs = new KeyboardHookEventArgs(_keyDownEvent, key.KeyCodeValue, _extendedFlag);
 
             // Act
-            var result = keyboardLayout.KeyDownEvent(keyEventArgs);
+            form.KeyboardLayout.KeyDownEvent(keyEventArgs);
 
             // Assert
-            Assert.IsTrue(expectedResult == result);
+            Assert.AreNotEqual(previousBackColor, key.BackColor);
+        }
+
+        [TestMethod]
+        public void A040_SendDeleteWithoutExtendedFlag_ToKeyDownEvent_ColorDoesNotChange()
+        {
+            // Arrange
+            var form = new KeyboardTesterForm(KeyboarLayoutType.Cherry);
+            var key = form.KeyboardLayout.LayoutKeys
+                .Select(x => x.Value)
+                .Single(x => x.KeyCode == Keys.Delete);
+            var previousBackColor = key.BackColor;
+            var keyEventArgs = new KeyboardHookEventArgs(_keyDownEvent, key.KeyCodeValue, _noFlag);
+
+            // Act
+            form.KeyboardLayout.KeyDownEvent(keyEventArgs);
+
+            // Assert
+            Assert.AreEqual(previousBackColor, key.BackColor);
         }
     }
 }

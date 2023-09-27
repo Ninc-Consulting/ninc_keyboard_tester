@@ -4,9 +4,9 @@
     {
         private static readonly int _baseLength = Screen.FromPoint(Cursor.Position).Bounds.Width / 30;
 
-        private TextBoxLayout _textBoxLayout;
-        private KeyboardLayout _keyboardLayout;
-        private ComboBox _dropDownMenu;
+        public TextLayout TextLayout { get; private set; }
+        public KeyboardLayout KeyboardLayout { get; private set; }
+        public ComboBox DropDownMenu { get; private set; }
 
         /// <summary>
         ///  Required designer variable.
@@ -28,8 +28,8 @@
 
         private void InitiateDropDownMenu()
         {
-            _dropDownMenu = new ComboBox();
-            Controls.Add(_dropDownMenu);
+            DropDownMenu = new ComboBox();
+            Controls.Add(DropDownMenu);
 
             var comboBoxItems = new List<ComboBoxKeyboardLayoutItem>();
             var cherryItem = new ComboBoxKeyboardLayoutItem()
@@ -45,17 +45,17 @@
             };
             comboBoxItems.Add(toughbookItem);
 
-            _dropDownMenu.Font = ScaledFont;
-            _dropDownMenu.DataSource = comboBoxItems;
-            _dropDownMenu.DisplayMember = "KeyboardLayoutText";
-            _dropDownMenu.ValueMember = "KeyboarLayoutEnum";
-            _dropDownMenu.SelectedItem = toughbookItem;
-            _dropDownMenu.Name = "DropDownMenu";
-            _dropDownMenu.Location = new Point(_baseLength, _baseLength / 4);
-            _dropDownMenu.DropDownStyle = ComboBoxStyle.DropDownList;
-            _dropDownMenu.TabStop = false;
-            _dropDownMenu.Width = GetDropDownWidth();
-            _dropDownMenu.SelectedValueChanged += DropDownMenu_SelectedValueChanged;
+            DropDownMenu.Font = ScaledFont;
+            DropDownMenu.DataSource = comboBoxItems;
+            DropDownMenu.DisplayMember = "KeyboardLayoutText";
+            DropDownMenu.ValueMember = "KeyboarLayoutType";
+            DropDownMenu.SelectedItem = toughbookItem;
+            DropDownMenu.Name = "DropDownMenu";
+            DropDownMenu.Location = new Point(_baseLength, _baseLength / 4);
+            DropDownMenu.DropDownStyle = ComboBoxStyle.DropDownList;
+            DropDownMenu.TabStop = false;
+            DropDownMenu.Width = GetDropDownWidth();
+            DropDownMenu.SelectedValueChanged += DropDownMenu_SelectedValueChanged;
         }
 
         private int GetDropDownWidth()
@@ -63,10 +63,10 @@
             int maxWidth = 0;
             int temp = 0;
 
-            foreach (ComboBoxKeyboardLayoutItem item in _dropDownMenu.Items)
+            foreach (ComboBoxKeyboardLayoutItem item in DropDownMenu.Items)
             {
                 var text = item.KeyboardLayoutText;
-                Size size = TextRenderer.MeasureText(text, _dropDownMenu.Font);
+                Size size = TextRenderer.MeasureText(text, DropDownMenu.Font);
                 temp = size.Width;
                 if (temp > maxWidth)
                 {
@@ -76,52 +76,50 @@
             return maxWidth + Convert.ToInt32(_baseLength / 2); // Add _baselength divided by 2 to account for the width of the dropdown button
         }
 
-        private void CustomInitializeComponent(KeyboarLayoutType keyboarLayoutEnum = KeyboarLayoutType.Toughbook)
+        private void CustomInitializeComponent(KeyboarLayoutType keyboarLayoutEnum)
         {
-            // TODO: Make all controls resize with the form
-
             SuspendLayout();
 
-            _keyboardLayout = keyboarLayoutEnum switch
+            KeyboardLayout = keyboarLayoutEnum switch
             {
                 KeyboarLayoutType.Cherry => new CherryKeyboardLayout(_baseLength),
                 KeyboarLayoutType.Toughbook => new ToughbookKeyboardLayout(_baseLength),
                 _ => throw new ArgumentException($"Unknown keyboard layout: {keyboarLayoutEnum}"),
             };
 
-            Controls.AddRange(_keyboardLayout.LayoutKeys.Values.ToArray());
+            Controls.AddRange(KeyboardLayout.LayoutKeys.Values.ToArray());
 
-            _textBoxLayout = new(_keyboardLayout.KeyboardLayoutSize, _baseLength);
-            _textBoxLayout.ResetButton.Click += ResetButton_Click;
-            _textBoxLayout.ExitButton.Click += ExitButton_Click;
+            TextLayout = new(KeyboardLayout.Size, _baseLength);
+            TextLayout.ResetButton.Click += ResetButton_Click;
+            TextLayout.ExitButton.Click += ExitButton_Click;
             AddTextBoxLayoutToControls();
 
             Name = "KeyboardTesterForm";
             Text = "KeyboardTester";
             StartPosition = FormStartPosition.Manual;
             Rectangle screen = Screen.FromPoint(Cursor.Position).Bounds;
-            ClientSize = GetSize(_keyboardLayout.KeyboardLayoutSize, _textBoxLayout.TextBoxLayoutSize);
+            ClientSize = GetTotalSize();
             Location = new Point(screen.Left + (screen.Width - Width) / 2, screen.Top + (screen.Height - Height) / 2);
             ResumeLayout(false);
         }
 
         private void AddTextBoxLayoutToControls()
         {
-            Controls.Add(_textBoxLayout.KeyValueValue);
-            Controls.Add(_textBoxLayout.KeyCodeValue);
-            Controls.Add(_textBoxLayout.KeyDataValue);
-            Controls.Add(_textBoxLayout.KeyValueText);
-            Controls.Add(_textBoxLayout.KeyCodeText);
-            Controls.Add(_textBoxLayout.KeyDataText);
-            Controls.Add(_textBoxLayout.ResetButton);
-            Controls.Add(_textBoxLayout.ExitButton);
+            Controls.Add(TextLayout.KeyCodeValue);
+            Controls.Add(TextLayout.KeyNameValue);
+            Controls.Add(TextLayout.KeyFlagValue);
+            Controls.Add(TextLayout.KeyCodeText);
+            Controls.Add(TextLayout.KeyNameText);
+            Controls.Add(TextLayout.KeyFlagText);
+            Controls.Add(TextLayout.ResetButton);
+            Controls.Add(TextLayout.ExitButton);
         }
 
-        private Size GetSize(Size keyboardLayoutSize, Size textBoxLayoutSize)
-        {
+        private Size GetTotalSize()
+                {
             return new Size(
-                Math.Max(keyboardLayoutSize.Width, textBoxLayoutSize.Width),
-                Math.Max(keyboardLayoutSize.Height, textBoxLayoutSize.Height));
+                Math.Max(KeyboardLayout.Size.Width, TextLayout.Size.Width),
+                Math.Max(KeyboardLayout.Size.Height, TextLayout.Size.Height));
         }
     }
 }

@@ -4,26 +4,26 @@ namespace KeyboardTester
     {
         public static Font? ScaledFont { get; private set; }
 
-        public KeyboardTesterForm()
+        public KeyboardTesterForm(KeyboarLayoutType keyboarLayoutEnum = KeyboarLayoutType.Toughbook)
         {
             var scaleRate = DeviceDpi / 96f * 100;
             ScaledFont = new ("Segoe UI", _baseLength * 0.14f / scaleRate * 100);
 
             InitiateDropDownMenu();
-            CustomInitializeComponent();
+            CustomInitializeComponent(keyboarLayoutEnum);
 
             if (Program.KeyboardHook is not null)
             {
-                Program.KeyboardHook.KeyIntercepted += new KeyboardHook.KeyboardHookEventHandler(Kh_KeyIntercepted);
+                Program.KeyboardHook.KeyIntercepted += new KeyboardHookEventHandler(Kh_KeyIntercepted);
             }
         }
 
-        private void Kh_KeyIntercepted(KeyboardHook.KeyboardHookEventArgs e)
+        private void Kh_KeyIntercepted(KeyboardHookEventArgs e)
         {
-            if (e.KeyEventType == KeyboardHook.KeyEventType.KeyDown)
+            if (e.KeyEventType == KeyEventType.KeyDown)
             {
-                _keyboardLayout.KeyDownEvent(e);
-                _textBoxLayout.SetTextBoxValues(e);
+                KeyboardLayout.KeyDownEvent(e);
+                TextLayout.SetTextBoxValues(e);
             }
         }
 
@@ -39,17 +39,17 @@ namespace KeyboardTester
                 Controls.Remove(textBoxControl);
             }
 
-            CustomInitializeComponent((KeyboarLayoutType)_dropDownMenu.SelectedValue);
+            CustomInitializeComponent((KeyboarLayoutType)DropDownMenu.SelectedValue);
             ActiveControl = null;
         }
 
         private void ResetButton_Click(object? sender, EventArgs e)
         {
-            _textBoxLayout.KeyValueValue.Text = string.Empty;
-            _textBoxLayout.KeyCodeValue.Text = string.Empty;
-            _textBoxLayout.KeyDataValue.Text = string.Empty;
+            TextLayout.KeyCodeValue.Text = string.Empty;
+            TextLayout.KeyNameValue.Text = string.Empty;
+            TextLayout.KeyFlagValue.Text = string.Empty;
 
-            foreach (var key in _keyboardLayout.LayoutKeys.Values)
+            foreach (var key in KeyboardLayout.LayoutKeys.Values)
             {
                 key.BackColor = Color.FromArgb(0, 250, 250, 250);
                 key.ForeColor = Color.Black;
