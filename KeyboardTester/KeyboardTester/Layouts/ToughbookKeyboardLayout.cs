@@ -18,6 +18,7 @@
         public ToughbookKeyboardLayout(int baseLength)
             : base(baseLength)
         {
+            KeyboardLayoutType = KeyboardLayoutType.Toughbook;
             InitiateKeys();
             SetCommonAttributes();
             DoLayout();

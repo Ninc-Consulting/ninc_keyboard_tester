@@ -1,6 +1,6 @@
 ﻿namespace KeyboardTester.Layouts
 {
-    public class TextLayout
+    public class InformationLayout
     {
         public TextBox KeyCodeText { get; private set; } = new();
         public TextBox KeyNameText { get; private set; } = new();
@@ -18,7 +18,7 @@
         private readonly Size _buttonSize;
         private readonly Font? _font;
 
-        public TextLayout(Size keboardLayoutSize, int baseLength)
+        public InformationLayout(Size keboardLayoutSize, int baseLength)
         {
             _offset = Convert.ToInt32(baseLength / 2);
             _textBoxSize = new(baseLength * 3, Convert.ToInt32(baseLength / 2));
@@ -33,6 +33,47 @@
             KeyCodeValue.Text = "0x" + Convert.ToString(e.KeyCode, 16).PadLeft(2, '0').ToUpper();
             KeyNameValue.Text = e.KeyName;
             KeyFlagValue.Text = Convert.ToString(e.KeyFlags, 2).PadLeft(8, '0');
+        }
+
+        public void ResetLayouts(KeyboardLayout keyboardLayout)
+        {
+            KeyCodeValue.Text = string.Empty;
+            KeyNameValue.Text = string.Empty;
+            KeyFlagValue.Text = string.Empty;
+
+            foreach (var key in keyboardLayout.LayoutKeys.Values)
+            {
+                key.BackColor = Color.FromArgb(0, 250, 250, 250);
+                key.ForeColor = Color.Black;
+            }
+        }
+
+        public void ChangeLayout(KeyboardTesterForm form)
+        {
+            var selectedValue = (KeyboardLayoutType)form.DropDownMenu.SelectedValue;
+
+            if (selectedValue == KeyboardLayoutType.None)
+            {
+                return;
+            }
+
+            foreach (var keyControl in form.Controls.OfType<Button>().ToList())
+            {
+                form.Controls.Remove(keyControl);
+            }
+
+            foreach (var textBoxControl in form.Controls.OfType<TextBox>().ToList())
+            {
+                form.Controls.Remove(textBoxControl);
+            }
+
+            form.ReInitializeComponent(selectedValue);
+            form.ActiveControl = null;
+        }
+
+        public void Exit(KeyboardTesterForm form)
+        {
+            form.Close();
         }
 
         private void DoLayout(Size keboardLayoutSize, int baseLength)

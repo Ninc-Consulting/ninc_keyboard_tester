@@ -1,4 +1,3 @@
-// KEYBOARD.CS
 // (c) 2006 by Emma Burrows
 // This file contains the following items:
 //  - KeyboardHook: class to enable low-level keyboard hook using
@@ -7,22 +6,6 @@
 //    event raised by the KeyboardHook class.
 //  - KeyboardHookEventArgs: EventArgs class to contain the information
 //    returned by the KeyIntercepted event.
-//
-// Change history:
-// 17/06/06: 1.0 - First version.
-// 18/06/06: 1.1 - Modified proc assignment in constructor to make class backward
-//                 compatible with 2003.
-// 10/07/06: 1.2 - Added support for modifier keys:
-//                 -Changed filter in HookCallback to WM_KEYUP instead of WM_KEYDOWN
-//                 -Imported GetKeyState from user32.dll
-//                 -Moved native DLL imports to a separate internal class as this
-//                  is a Good Idea according to Microsoft's guidelines
-// 13/02/07: 1.3 - Improved modifier key support:
-//                 -Added CheckModifiers() method
-//                 -Deleted LoWord/HiWord methods as they weren't necessary
-//                 -Implemented Barry Dorman's suggestion to AND GetKeyState
-//                  values with 0x8000 to get their result
-// 23/03/07: 1.4 - Fixed bug which made the Alt key appear stuck
 
 namespace KeyboardTester
 {

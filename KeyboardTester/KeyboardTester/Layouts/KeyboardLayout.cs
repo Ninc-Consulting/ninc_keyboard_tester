@@ -1,11 +1,10 @@
-﻿using KeyboardTester.Util;
-
-namespace KeyboardTester.KeyboardLayouts
+﻿namespace KeyboardTester.KeyboardLayouts
 {
     public class KeyboardLayout
     {
         public Dictionary<int, Key> LayoutKeys { get; private set; } = new Dictionary<int, Key>();
         public Size Size { get; private set; }
+        public KeyboardLayoutType KeyboardLayoutType { get; protected set; }
         protected static int BaseLength { get; private set; }
         protected KeyResource KeyResource { get; private set; } = new KeyResource();
 
@@ -20,24 +19,27 @@ namespace KeyboardTester.KeyboardLayouts
             var extendedKeyFlag = 0b1;
 
             // Display a message to the user if the layout does not contain the pressed key
-            if (!LayoutKeys.ContainsKey(e.KeyCode))
+            if (!LayoutKeys.ContainsKey(e.KeyCode)
+                || (e.KeyCode == (int)Keys.Return
+                    && Convert.ToBoolean(e.KeyFlags & extendedKeyFlag)
+                    && !LayoutKeys.ContainsKey(-e.KeyCode)))
             {
                 var caption = "Key not found!";
-                var message = $"'{e.KeyName} - {e.KeyCode}' was not found in '{GetType().ToString().Split('.')[^1]}'.";
+                var message = $"'{e.KeyName}' was not found in keyboard layout '{KeyboardLayoutType}'.";
                 MessageBox.Show(message, caption, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
             // Since we can't intercept the NumLock functionality in the webhook, we have to handle each key manually.
-            // Do nothing if NumLock is activated but a NumPad key is pressed
-            if (NumPadKeyIsPressedWhileNumLockIsActivated(e))
+            // Do nothing if NumLock is off but a NumPad key is pressed
+            if (NumPadKeyIsPressedWhileNumLockIsOff(e))
             {
                 return;
             }
 
-            // The Alt Gr key triggers two key events
+            // The Alt Gr key triggers two key events.
             // First left control with a flag that indicates that an Alt key is pressed and then right menu (Alt Gr).
-            // Do nothing when the event for the left control key is triggered.
+            // Do nothing when the event for the left control key is triggered
             if (e.KeyCode == (int)Keys.LControlKey && Convert.ToBoolean(e.KeyFlags & altKeyFlag))
             {
                 return;
@@ -87,7 +89,7 @@ namespace KeyboardTester.KeyboardLayouts
             Size = new Size(maxX, maxY);
         }
 
-        private static bool NumPadKeyIsPressedWhileNumLockIsActivated(KeyboardHookEventArgs e)
+        private static bool NumPadKeyIsPressedWhileNumLockIsOff(KeyboardHookEventArgs e)
         {
             var extendedKeyFlag = 0b1;
             var alternativeNumPadKeyCodes = new List<int>()

@@ -1,6 +1,6 @@
 ﻿namespace KeyboardTester.Util
 {
-    public enum KeyboarLayoutType
+    public enum KeyboardLayoutType
     {
         Cherry,
         Toughbook,

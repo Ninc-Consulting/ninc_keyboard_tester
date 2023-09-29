@@ -1,7 +1,4 @@
-﻿using KeyboardTester.Util;
-using System.Diagnostics.Metrics;
-
-namespace KeyboardTester.KeyboardLayouts
+﻿namespace KeyboardTester.KeyboardLayouts
 {
     public class CherryKeyboardLayout : KeyboardLayout
     {
@@ -26,6 +23,7 @@ namespace KeyboardTester.KeyboardLayouts
         public CherryKeyboardLayout(int baseLength)
             : base(baseLength)
         {
+            KeyboardLayoutType = KeyboardLayoutType.Cherry;
             InitiateKeys();
             SetCommonAttributes();
             DoLayout();

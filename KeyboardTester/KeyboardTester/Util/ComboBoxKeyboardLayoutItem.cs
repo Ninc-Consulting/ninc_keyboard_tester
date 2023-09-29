@@ -2,8 +2,7 @@
 {
     public class ComboBoxKeyboardLayoutItem
     {
-        public KeyboarLayoutType KeyboarLayoutType { get; set; }
-
+        public KeyboardLayoutType KeyboardLayoutType { get; set; }
         public string? KeyboardLayoutText { get; set; }
     }
 }
