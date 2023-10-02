@@ -2,7 +2,7 @@
 {
     public class TestSession
     {
-        public static WindowsDriver<WindowsElement>? DesktopSession { get; private set; }
+        //public static WindowsDriver<WindowsElement>? DesktopSession { get; private set; }
 
         protected static WindowsDriver<WindowsElement>? Session { get; private set; }
 
@@ -12,17 +12,27 @@
         {
         }
 
-        public static void Setup(TestContext context)
+        public static void Setup()
         {
             // Launch application if it is not yet launched
-            if (Session == null || DesktopSession == null)
+            if (Session == null) // || DesktopSession == null)
             {
                 TearDown();
 
-                var testApp = @$"C:\Users\{Environment.UserName}\source\repos\ninc_keyboard_tester\KeyboardTester\KeyboardTester\bin\Debug\net6.0-windows\KeyboardTester.exe";
+                var solutionDirectory = Directory.GetParent(Environment.CurrentDirectory)?.Parent?.Parent?.Parent?.FullName;
+                if (!Directory.Exists(solutionDirectory))
+                {
+                    return;
+                }
+
+                var testApp = $@"{solutionDirectory}/KeyboardTester/bin/Debug/net6.0-windows/KeyboardTester.exe";
+                if (!File.Exists(testApp))
+                {
+                    return;
+                }
 
                 // Create a new session to bring up the test application
-                AppiumOptions options = new AppiumOptions();
+                var options = new AppiumOptions();
                 options.AddAdditionalCapability("app", testApp);
                 options.AddAdditionalCapability("deviceName", "WindowsPC");
                 options.AddAdditionalCapability("platformName", "Windows");
@@ -34,11 +44,11 @@
                 // Set implicit timeout to 1.5 seconds to make element search to retry every 500 ms for at most three times
                 Session.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(1.5);
 
-                var appiumOptions = new AppiumOptions();
-                appiumOptions.AddAdditionalCapability("app", "Root");
-                appiumOptions.AddAdditionalCapability("deviceName", "WindowsPC");
-                appiumOptions.AddAdditionalCapability("ms:experimental-webdriver", true);
-                DesktopSession = new WindowsDriver<WindowsElement>(new Uri(_windowsApplicationDriverUrl), appiumOptions);
+                //var appiumOptions = new AppiumOptions();
+                //appiumOptions.AddAdditionalCapability("app", "Root");
+                //appiumOptions.AddAdditionalCapability("deviceName", "WindowsPC");
+                //appiumOptions.AddAdditionalCapability("ms:experimental-webdriver", true);
+                //DesktopSession = new WindowsDriver<WindowsElement>(new Uri(_windowsApplicationDriverUrl), appiumOptions);
             }
         }
 
@@ -50,11 +60,11 @@
                 Session = null;
             }
 
-            if (DesktopSession != null)
-            {
-                DesktopSession.Quit();
-                DesktopSession = null;
-            }
+            //if (DesktopSession != null)
+            //{
+            //    DesktopSession.Quit();
+            //    DesktopSession = null;
+            //}
         }
     }
 }

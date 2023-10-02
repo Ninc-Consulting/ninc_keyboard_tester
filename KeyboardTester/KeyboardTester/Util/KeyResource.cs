@@ -1,137 +1,135 @@
 ﻿namespace KeyboardTester.Util
 {
-    public class KeyResource
+    public static class KeyResource
     {
-        public Key Back { get; private set; }
-        public Key Tab { get; private set; }
-        public Key Clear { get; private set; }
-        public Key Return { get; private set; }
-        public Key Enter { get; private set; }
-        public Key Shift { get; private set; }
-        public Key Control { get; private set; }
-        public Key Alt { get; private set; }
-        public Key Pause { get; private set; }
-        public Key CapsLock { get; private set; }
-        public Key Escape { get; private set; }
-        public Key Spacebar { get; private set; }
-        public Key PageUp { get; private set; }
-        public Key PageDown { get; private set; }
-        public Key End { get; private set; }
-        public Key Home { get; private set; }
-        public Key LeftArrow { get; private set; }
-        public Key UpArrow { get; private set; }
-        public Key RightArrow { get; private set; }
-        public Key DownArrow { get; private set; }
-        public Key Print { get; private set; }
-        public Key PrintScreen { get; private set; }
-        public Key Insert { get; private set; }
-        public Key Delete { get; private set; }
-        public Key D0 { get; private set; }
-        public Key D1 { get; private set; }
-        public Key D2 { get; private set; }
-        public Key D3 { get; private set; }
-        public Key D4 { get; private set; }
-        public Key D5 { get; private set; }
-        public Key D6 { get; private set; }
-        public Key D7 { get; private set; }
-        public Key D8 { get; private set; }
-        public Key D9 { get; private set; }
-        public Key A { get; private set; }
-        public Key B { get; private set; }
-        public Key C { get; private set; }
-        public Key D { get; private set; }
-        public Key E { get; private set; }
-        public Key F { get; private set; }
-        public Key G { get; private set; }
-        public Key H { get; private set; }
-        public Key I { get; private set; }
-        public Key J { get; private set; }
-        public Key K { get; private set; }
-        public Key L { get; private set; }
-        public Key M { get; private set; }
-        public Key N { get; private set; }
-        public Key O { get; private set; }
-        public Key P { get; private set; }
-        public Key Q { get; private set; }
-        public Key R { get; private set; }
-        public Key S { get; private set; }
-        public Key T { get; private set; }
-        public Key U { get; private set; }
-        public Key V { get; private set; }
-        public Key W { get; private set; }
-        public Key X { get; private set; }
-        public Key Y { get; private set; }
-        public Key Z { get; private set; }
-        public Key LeftWindows { get; private set; }
-        public Key RightWindows { get; private set; }
-        public Key Applications { get; private set; }
-        public Key Sleep { get; private set; }
-        public Key NumPad0 { get; private set; }
-        public Key NumPad1 { get; private set; }
-        public Key NumPad2 { get; private set; }
-        public Key NumPad3 { get; private set; }
-        public Key NumPad4 { get; private set; }
-        public Key NumPad5 { get; private set; }
-        public Key NumPad6 { get; private set; }
-        public Key NumPad7 { get; private set; }
-        public Key NumPad8 { get; private set; }
-        public Key NumPad9 { get; private set; }
-        public Key Multiply { get; private set; }
-        public Key Add { get; private set; }
-        public Key Separator { get; private set; }
-        public Key Subtract { get; private set; }
-        public Key Decimal { get; private set; }
-        public Key Divide { get; private set; }
-        public Key F1 { get; private set; }
-        public Key F2 { get; private set; }
-        public Key F3 { get; private set; }
-        public Key F4 { get; private set; }
-        public Key F5 { get; private set; }
-        public Key F6 { get; private set; }
-        public Key F7 { get; private set; }
-        public Key F8 { get; private set; }
-        public Key F9 { get; private set; }
-        public Key F10 { get; private set; }
-        public Key F11 { get; private set; }
-        public Key F12 { get; private set; }
-        public Key NumLock { get; private set; }
-        public Key ScrollLock { get; private set; }
-        public Key LeftShift { get; private set; }
-        public Key RightShift { get; private set; }
-        public Key LeftControl { get; private set; }
-        public Key RightControl { get; private set; }
-        public Key LeftAlt { get; private set; }
-        public Key RightAlt { get; private set; }
-        public Key BrowserHome { get; private set; }
-        public Key VolumeMute { get; private set; }
-        public Key VolumeDown { get; private set; }
-        public Key VolumeUp { get; private set; }
-        public Key LaunchMail { get; private set; }
-        public Key LaunchApplication1 { get; private set; }
-        public Key LaunchApplication2 { get; private set; }
-        public Key Oem1 { get; private set; }
-        public Key OemPlus { get; private set; }
-        public Key OemComma { get; private set; }
-        public Key OemMinus { get; private set; }
-        public Key OemPeriod { get; private set; }
-        public Key Oem2 { get; private set; }
-        public Key Oem3 { get; private set; }
-        public Key Oem4 { get; private set; }
-        public Key Oem5 { get; private set; }
-        public Key Oem6 { get; private set; }
-        public Key Oem7 { get; private set; }
-        public Key Oem8 { get; private set; }
-        public Key Oem102 { get; private set; }
-        public Key Fn { get; private set; }
+        public static Key Back { get; private set; } = new Key();
+        public static Key Tab { get; private set; } = new Key();
+        public static Key Clear { get; private set; } = new Key();
+        public static Key Return { get; private set; } = new Key();
+        public static Key Enter { get; private set; } = new Key();
+        public static Key Shift { get; private set; } = new Key();
+        public static Key Control { get; private set; } = new Key();
+        public static Key Alt { get; private set; } = new Key();
+        public static Key Pause { get; private set; } = new Key();
+        public static Key CapsLock { get; private set; } = new Key();
+        public static Key Escape { get; private set; } = new Key();
+        public static Key Spacebar { get; private set; } = new Key();
+        public static Key PageUp { get; private set; } = new Key();
+        public static Key PageDown { get; private set; } = new Key();
+        public static Key End { get; private set; } = new Key();
+        public static Key Home { get; private set; } = new Key();
+        public static Key LeftArrow { get; private set; } = new Key();
+        public static Key UpArrow { get; private set; } = new Key();
+        public static Key RightArrow { get; private set; } = new Key();
+        public static Key DownArrow { get; private set; } = new Key();
+        public static Key Print { get; private set; } = new Key();
+        public static Key PrintScreen { get; private set; } = new Key();
+        public static Key Insert { get; private set; } = new Key();
+        public static Key Delete { get; private set; } = new Key();
+        public static Key D0 { get; private set; } = new Key();
+        public static Key D1 { get; private set; } = new Key();
+        public static Key D2 { get; private set; } = new Key();
+        public static Key D3 { get; private set; } = new Key();
+        public static Key D4 { get; private set; } = new Key();
+        public static Key D5 { get; private set; } = new Key();
+        public static Key D6 { get; private set; } = new Key();
+        public static Key D7 { get; private set; } = new Key();
+        public static Key D8 { get; private set; } = new Key();
+        public static Key D9 { get; private set; } = new Key();
+        public static Key A { get; private set; } = new Key();
+        public static Key B { get; private set; } = new Key();
+        public static Key C { get; private set; } = new Key();
+        public static Key D { get; private set; } = new Key();
+        public static Key E { get; private set; } = new Key();
+        public static Key F { get; private set; } = new Key();
+        public static Key G { get; private set; } = new Key();
+        public static Key H { get; private set; } = new Key();
+        public static Key I { get; private set; } = new Key();
+        public static Key J { get; private set; } = new Key();
+        public static Key K { get; private set; } = new Key();
+        public static Key L { get; private set; } = new Key();
+        public static Key M { get; private set; } = new Key();
+        public static Key N { get; private set; } = new Key();
+        public static Key O { get; private set; } = new Key();
+        public static Key P { get; private set; } = new Key();
+        public static Key Q { get; private set; } = new Key();
+        public static Key R { get; private set; } = new Key();
+        public static Key S { get; private set; } = new Key();
+        public static Key T { get; private set; } = new Key();
+        public static Key U { get; private set; } = new Key();
+        public static Key V { get; private set; } = new Key();
+        public static Key W { get; private set; } = new Key();
+        public static Key X { get; private set; } = new Key();
+        public static Key Y { get; private set; } = new Key();
+        public static Key Z { get; private set; } = new Key();
+        public static Key LeftWindows { get; private set; } = new Key();
+        public static Key RightWindows { get; private set; } = new Key();
+        public static Key Applications { get; private set; } = new Key();
+        public static Key Sleep { get; private set; } = new Key();
+        public static Key NumPad0 { get; private set; } = new Key();
+        public static Key NumPad1 { get; private set; } = new Key();
+        public static Key NumPad2 { get; private set; } = new Key();
+        public static Key NumPad3 { get; private set; } = new Key();
+        public static Key NumPad4 { get; private set; } = new Key();
+        public static Key NumPad5 { get; private set; } = new Key();
+        public static Key NumPad6 { get; private set; } = new Key();
+        public static Key NumPad7 { get; private set; } = new Key();
+        public static Key NumPad8 { get; private set; } = new Key();
+        public static Key NumPad9 { get; private set; } = new Key();
+        public static Key Multiply { get; private set; } = new Key();
+        public static Key Add { get; private set; } = new Key();
+        public static Key Separator { get; private set; } = new Key();
+        public static Key Subtract { get; private set; } = new Key();
+        public static Key Decimal { get; private set; } = new Key();
+        public static Key Divide { get; private set; } = new Key();
+        public static Key F1 { get; private set; } = new Key();
+        public static Key F2 { get; private set; } = new Key();
+        public static Key F3 { get; private set; } = new Key();
+        public static Key F4 { get; private set; } = new Key();
+        public static Key F5 { get; private set; } = new Key();
+        public static Key F6 { get; private set; } = new Key();
+        public static Key F7 { get; private set; } = new Key();
+        public static Key F8 { get; private set; } = new Key();
+        public static Key F9 { get; private set; } = new Key();
+        public static Key F10 { get; private set; } = new Key();
+        public static Key F11 { get; private set; } = new Key();
+        public static Key F12 { get; private set; } = new Key();
+        public static Key NumLock { get; private set; } = new Key();
+        public static Key ScrollLock { get; private set; } = new Key();
+        public static Key LeftShift { get; private set; } = new Key();
+        public static Key RightShift { get; private set; } = new Key();
+        public static Key LeftControl { get; private set; } = new Key();
+        public static Key RightControl { get; private set; } = new Key();
+        public static Key LeftAlt { get; private set; } = new Key();
+        public static Key RightAlt { get; private set; } = new Key();
+        public static Key BrowserHome { get; private set; } = new Key();
+        public static Key VolumeMute { get; private set; } = new Key();
+        public static Key VolumeDown { get; private set; } = new Key();
+        public static Key VolumeUp { get; private set; } = new Key();
+        public static Key LaunchMail { get; private set; } = new Key();
+        public static Key LaunchApplication1 { get; private set; } = new Key();
+        public static Key LaunchApplication2 { get; private set; } = new Key();
+        public static Key Oem1 { get; private set; } = new Key();
+        public static Key OemPlus { get; private set; } = new Key();
+        public static Key OemComma { get; private set; } = new Key();
+        public static Key OemMinus { get; private set; } = new Key();
+        public static Key OemPeriod { get; private set; } = new Key();
+        public static Key Oem2 { get; private set; } = new Key();
+        public static Key Oem3 { get; private set; } = new Key();
+        public static Key Oem4 { get; private set; } = new Key();
+        public static Key Oem5 { get; private set; } = new Key();
+        public static Key Oem6 { get; private set; } = new Key();
+        public static Key Oem7 { get; private set; } = new Key();
+        public static Key Oem8 { get; private set; } = new Key();
+        public static Key Oem102 { get; private set; } = new Key();
+        public static Key Fn { get; private set; } = new Key();
 
-        public KeyResource()
+        static KeyResource()
         {
-            Back = new Key()
-            {
-                KeyCodeValue = (int)Keys.Back,
-                KeyCode = Keys.Back,
-                Name = Keys.Back.ToString()
-            };
+            Back.KeyCodeValue = (int)Keys.Back;
+            Back.KeyCode = Keys.Back;
+            Back.Name = Keys.Back.ToString();
+
             Tab = new Key()
             {
                 KeyCodeValue = (int)Keys.Tab,
@@ -853,7 +851,7 @@
                 Name = Keys.Oem102.ToString()
             };
 
-            // There is no KeyCodeValue for Fn button since it doesn't trigger any key event.
+            // There is no KeyCodeValue for Fn button since it doesn't trigger any static Key event.
             // Fn only alters the values of other keys when they are pressed.
             Fn = new Key()
             {

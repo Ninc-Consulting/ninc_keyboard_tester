@@ -6,7 +6,6 @@
         public Size Size { get; private set; }
         public KeyboardLayoutType KeyboardLayoutType { get; protected set; }
         protected static int BaseLength { get; private set; }
-        protected KeyResource KeyResource { get; private set; } = new KeyResource();
 
         public KeyboardLayout(int baseLength)
         {
@@ -17,6 +16,10 @@
         {
             var altKeyFlag = 0b100000;
             var extendedKeyFlag = 0b1;
+
+            Logger.Write($"{(Keys)e.KeyCode} is being processed! KeyCode is: {e.KeyCode}");
+            Logger.Write($"IsExtendedKey: {Convert.ToBoolean(e.KeyFlags & extendedKeyFlag)}");
+            Logger.Write($"KeyFlags: {e.KeyFlags}");
 
             // Display a message to the user if the layout does not contain the pressed key
             if (!LayoutKeys.ContainsKey(e.KeyCode)
