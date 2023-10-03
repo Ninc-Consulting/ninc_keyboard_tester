@@ -18,12 +18,12 @@
             var keyboardLayoutDto = new KeyboardLayoutDto();
             keyboardLayoutDto.Map(keyboardLayout);
             var keyboardLayoutJson = JsonConvert.SerializeObject(keyboardLayoutDto, Formatting.Indented);
-            File.WriteAllText(Path.Combine(_path, "test result.txt"), keyboardLayoutJson);
+            File.WriteAllText(Path.Combine(_path, "KeyboardLayoutState.txt"), keyboardLayoutJson);
         }
 
         public static KeyboardLayoutDto? GetKeyboardLayoutState()
         {
-            var textFile = Path.Combine(_path, "test result.txt");
+            var textFile = Path.Combine(_path, "KeyboardLayoutState.txt");
             if (!File.Exists(textFile))
             {
                 return null;

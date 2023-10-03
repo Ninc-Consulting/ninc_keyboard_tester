@@ -36,9 +36,9 @@ namespace UITests
         public void TestCleanUp()
         {
             TearDown();
-            if (File.Exists(@"C:\Users\Moth\source\repos\test result.txt"))
+            if (File.Exists(@"C:\Users\Moth\source\repos\KeyboardLayoutState.txt"))
             {
-                File.Delete(@"C:\Users\Moth\source\repos\test result.txt");
+                File.Delete(@"C:\Users\Moth\source\repos\KeyboardLayoutState.txt");
             }
         }
 
