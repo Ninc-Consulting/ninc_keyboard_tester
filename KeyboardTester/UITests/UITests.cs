@@ -6,25 +6,41 @@ namespace UITests
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
         {
-            Setup();
+            //Setup();
         }
 
         [ClassCleanup]
         public static void ClassCleanup()
         {
-            TearDown();
+            //TearDown();
         }
 
-        //[TestInitialize]
-        //public void TestInitialize()
-        //{
-        //    Assert.IsNotNull(Session);
-        //    var okButtons = Session.FindElementsByAccessibilityId("2");
-        //    foreach (var button in okButtons)
-        //    {
-        //        button.Click();
-        //    }
-        //}
+        [TestInitialize]
+        public void TestInitialize()
+        {
+            Setup();
+            Assert.IsNotNull(Session);
+            //var okButtons = Session.FindElementsByAccessibilityId("2");
+            var messageDialogs = Session.FindElementsByName("Key not found!");
+            if (messageDialogs.Any())
+            {
+                foreach (var messageDialog in messageDialogs)
+                {
+                    var okButton = messageDialog.FindElementsByName("OK").Single();
+                    okButton.Click();
+                }
+            }
+        }
+
+        [TestCleanup]
+        public void TestCleanUp()
+        {
+            TearDown();
+            if (File.Exists(@"C:\Users\Moth\source\repos\test result.txt"))
+            {
+                File.Delete(@"C:\Users\Moth\source\repos\test result.txt");
+            }
+        }
 
         [TestMethod]
         public void A010_ChangeLayout_WithDropDownMenu()
@@ -50,75 +66,72 @@ namespace UITests
         }
 
         [TestMethod]
-        public void A020_PressAndReleaseAllKeysInCherryLayout()
+        public void A020_InCherryLayout_PressAndReleaseKeyA_BackColorIsPurple()
         {
             // Arrange
             Assert.IsNotNull(Session);
-            var tempForm = new KeyboardTesterForm(KeyboardLayoutType.Toughbook);
-            var extendedKeys = new List<int>()
-            {
-                (int)Keys.Home,
-                (int)Keys.PageUp,
-                (int)Keys.PageDown,
-                (int)Keys.End,
-                (int)Keys.Insert,
-                (int)Keys.Delete,
-                (int)Keys.Up,
-                (int)Keys.Left,
-                (int)Keys.Down,
-                (int)Keys.Right
-            };
-
             var comboBoxElement = Session.FindElementByAccessibilityId("DropDownMenu");
             comboBoxElement.Click();
-            comboBoxElement.FindElementByName("Keyboard layout: 'Toughbook'").Click();
-            Thread.Sleep(500);
+            comboBoxElement.FindElementByName("Keyboard layout: 'Cherry'").Click();
+            var key = Keys.A;
 
             // Act
-            foreach (var key in tempForm.KeyboardLayout.LayoutKeys.Values)
-            {
-                if (key.Name == "Fn")
+            SendKeyboardInput(
+                new KeyboardInput[]
                 {
-                    continue;
-                }
-
-                InputSender.SendKeyboardInput(
-                    new InputSender.KeyboardInput[]
+                    new KeyboardInput
                     {
-                        new InputSender.KeyboardInput
-                        {
-                            wVk = (ushort)key.KeyCode,
-                            dwFlags = extendedKeys.Contains(key.KeyCodeValue) ? (uint)KeyEventF.ExtendedKey : 0
-                        },
-                        new InputSender.KeyboardInput
-                        {
-                            wVk = (ushort)key.KeyCode,
-                            dwFlags = extendedKeys.Contains(key.KeyCodeValue) ? (uint)(KeyEventF.KeyUp | KeyEventF.ExtendedKey) : (uint)KeyEventF.KeyUp
-                        }
-                    });
-                if (key.KeyCode == Keys.NumLock)
-                {
-                    InputSender.SendKeyboardInput(
-                    new InputSender.KeyboardInput[]
+                        wVk = (ushort)key,
+                    },
+                    new KeyboardInput
                     {
-                        new InputSender.KeyboardInput
-                        {
-                            wVk = (ushort)key.KeyCode
-                        },
-                        new InputSender.KeyboardInput
-                        {
-                            wVk = (ushort)key.KeyCode,
-                            dwFlags = (uint)KeyEventF.KeyUp
-                        }
-                    });
-                }
-
-                Thread.Sleep(20);
-            }
-
-            Thread.Sleep(500);
+                        wVk = (ushort)key,
+                        dwFlags = (uint)KeyEventF.KeyUp
+                    }
+                });
+            Thread.Sleep(1000);
 
             // Assert
+            var keyboardLayoutDto = Logger.GetKeyboardLayoutState();
+            Assert.IsNotNull(keyboardLayoutDto);
+            Assert.AreEqual("ff6c3891", keyboardLayoutDto.LayoutKeys.Single(keyDto => keyDto.KeyCode == key).BackColorHtml);
+        }
+
+        [TestMethod]
+        public void A030_ClickResetButton_TextBoxesAreReset()
+        {
+            // Arrange
+            Assert.IsNotNull(Session);
+            var keyCodeValueElement = Session.FindElementByAccessibilityId("KeyCodeValue");
+            var keyNameValueElement = Session.FindElementByAccessibilityId("KeyNameValue");
+            var keyFlagValueElement = Session.FindElementByAccessibilityId("KeyFlagsValue");
+            var resetButtonElement = Session.FindElementByAccessibilityId("ResetButton");
+
+            SendKeyboardInput(
+                new KeyboardInput[]
+                {
+                    new KeyboardInput
+                    {
+                        wVk = (ushort)Keys.A,
+                    },
+                    new KeyboardInput
+                    {
+                        wVk = (ushort)Keys.A,
+                        dwFlags = (uint)KeyEventF.KeyUp
+                    }
+                });
+
+            Assert.IsFalse(string.IsNullOrEmpty(keyCodeValueElement.Text));
+            Assert.IsFalse(string.IsNullOrEmpty(keyNameValueElement.Text));
+            Assert.IsFalse(string.IsNullOrEmpty(keyFlagValueElement.Text));
+
+            // Act
+            resetButtonElement.Click();
+
+            // Assert
+            Assert.IsTrue(string.IsNullOrEmpty(keyCodeValueElement.Text));
+            Assert.IsTrue(string.IsNullOrEmpty(keyNameValueElement.Text));
+            Assert.IsTrue(string.IsNullOrEmpty(keyFlagValueElement.Text));
         }
     }
 }

@@ -1,4 +1,3 @@
-global using KeyboardTester;
 global using KeyboardTester.Util;
 global using Microsoft.VisualStudio.TestTools.UnitTesting;
 global using OpenQA.Selenium.Appium;

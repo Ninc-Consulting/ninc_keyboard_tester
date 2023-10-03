@@ -1,4 +1,4 @@
-﻿namespace KeyboardTester.KeyboardLayouts
+﻿namespace KeyboardTester.Layouts
 {
     public class KeyboardLayout
     {
@@ -16,10 +16,7 @@
         {
             var altKeyFlag = 0b100000;
             var extendedKeyFlag = 0b1;
-
-            Logger.Write($"{(Keys)e.KeyCode} is being processed! KeyCode is: {e.KeyCode}");
-            Logger.Write($"IsExtendedKey: {Convert.ToBoolean(e.KeyFlags & extendedKeyFlag)}");
-            Logger.Write($"KeyFlags: {e.KeyFlags}");
+            var injectedKeyFlag = 0b10000;
 
             // Display a message to the user if the layout does not contain the pressed key
             if (!LayoutKeys.ContainsKey(e.KeyCode)
@@ -58,6 +55,12 @@
 
             LayoutKeys[keyCode].BackColor = ColorTranslator.FromHtml("#6c3891");
             LayoutKeys[keyCode].ForeColor = Color.White;
+
+            // Write to temporary test result file if the key stroke was injected, i.e. not a physical key stroke.
+            if (Convert.ToBoolean(e.KeyFlags & injectedKeyFlag))
+            {
+                Logger.LogKeyboardLayoutState(this);
+            }
         }
 
         protected void AddKeyToLayout(Key key)

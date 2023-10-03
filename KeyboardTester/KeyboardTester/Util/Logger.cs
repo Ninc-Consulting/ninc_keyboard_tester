@@ -2,13 +2,35 @@
 {
     public static class Logger
     {
+        private const string _path = @"C:\Users\Moth\source\repos";
         public static void Write(string msg)
         {
             //var path = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly()?.Location);
             //var path = Directory.GetParent(Environment.CurrentDirectory)?.Parent?.Parent?.Parent?.FullName;
-            const string path = @"C:\Users\Moth\source\repos";
-            using StreamWriter w = File.AppendText(Path.Combine(path, "log.txt"));
+            using StreamWriter w = File.AppendText(Path.Combine(_path, "log.txt"));
             Log(msg, w);
+        }
+
+        public static void LogKeyboardLayoutState(KeyboardLayout keyboardLayout)
+        {
+            //var path = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly()?.Location);
+            //var path = Directory.GetParent(Environment.CurrentDirectory)?.Parent?.Parent?.Parent?.FullName;
+            var keyboardLayoutDto = new KeyboardLayoutDto();
+            keyboardLayoutDto.Map(keyboardLayout);
+            var keyboardLayoutJson = JsonConvert.SerializeObject(keyboardLayoutDto, Formatting.Indented);
+            File.WriteAllText(Path.Combine(_path, "test result.txt"), keyboardLayoutJson);
+        }
+
+        public static KeyboardLayoutDto? GetKeyboardLayoutState()
+        {
+            var textFile = Path.Combine(_path, "test result.txt");
+            if (!File.Exists(textFile))
+            {
+                return null;
+            }
+
+            var jsonText = File.ReadAllText(textFile);
+            return JsonConvert.DeserializeObject<KeyboardLayoutDto>(jsonText);
         }
 
         private static void Log(string msg, TextWriter w)

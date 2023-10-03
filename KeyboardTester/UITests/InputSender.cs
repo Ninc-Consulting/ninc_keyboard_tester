@@ -1,6 +1,6 @@
 ﻿namespace UITests
 {
-    public class InputSender
+    public static class InputSender
     {
         #region Imports/Structs/Enums
         [StructLayout(LayoutKind.Sequential)]

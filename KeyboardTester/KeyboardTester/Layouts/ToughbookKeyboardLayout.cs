@@ -1,4 +1,4 @@
-﻿namespace KeyboardTester.KeyboardLayouts
+﻿namespace KeyboardTester.Layouts
 {
     public class ToughbookKeyboardLayout : KeyboardLayout
     {

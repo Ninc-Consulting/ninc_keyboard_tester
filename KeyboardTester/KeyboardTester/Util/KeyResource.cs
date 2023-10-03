@@ -130,12 +130,10 @@
             Back.KeyCode = Keys.Back;
             Back.Name = Keys.Back.ToString();
 
-            Tab = new Key()
-            {
-                KeyCodeValue = (int)Keys.Tab,
-                KeyCode = Keys.Tab,
-                Name = Keys.Tab.ToString()
-            };
+            Tab.KeyCodeValue = (int)Keys.Tab;
+            Tab.KeyCode = Keys.Tab;
+            Tab.Name = Keys.Tab.ToString();
+
             Clear = new Key()
             {
                 KeyCodeValue = (int)Keys.Clear,
