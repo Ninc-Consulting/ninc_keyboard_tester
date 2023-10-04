@@ -18,18 +18,6 @@
             File.WriteAllText(filePath, keyboardLayoutJson);
         }
 
-        public static KeyboardLayoutDto? GetKeyboardLayoutState()
-        {
-            var filePath = GetFullFilePath("KeyboardLayoutState.txt");
-            if (!File.Exists(filePath))
-            {
-                return null;
-            }
-
-            var jsonText = File.ReadAllText(filePath);
-            return JsonConvert.DeserializeObject<KeyboardLayoutDto>(jsonText);
-        }
-
         private static void Log(string msg, TextWriter w)
         {
             w.Write(Environment.NewLine);

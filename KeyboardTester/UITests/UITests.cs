@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+
 namespace UITests
 {
     [TestClass]
@@ -73,7 +75,7 @@ namespace UITests
             comboBoxElement.FindElementByName("Keyboard layout: 'Cherry'").Click();
             var key = Keys.A;
 
-            var keyboardLayoutDto = Logger.GetKeyboardLayoutState();
+            var keyboardLayoutDto = GetKeyboardLayoutState();
             Assert.IsNull(keyboardLayoutDto);
 
             // Act
@@ -92,7 +94,7 @@ namespace UITests
                 });
 
             // Assert
-            keyboardLayoutDto = Logger.GetKeyboardLayoutState();
+            keyboardLayoutDto = GetKeyboardLayoutState();
             Assert.IsNotNull(keyboardLayoutDto);
             Assert.AreEqual("ff6c3891", keyboardLayoutDto.LayoutKeys.Single(keyDto => keyDto.KeyCode == key).BackColor.Name);
         }
@@ -132,6 +134,20 @@ namespace UITests
             Assert.IsTrue(string.IsNullOrEmpty(keyCodeValueElement.Text));
             Assert.IsTrue(string.IsNullOrEmpty(keyNameValueElement.Text));
             Assert.IsTrue(string.IsNullOrEmpty(keyFlagValueElement.Text));
+        }
+
+        private static KeyboardLayoutDto? GetKeyboardLayoutState()
+        {
+            var folderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "KeyboardTester");
+            Directory.CreateDirectory(folderPath);
+            var filePath = Path.Combine(folderPath, "KeyboardLayoutState.txt");
+            if (!File.Exists(filePath))
+            {
+                return null;
+            }
+
+            var jsonText = File.ReadAllText(filePath);
+            return JsonConvert.DeserializeObject<KeyboardLayoutDto>(jsonText);
         }
     }
 }
