@@ -2,34 +2,31 @@
 {
     public static class Logger
     {
-        private const string _path = @"C:\Users\Moth\source\repos";
         public static void Write(string msg)
         {
-            //var path = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly()?.Location);
-            //var path = Directory.GetParent(Environment.CurrentDirectory)?.Parent?.Parent?.Parent?.FullName;
-            using StreamWriter w = File.AppendText(Path.Combine(_path, "log.txt"));
+            var file = GetFullFilePath("log.txt");
+            using StreamWriter w = File.AppendText(file);
             Log(msg, w);
         }
 
         public static void LogKeyboardLayoutState(KeyboardLayout keyboardLayout)
         {
-            //var path = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly()?.Location);
-            //var path = Directory.GetParent(Environment.CurrentDirectory)?.Parent?.Parent?.Parent?.FullName;
+            var filePath = GetFullFilePath("KeyboardLayoutState.txt");
             var keyboardLayoutDto = new KeyboardLayoutDto();
             keyboardLayoutDto.Map(keyboardLayout);
             var keyboardLayoutJson = JsonConvert.SerializeObject(keyboardLayoutDto, Formatting.Indented);
-            File.WriteAllText(Path.Combine(_path, "KeyboardLayoutState.txt"), keyboardLayoutJson);
+            File.WriteAllText(filePath, keyboardLayoutJson);
         }
 
         public static KeyboardLayoutDto? GetKeyboardLayoutState()
         {
-            var textFile = Path.Combine(_path, "KeyboardLayoutState.txt");
-            if (!File.Exists(textFile))
+            var filePath = GetFullFilePath("KeyboardLayoutState.txt");
+            if (!File.Exists(filePath))
             {
                 return null;
             }
 
-            var jsonText = File.ReadAllText(textFile);
+            var jsonText = File.ReadAllText(filePath);
             return JsonConvert.DeserializeObject<KeyboardLayoutDto>(jsonText);
         }
 
@@ -40,6 +37,13 @@
             w.Write("\t");
             w.WriteLine(" {0}", msg);
             w.WriteLine("-----------------------");
+        }
+
+        private static string GetFullFilePath(string fileName)
+        {
+            var folderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "KeyboardTester");
+            Directory.CreateDirectory(folderPath);
+            return Path.Combine(folderPath, fileName);
         }
     }
 }

@@ -6,23 +6,20 @@ namespace UITests
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
         {
-            //Setup();
+            Setup();
         }
 
         [ClassCleanup]
         public static void ClassCleanup()
         {
-            //TearDown();
+            TearDown();
         }
 
         [TestInitialize]
         public void TestInitialize()
         {
-            Setup();
-            Assert.IsNotNull(Session);
-            //var okButtons = Session.FindElementsByAccessibilityId("2");
-            var messageDialogs = Session.FindElementsByName("Key not found!");
-            if (messageDialogs.Any())
+            var messageDialogs = Session?.FindElementsByName("Key not found!");
+            if (messageDialogs != null && messageDialogs.Any())
             {
                 foreach (var messageDialog in messageDialogs)
                 {
@@ -35,10 +32,11 @@ namespace UITests
         [TestCleanup]
         public void TestCleanUp()
         {
-            TearDown();
-            if (File.Exists(@"C:\Users\Moth\source\repos\KeyboardLayoutState.txt"))
+            var folderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "KeyboardTester");
+            var file = Path.Combine(folderPath, "KeyboardLayoutState.txt");
+            if (File.Exists(file))
             {
-                File.Delete(@"C:\Users\Moth\source\repos\KeyboardLayoutState.txt");
+                File.Delete(file);
             }
         }
 
@@ -75,26 +73,28 @@ namespace UITests
             comboBoxElement.FindElementByName("Keyboard layout: 'Cherry'").Click();
             var key = Keys.A;
 
+            var keyboardLayoutDto = Logger.GetKeyboardLayoutState();
+            Assert.IsNull(keyboardLayoutDto);
+
             // Act
             SendKeyboardInput(
                 new KeyboardInput[]
                 {
                     new KeyboardInput
                     {
-                        wVk = (ushort)key,
+                        Wvk = (ushort)key,
                     },
                     new KeyboardInput
                     {
-                        wVk = (ushort)key,
-                        dwFlags = (uint)KeyEventF.KeyUp
+                        Wvk = (ushort)key,
+                        DwFlags = (uint)KeyEventF.KeyUp
                     }
                 });
-            Thread.Sleep(1000);
 
             // Assert
-            var keyboardLayoutDto = Logger.GetKeyboardLayoutState();
+            keyboardLayoutDto = Logger.GetKeyboardLayoutState();
             Assert.IsNotNull(keyboardLayoutDto);
-            Assert.AreEqual("ff6c3891", keyboardLayoutDto.LayoutKeys.Single(keyDto => keyDto.KeyCode == key).BackColorHtml);
+            Assert.AreEqual("ff6c3891", keyboardLayoutDto.LayoutKeys.Single(keyDto => keyDto.KeyCode == key).BackColor.Name);
         }
 
         [TestMethod]
@@ -112,12 +112,12 @@ namespace UITests
                 {
                     new KeyboardInput
                     {
-                        wVk = (ushort)Keys.A,
+                        Wvk = (ushort)Keys.A,
                     },
                     new KeyboardInput
                     {
-                        wVk = (ushort)Keys.A,
-                        dwFlags = (uint)KeyEventF.KeyUp
+                        Wvk = (ushort)Keys.A,
+                        DwFlags = (uint)KeyEventF.KeyUp
                     }
                 });
 

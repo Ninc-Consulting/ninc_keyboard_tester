@@ -2,8 +2,6 @@
 {
     public class TestSession
     {
-        //public static WindowsDriver<WindowsElement>? DesktopSession { get; private set; }
-
         protected static WindowsDriver<WindowsElement>? Session { get; private set; }
 
         private const string _windowsApplicationDriverUrl = "http://127.0.0.1:4723";
@@ -14,8 +12,7 @@
 
         public static void Setup()
         {
-            // Launch application if it is not yet launched
-            if (Session == null) // || DesktopSession == null)
+            if (Session == null)
             {
                 TearDown();
 
@@ -31,7 +28,6 @@
                     return;
                 }
 
-                // Create a new session to bring up the test application
                 var options = new AppiumOptions();
                 options.AddAdditionalCapability("app", testApp);
                 options.AddAdditionalCapability("deviceName", "WindowsPC");
@@ -43,12 +39,6 @@
 
                 // Set implicit timeout to 1.5 seconds to make element search to retry every 500 ms for at most three times
                 Session.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(1.5);
-
-                //var appiumOptions = new AppiumOptions();
-                //appiumOptions.AddAdditionalCapability("app", "Root");
-                //appiumOptions.AddAdditionalCapability("deviceName", "WindowsPC");
-                //appiumOptions.AddAdditionalCapability("ms:experimental-webdriver", true);
-                //DesktopSession = new WindowsDriver<WindowsElement>(new Uri(_windowsApplicationDriverUrl), appiumOptions);
             }
         }
 
@@ -59,12 +49,6 @@
                 Session.Quit();
                 Session = null;
             }
-
-            //if (DesktopSession != null)
-            //{
-            //    DesktopSession.Quit();
-            //    DesktopSession = null;
-            //}
         }
     }
 }

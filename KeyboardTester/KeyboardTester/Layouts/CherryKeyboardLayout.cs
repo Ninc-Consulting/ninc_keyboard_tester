@@ -115,7 +115,7 @@
             KeyResource.Pause.TextAlign = ContentAlignment.TopCenter;
             AddKeyToLayout(KeyResource.Pause);
 
-            _lockScreen.KeyCodeValue = (int)Keys.None;  // No difference to LWin + L, use dummy value for now
+            _lockScreen.KeyCodeValue = (int)Keys.None;  // Not a unique key, just a shortcut to LWin + L
             _lockScreen.KeyCode = Keys.None;
             _lockScreen.Name = "LockScreen";
             _lockScreen.Size = _squareSizeHalfHeight;

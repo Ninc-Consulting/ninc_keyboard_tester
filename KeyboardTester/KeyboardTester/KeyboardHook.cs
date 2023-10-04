@@ -6,6 +6,7 @@
 //    event raised by the KeyboardHook class.
 //  - KeyboardHookEventArgs: EventArgs class to contain the information
 //    returned by the KeyIntercepted event.
+//  - Original code: https://www.codeproject.com/Articles/14485/Low-level-Windows-API-hooks-from-C-to-stop-unwante
 
 namespace KeyboardTester
 {
@@ -186,7 +187,7 @@ namespace KeyboardTester
         }
 
         [ComVisible(false)]
-        internal static class NativeMethods
+        private static class NativeMethods
         {
             [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
             public static extern IntPtr GetModuleHandle(string lpModuleName);
