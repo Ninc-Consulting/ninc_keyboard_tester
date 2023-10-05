@@ -13,7 +13,7 @@ namespace UnitTests
         public void A010_SendA_ToKeyDownEvent_ColorChanges()
         {
             // Arrange
-            var form = new KeyboardTesterForm(KeyboardLayoutType.Cherry);
+            var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105);
             var key = form.KeyboardLayout.LayoutKeys
                 .Select(x => x.Value)
                 .Single(x => x.KeyCode == Keys.A);
@@ -33,7 +33,7 @@ namespace UnitTests
         public void A020_SendLControlWithAltFlag_ToKeyDownEvent_ColorDoesNotChange()
         {
             // Arrange
-            var form = new KeyboardTesterForm(KeyboardLayoutType.Cherry);
+            var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105);
             var key = form.KeyboardLayout.LayoutKeys
                 .Select(x => x.Value)
                 .Single(x => x.KeyCode == Keys.LControlKey);
@@ -53,7 +53,7 @@ namespace UnitTests
         public void A030_SendDeleteWithExtendedFlag_ToKeyDownEvent_ColorChanges()
         {
             // Arrange
-            var form = new KeyboardTesterForm(KeyboardLayoutType.Cherry);
+            var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105);
             var key = form.KeyboardLayout.LayoutKeys
                 .Select(x => x.Value)
                 .Single(x => x.KeyCode == Keys.Delete);
@@ -73,7 +73,7 @@ namespace UnitTests
         public void A040_SendDeleteWithoutExtendedFlag_ToKeyDownEvent_ColorDoesNotChange()
         {
             // Arrange
-            var form = new KeyboardTesterForm(KeyboardLayoutType.Cherry);
+            var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105);
             var key = form.KeyboardLayout.LayoutKeys
                 .Select(x => x.Value)
                 .Single(x => x.KeyCode == Keys.Delete);
@@ -93,7 +93,7 @@ namespace UnitTests
         public void A050_SendControlWithAltFlag_ToSetTextBoxValues_TextChangesToCorrectValues()
         {
             // Arrange
-            var form = new KeyboardTesterForm(KeyboardLayoutType.Cherry);
+            var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105);
             var key = form.KeyboardLayout.LayoutKeys
                 .Select(x => x.Value)
                 .Single(x => x.KeyCode == Keys.LControlKey);
@@ -133,7 +133,7 @@ namespace UnitTests
             // Arrange
             var defaultColor = Color.FromArgb(0, 250, 250, 250);
             var purpleColor = ColorTranslator.FromHtml("#6c3891");
-            var form = new KeyboardTesterForm(KeyboardLayoutType.Cherry);
+            var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105);
             var previousCode = form.InformationLayout.KeyCodeValue.Text = "0x41";
             var previousName = form.InformationLayout.KeyNameValue.Text = "A";
             var previousFlag = form.InformationLayout.KeyFlagsValue.Text = "00000000";
@@ -177,7 +177,7 @@ namespace UnitTests
         public void A070_SendNewKeyboardLayoutType_ToChangeLayout_LayoutIsChanged()
         {
             // Arrange
-            var form = new KeyboardTesterForm(KeyboardLayoutType.Cherry);
+            var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105);
             var previousKeyboardLayoutType = form.KeyboardLayout.KeyboardLayoutType;
             form.DropDownMenu.SelectedValue = KeyboardLayoutType.Toughbook;
 
@@ -186,7 +186,7 @@ namespace UnitTests
 
             // Assert
             Assert.AreEqual(
-                expected: KeyboardLayoutType.Cherry,
+                expected: KeyboardLayoutType.ISO_105,
                 actual: previousKeyboardLayoutType);
             Assert.AreEqual(
                 expected: KeyboardLayoutType.Toughbook,

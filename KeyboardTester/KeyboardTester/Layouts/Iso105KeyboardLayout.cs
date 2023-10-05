@@ -1,12 +1,11 @@
 ﻿namespace KeyboardTester.Layouts
 {
-    public class CherryKeyboardLayout : KeyboardLayout
+    public class Iso105KeyboardLayout : KeyboardLayout
     {
         // Sizes
         private static readonly int _offset = Convert.ToInt32(BaseKeyWidth * 0.05);
 
         private static readonly Size _squareSize = new(BaseKeyWidth, BaseKeyWidth);
-        private static readonly Size _squareSizeHalfHeight = new(BaseKeyWidth, BaseKeyWidth / 2);
         private static readonly Size _rectangleSize1_25 = new(Convert.ToInt32(BaseKeyWidth * 1.25) + _offset, BaseKeyWidth);
         private static readonly Size _rectangleSize1_5 = new(Convert.ToInt32(BaseKeyWidth * 1.5) + _offset, BaseKeyWidth);
         private static readonly Size _rectangleSize1_7 = new(Convert.ToInt32(BaseKeyWidth * 1.7) + _offset, BaseKeyWidth);
@@ -17,13 +16,10 @@
         private static readonly Size _spacebarSize = new(Convert.ToInt32(BaseKeyWidth * 5) + _offset, BaseKeyWidth);
         private static readonly Size _returnSize = new(Convert.ToInt32(BaseKeyWidth * 1.25), (BaseKeyWidth * 2) + _offset);
 
-        // Dummy button
-        private readonly Key _lockScreen = new();
-
-        public CherryKeyboardLayout(int baseKeyWidth)
+        public Iso105KeyboardLayout(int baseKeyWidth)
             : base(baseKeyWidth)
         {
-            KeyboardLayoutType = KeyboardLayoutType.Cherry;
+            KeyboardLayoutType = KeyboardLayoutType.ISO_105;
             InitiateKeys();
             SetCommonAttributes();
             DoLayout();
@@ -32,112 +28,85 @@
 
         private void InitiateKeys()
         {
-            KeyResource.Escape.Size = _squareSizeHalfHeight;
-            KeyResource.Escape.Text = "ESC";
+            KeyResource.Escape.Size = _squareSize;
+            KeyResource.Escape.Text = "Esc";
             KeyResource.Escape.TextAlign = ContentAlignment.TopLeft;
             AddKeyToLayout(KeyResource.Escape);
 
-            KeyResource.F1.Size = _squareSizeHalfHeight;
+            KeyResource.F1.Size = _squareSize;
             KeyResource.F1.Text = "F1";
             KeyResource.F1.TextAlign = ContentAlignment.TopLeft;
             AddKeyToLayout(KeyResource.F1);
 
-            KeyResource.F2.Size = _squareSizeHalfHeight;
+            KeyResource.F2.Size = _squareSize;
             KeyResource.F2.Text = "F2";
             KeyResource.F2.TextAlign = ContentAlignment.TopLeft;
             AddKeyToLayout(KeyResource.F2);
 
-            KeyResource.F3.Size = _squareSizeHalfHeight;
+            KeyResource.F3.Size = _squareSize;
             KeyResource.F3.Text = "F3";
             KeyResource.F3.TextAlign = ContentAlignment.TopLeft;
             AddKeyToLayout(KeyResource.F3);
 
-            KeyResource.F4.Size = _squareSizeHalfHeight;
+            KeyResource.F4.Size = _squareSize;
             KeyResource.F4.Text = "F4";
             KeyResource.F4.TextAlign = ContentAlignment.TopLeft;
             AddKeyToLayout(KeyResource.F4);
 
-            KeyResource.F5.Size = _squareSizeHalfHeight;
+            KeyResource.F5.Size = _squareSize;
             KeyResource.F5.Text = "F5";
             KeyResource.F5.TextAlign = ContentAlignment.TopLeft;
             AddKeyToLayout(KeyResource.F5);
 
-            KeyResource.F6.Size = _squareSizeHalfHeight;
+            KeyResource.F6.Size = _squareSize;
             KeyResource.F6.Text = "F6";
             KeyResource.F6.TextAlign = ContentAlignment.TopLeft;
             AddKeyToLayout(KeyResource.F6);
 
-            KeyResource.F7.Size = _squareSizeHalfHeight;
+            KeyResource.F7.Size = _squareSize;
             KeyResource.F7.Text = "F7";
             KeyResource.F7.TextAlign = ContentAlignment.TopLeft;
             AddKeyToLayout(KeyResource.F7);
 
-            KeyResource.F8.Size = _squareSizeHalfHeight;
+            KeyResource.F8.Size = _squareSize;
             KeyResource.F8.Text = "F8";
             KeyResource.F8.TextAlign = ContentAlignment.TopLeft;
             AddKeyToLayout(KeyResource.F8);
 
-            KeyResource.F9.Size = _squareSizeHalfHeight;
+            KeyResource.F9.Size = _squareSize;
             KeyResource.F9.Text = "F9";
             KeyResource.F9.TextAlign = ContentAlignment.TopLeft;
             AddKeyToLayout(KeyResource.F9);
 
-            KeyResource.F10.Size = _squareSizeHalfHeight;
+            KeyResource.F10.Size = _squareSize;
             KeyResource.F10.Text = "F10";
             KeyResource.F10.TextAlign = ContentAlignment.TopLeft;
             AddKeyToLayout(KeyResource.F10);
 
-            KeyResource.F11.Size = _squareSizeHalfHeight;
+            KeyResource.F11.Size = _squareSize;
             KeyResource.F11.Text = "F11";
             KeyResource.F11.TextAlign = ContentAlignment.TopLeft;
             AddKeyToLayout(KeyResource.F11);
 
-            KeyResource.F12.Size = _squareSizeHalfHeight;
+            KeyResource.F12.Size = _squareSize;
             KeyResource.F12.Text = "F12";
             KeyResource.F12.TextAlign = ContentAlignment.TopLeft;
             AddKeyToLayout(KeyResource.F12);
 
-            KeyResource.PrintScreen.Size = _squareSizeHalfHeight;
-            KeyResource.PrintScreen.Text = "PRT SC\nSYS RQ";
+            KeyResource.PrintScreen.Size = _squareSize;
+            KeyResource.PrintScreen.Text = "Prt Sc\nSys Rq";
             KeyResource.PrintScreen.TextAlign = ContentAlignment.TopCenter;
             AddKeyToLayout(KeyResource.PrintScreen);
 
-            KeyResource.ScrollLock.Size = _squareSizeHalfHeight;
-            KeyResource.ScrollLock.Text = "SCROLL";
+            KeyResource.ScrollLock.Size = _squareSize;
+            KeyResource.ScrollLock.Text = "Scroll Lock";
             KeyResource.ScrollLock.TextAlign = ContentAlignment.TopCenter;
             AddKeyToLayout(KeyResource.ScrollLock);
 
-            KeyResource.Pause.KeyCodeValue = (int)Keys.Pause;
-            KeyResource.Pause.KeyCode = Keys.Pause;
-            KeyResource.Pause.Name = "Pause";
-            KeyResource.Pause.Size = _squareSizeHalfHeight;
-            KeyResource.Pause.Text = "PAUSE\nBREAK";
+            KeyResource.Pause.Size = _squareSize;
+            KeyResource.Pause.Text = "Pause\nBreak";
             KeyResource.Pause.TextAlign = ContentAlignment.TopCenter;
             AddKeyToLayout(KeyResource.Pause);
-
-            _lockScreen.KeyCodeValue = (int)Keys.None;  // Not a unique key, just a shortcut to LWin + L
-            _lockScreen.KeyCode = Keys.None;
-            _lockScreen.Name = "LockScreen";
-            _lockScreen.Size = _squareSizeHalfHeight;
-            _lockScreen.Text = "Lock";
-            _lockScreen.TextAlign = ContentAlignment.MiddleCenter;
-            _lockScreen.Enabled = false;
-            AddKeyToLayout(_lockScreen);
-
-            KeyResource.BrowserHome.Size = _squareSizeHalfHeight;
-            KeyResource.BrowserHome.Text = "Browser";
-            KeyResource.BrowserHome.TextAlign = ContentAlignment.MiddleCenter;
-            AddKeyToLayout(KeyResource.BrowserHome);
-
-            KeyResource.LaunchMail.Size = _squareSizeHalfHeight;
-            KeyResource.LaunchMail.Text = "Mail";
-            KeyResource.LaunchMail.TextAlign = ContentAlignment.MiddleCenter;
-            AddKeyToLayout(KeyResource.LaunchMail);
-
-            KeyResource.LaunchApplication2.Size = _squareSizeHalfHeight;
-            KeyResource.LaunchApplication2.Text = "Calc";
-            KeyResource.LaunchApplication2.TextAlign = ContentAlignment.MiddleCenter;
-            AddKeyToLayout(KeyResource.LaunchApplication2);
 
             KeyResource.Oem5.Size = _squareSize;
             KeyResource.Oem5.Text = "§½";
@@ -210,22 +179,22 @@
             AddKeyToLayout(KeyResource.Back);
 
             KeyResource.Insert.Size = _squareSize;
-            KeyResource.Insert.Text = "INSERT";
+            KeyResource.Insert.Text = "Insert";
             KeyResource.Insert.TextAlign = ContentAlignment.BottomCenter;
             AddKeyToLayout(KeyResource.Insert);
 
             KeyResource.Home.Size = _squareSize;
-            KeyResource.Home.Text = "HOME";
+            KeyResource.Home.Text = "Home";
             KeyResource.Home.TextAlign = ContentAlignment.BottomCenter;
             AddKeyToLayout(KeyResource.Home);
 
             KeyResource.PageUp.Size = _squareSize;
-            KeyResource.PageUp.Text = "PAGE▴";
+            KeyResource.PageUp.Text = "Page Up";
             KeyResource.PageUp.TextAlign = ContentAlignment.BottomCenter;
             AddKeyToLayout(KeyResource.PageUp);
 
             KeyResource.NumLock.Size = _squareSize;
-            KeyResource.NumLock.Text = "NUM";
+            KeyResource.NumLock.Text = "Num Lock";
             KeyResource.NumLock.TextAlign = ContentAlignment.BottomCenter;
             AddKeyToLayout(KeyResource.NumLock);
 
@@ -315,17 +284,17 @@
             AddKeyToLayout(KeyResource.Return);
 
             KeyResource.Delete.Size = _squareSize;
-            KeyResource.Delete.Text = "DELETE";
+            KeyResource.Delete.Text = "Delete";
             KeyResource.Delete.TextAlign = ContentAlignment.BottomCenter;
             AddKeyToLayout(KeyResource.Delete);
 
             KeyResource.End.Size = _squareSize;
-            KeyResource.End.Text = "END";
+            KeyResource.End.Text = "End";
             KeyResource.End.TextAlign = ContentAlignment.BottomCenter;
             AddKeyToLayout(KeyResource.End);
 
             KeyResource.PageDown.Size = _squareSize;
-            KeyResource.PageDown.Text = "PAGE▾";
+            KeyResource.PageDown.Text = "Page Down";
             KeyResource.PageDown.TextAlign = ContentAlignment.BottomCenter;
             AddKeyToLayout(KeyResource.PageDown);
 
@@ -350,7 +319,7 @@
             AddKeyToLayout(KeyResource.Add);
 
             KeyResource.CapsLock.Size = _rectangleSize1_75;
-            KeyResource.CapsLock.Text = "CAPS";
+            KeyResource.CapsLock.Text = "Caps Lock";
             KeyResource.CapsLock.TextAlign = ContentAlignment.BottomLeft;
             AddKeyToLayout(KeyResource.CapsLock);
 
@@ -430,7 +399,7 @@
             AddKeyToLayout(KeyResource.NumPad6);
 
             KeyResource.LeftShift.Size = _rectangleSize1_25;
-            KeyResource.LeftShift.Text = "↑";
+            KeyResource.LeftShift.Text = "⇧";
             KeyResource.LeftShift.TextAlign = ContentAlignment.BottomLeft;
             AddKeyToLayout(KeyResource.LeftShift);
 
@@ -490,12 +459,12 @@
             AddKeyToLayout(KeyResource.OemMinus);
 
             KeyResource.RightShift.Size = _rectangleSize2_75;
-            KeyResource.RightShift.Text = "↑";
+            KeyResource.RightShift.Text = "⇧";
             KeyResource.RightShift.TextAlign = ContentAlignment.BottomLeft;
             AddKeyToLayout(KeyResource.RightShift);
 
             KeyResource.UpArrow.Size = _squareSize;
-            KeyResource.UpArrow.Text = "△";
+            KeyResource.UpArrow.Text = "↑";
             KeyResource.UpArrow.TextAlign = ContentAlignment.TopLeft;
             AddKeyToLayout(KeyResource.UpArrow);
 
@@ -520,7 +489,7 @@
             AddKeyToLayout(KeyResource.Enter);
 
             KeyResource.LeftControl.Size = _rectangleSize1_7;
-            KeyResource.LeftControl.Text = "CONTROL";
+            KeyResource.LeftControl.Text = "Ctrl";
             KeyResource.LeftControl.TextAlign = ContentAlignment.BottomLeft;
             AddKeyToLayout(KeyResource.LeftControl);
 
@@ -530,7 +499,7 @@
             AddKeyToLayout(KeyResource.LeftWindows);
 
             KeyResource.LeftAlt.Size = _rectangleSize1_5;
-            KeyResource.LeftAlt.Text = "ALT";
+            KeyResource.LeftAlt.Text = "Alt";
             KeyResource.LeftAlt.TextAlign = ContentAlignment.BottomLeft;
             AddKeyToLayout(KeyResource.LeftAlt);
 
@@ -539,7 +508,7 @@
             AddKeyToLayout(KeyResource.Spacebar);
 
             KeyResource.RightAlt.Size = _rectangleSize1_5;
-            KeyResource.RightAlt.Text = "ALT GR";
+            KeyResource.RightAlt.Text = "AltGr";
             KeyResource.RightAlt.TextAlign = ContentAlignment.BottomLeft;
             AddKeyToLayout(KeyResource.RightAlt);
 
@@ -554,22 +523,22 @@
             AddKeyToLayout(KeyResource.Applications);
 
             KeyResource.RightControl.Size = _rectangleSize1_25;
-            KeyResource.RightControl.Text = "CONTROL";
+            KeyResource.RightControl.Text = "Ctrl";
             KeyResource.RightControl.TextAlign = ContentAlignment.BottomLeft;
             AddKeyToLayout(KeyResource.RightControl);
 
             KeyResource.LeftArrow.Size = _squareSize;
-            KeyResource.LeftArrow.Text = "◁";
+            KeyResource.LeftArrow.Text = "←";
             KeyResource.LeftArrow.TextAlign = ContentAlignment.TopLeft;
             AddKeyToLayout(KeyResource.LeftArrow);
 
             KeyResource.DownArrow.Size = _squareSize;
-            KeyResource.DownArrow.Text = "▽";
+            KeyResource.DownArrow.Text = "↓";
             KeyResource.DownArrow.TextAlign = ContentAlignment.TopLeft;
             AddKeyToLayout(KeyResource.DownArrow);
 
             KeyResource.RightArrow.Size = _squareSize;
-            KeyResource.RightArrow.Text = "▷";
+            KeyResource.RightArrow.Text = "→";
             KeyResource.RightArrow.TextAlign = ContentAlignment.TopLeft;
             AddKeyToLayout(KeyResource.RightArrow);
 
@@ -582,6 +551,9 @@
             KeyResource.Decimal.Text = ",";
             KeyResource.Decimal.TextAlign = ContentAlignment.TopLeft;
             AddKeyToLayout(KeyResource.Decimal);
+
+            KeyResource.Clear.Hide();
+            AddKeyToLayout(KeyResource.Clear);
         }
 
         private void DoLayout()
@@ -624,10 +596,10 @@
                 }
 
                 // New row
-                if (key.KeyCode == Keys.LaunchApplication2)
+                if (key.KeyCode == Keys.Pause)
                 {
                     xCoordinate = BaseKeyWidth;
-                    yCoordinate += key.Height * 2;
+                    yCoordinate += Convert.ToInt32(key.Height * 1.5);
                 }
                 else if (key.KeyCode == Keys.Subtract || key.KeyCode == Keys.Add || key.KeyCode == Keys.NumPad6 || (key.KeyCode == Keys.Enter && key.KeyCodeValue < 0))
                 {

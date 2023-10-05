@@ -68,6 +68,7 @@
             {
                 key.BackColor = Color.FromArgb(0, 250, 250, 250);
                 key.ForeColor = Color.Black;
+                key.FlatStyle = FlatStyle.Standard;
             }
         }
 

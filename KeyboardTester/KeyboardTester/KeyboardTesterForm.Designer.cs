@@ -37,18 +37,12 @@
             Controls.Add(DropDownMenu);
 
             var comboBoxItems = new List<ComboBoxKeyboardLayoutItem>();
-            var chooseLayoutItem = new ComboBoxKeyboardLayoutItem()
+            var iso105Item = new ComboBoxKeyboardLayoutItem()
             {
-                KeyboardLayoutType = KeyboardLayoutType.None,
-                KeyboardLayoutText = "Choose a keyboard layout"
+                KeyboardLayoutType = KeyboardLayoutType.ISO_105,
+                KeyboardLayoutText = "Keyboard layout: 'ISO 105'"
             };
-            comboBoxItems.Add(chooseLayoutItem);
-            var cherryItem = new ComboBoxKeyboardLayoutItem()
-            {
-                KeyboardLayoutType = KeyboardLayoutType.Cherry,
-                KeyboardLayoutText = "Keyboard layout: 'Cherry'"
-            };
-            comboBoxItems.Add(cherryItem);
+            comboBoxItems.Add(iso105Item);
             var toughbookItem = new ComboBoxKeyboardLayoutItem()
             {
                 KeyboardLayoutType = KeyboardLayoutType.Toughbook,
@@ -60,7 +54,7 @@
             DropDownMenu.DataSource = comboBoxItems;
             DropDownMenu.DisplayMember = "KeyboardLayoutText";
             DropDownMenu.ValueMember = "KeyboardLayoutType";
-            DropDownMenu.SelectedItem = chooseLayoutItem;
+            DropDownMenu.SelectedItem = iso105Item;
             DropDownMenu.Name = "DropDownMenu";
             DropDownMenu.Location = new Point(_baseKeyWidth, _baseKeyWidth / 4);
             DropDownMenu.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -93,7 +87,7 @@
 
             KeyboardLayout = keyboarLayoutType switch
             {
-                KeyboardLayoutType.Cherry => new CherryKeyboardLayout(_baseKeyWidth),
+                KeyboardLayoutType.ISO_105 => new Iso105KeyboardLayout(_baseKeyWidth),
                 KeyboardLayoutType.Toughbook => new ToughbookKeyboardLayout(_baseKeyWidth),
                 _ => throw new ArgumentException($"Unknown keyboard layout: {keyboarLayoutType}"),
             };

@@ -26,7 +26,6 @@ namespace KeyboardTester
         {
             var exception = (Exception)e.ExceptionObject;
             Logger.Write($"ERROR: {exception.Message}");
-            //Logger.Write($"Stack Trace: {exception.StackTrace}"); // Everything in the Exception except Message and HResult is empty
 
             // Asks the user if they want to restart the application when an unhandled exception has been thrown
             var caption = "Fatal error!";

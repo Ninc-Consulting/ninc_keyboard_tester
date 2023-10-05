@@ -99,8 +99,6 @@ namespace UITests
             var keyFlagValueElement = Session.FindElementByAccessibilityId("KeyFlagsValue");
             var resetButtonElement = Session.FindElementByAccessibilityId("ResetButton");
 
-            Logger.Write("before key stroke: " + keyCodeValueElement.Text);
-
             SendKeyboardInput(
                 new KeyboardInput[]
                 {
@@ -114,8 +112,6 @@ namespace UITests
                         DwFlags = (uint)KeyEventF.KeyUp
                     }
                 });
-
-            Logger.Write("after key stroke: " + keyCodeValueElement.Text);
 
             Assert.IsFalse(string.IsNullOrEmpty(keyCodeValueElement.Text));
             Assert.IsFalse(string.IsNullOrEmpty(keyNameValueElement.Text));

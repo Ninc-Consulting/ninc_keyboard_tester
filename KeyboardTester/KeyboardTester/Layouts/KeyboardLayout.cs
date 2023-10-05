@@ -2,6 +2,7 @@
 {
     public class KeyboardLayout
     {
+        private Keys _previousKeyDown;
         public Dictionary<int, Key> LayoutKeys { get; private set; } = new Dictionary<int, Key>();
         public Size Size { get; private set; }
         public KeyboardLayoutType KeyboardLayoutType { get; protected set; }
@@ -12,34 +13,29 @@
             BaseKeyWidth = baseKeyWidth;
         }
 
-        public void KeyDownEvent(KeyboardHookEventArgs e)
+        public void KeyEvent(KeyboardHookEventArgs e)
         {
             var altKeyFlag = 0b100000;
             var extendedKeyFlag = 0b1;
 
-            // Display a message to the user if the layout does not contain the pressed key
+            // Do nothing if the layout does not contain the key
             if (!LayoutKeys.ContainsKey(e.KeyCode)
-                || (e.KeyCode == (int)Keys.Return
-                    && Convert.ToBoolean(e.KeyFlags & extendedKeyFlag)
-                    && !LayoutKeys.ContainsKey(-e.KeyCode)))
+                || ((Keys)e.KeyCode == Keys.Return && Convert.ToBoolean(e.KeyFlags & extendedKeyFlag) && !LayoutKeys.ContainsKey(-e.KeyCode)))
             {
-                var caption = "Key not found!";
-                var message = $"'{e.KeyName}' was not found in keyboard layout '{KeyboardLayoutType}'.";
-                MessageBox.Show(message, caption, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
             // Since we can't intercept the NumLock functionality in the webhook, we have to handle each key manually.
-            // Do nothing if NumLock is off but a NumPad key is pressed
             if (NumPadKeyIsPressedWhileNumLockIsOff(e))
             {
                 return;
             }
 
-            // The Alt Gr key triggers two key events.
+            // The AltGr key triggers two key events.
             // First left control with a flag that indicates that an Alt key is pressed and then right menu (Alt Gr).
             // Do nothing when the event for the left control key is triggered
-            if (e.KeyCode == (int)Keys.LControlKey && Convert.ToBoolean(e.KeyFlags & altKeyFlag))
+            if (((Keys)e.KeyCode == Keys.LControlKey && Convert.ToBoolean(e.KeyFlags & altKeyFlag))
+                || (e.KeyEventType == KeyEventType.KeyUp && (Keys)e.KeyCode == Keys.LControlKey && _previousKeyDown == Keys.RMenu))
             {
                 return;
             }
@@ -47,13 +43,25 @@
             var keyCode = e.KeyCode;
 
             // If the Return/Enter key is pressed, check the extended key flag to distinguish between regular Enter and NumPad Enter
-            if (e.KeyCode == (int)Keys.Return && Convert.ToBoolean(e.KeyFlags & extendedKeyFlag))
+            if ((Keys)e.KeyCode == Keys.Return && Convert.ToBoolean(e.KeyFlags & extendedKeyFlag))
             {
                 keyCode *= -1;
             }
 
-            LayoutKeys[keyCode].BackColor = ColorTranslator.FromHtml("#6c3891");
-            LayoutKeys[keyCode].ForeColor = Color.White;
+            if (e.KeyEventType == KeyEventType.KeyDown)
+            {
+                // Set the background to purple if the key was pressed
+                LayoutKeys[keyCode].BackColor = ColorTranslator.FromHtml("#6c3891");
+                LayoutKeys[keyCode].ForeColor = Color.White;
+                _previousKeyDown = (Keys)e.KeyCode;
+            }
+            else
+            {
+                // Set the border to if the key was released
+                LayoutKeys[keyCode].FlatStyle = FlatStyle.Flat;
+                LayoutKeys[keyCode].FlatAppearance.BorderSize = Convert.ToInt32(BaseKeyWidth / 20);
+                LayoutKeys[keyCode].FlatAppearance.BorderColor = Color.Red;
+            }
         }
 
         protected void AddKeyToLayout(Key key)
@@ -88,7 +96,7 @@
             Size = new Size(maxX, maxY);
         }
 
-        private static bool NumPadKeyIsPressedWhileNumLockIsOff(KeyboardHookEventArgs e)
+        private bool NumPadKeyIsPressedWhileNumLockIsOff(KeyboardHookEventArgs e)
         {
             var extendedKeyFlag = 0b1;
             var alternativeNumPadKeyCodes = new List<int>()
@@ -117,7 +125,56 @@
                 return false;
             }
 
-            // The pressed key is an alternative NumPad key and the extended flag indicates that the NumPad key was pressed
+            // The pressed key is an alternative NumPad key and the extended flag indicates that the NumPad key was pressed.
+            // Handle the correct NumPad key
+            switch ((Keys)e.KeyCode)
+            {
+                case Keys.PageUp:
+                    LayoutKeys[(int)Keys.NumPad9].BackColor = ColorTranslator.FromHtml("#6c3891");
+                    LayoutKeys[(int)Keys.NumPad9].ForeColor = Color.White;
+                    break;
+                case Keys.Up:
+                    LayoutKeys[(int)Keys.NumPad8].BackColor = ColorTranslator.FromHtml("#6c3891");
+                    LayoutKeys[(int)Keys.NumPad8].ForeColor = Color.White;
+                    break;
+                case Keys.Home:
+                    LayoutKeys[(int)Keys.NumPad7].BackColor = ColorTranslator.FromHtml("#6c3891");
+                    LayoutKeys[(int)Keys.NumPad7].ForeColor = Color.White;
+                    break;
+                case Keys.Right:
+                    LayoutKeys[(int)Keys.NumPad6].BackColor = ColorTranslator.FromHtml("#6c3891");
+                    LayoutKeys[(int)Keys.NumPad6].ForeColor = Color.White;
+                    break;
+                case Keys.Clear:
+                    LayoutKeys[(int)Keys.NumPad5].BackColor = ColorTranslator.FromHtml("#6c3891");
+                    LayoutKeys[(int)Keys.NumPad5].ForeColor = Color.White;
+                    break;
+                case Keys.Left:
+                    LayoutKeys[(int)Keys.NumPad4].BackColor = ColorTranslator.FromHtml("#6c3891");
+                    LayoutKeys[(int)Keys.NumPad4].ForeColor = Color.White;
+                    break;
+                case Keys.PageDown:
+                    LayoutKeys[(int)Keys.NumPad3].BackColor = ColorTranslator.FromHtml("#6c3891");
+                    LayoutKeys[(int)Keys.NumPad3].ForeColor = Color.White;
+                    break;
+                case Keys.Down:
+                    LayoutKeys[(int)Keys.NumPad2].BackColor = ColorTranslator.FromHtml("#6c3891");
+                    LayoutKeys[(int)Keys.NumPad2].ForeColor = Color.White;
+                    break;
+                case Keys.End:
+                    LayoutKeys[(int)Keys.NumPad1].BackColor = ColorTranslator.FromHtml("#6c3891");
+                    LayoutKeys[(int)Keys.NumPad1].ForeColor = Color.White;
+                    break;
+                case Keys.Insert:
+                    LayoutKeys[(int)Keys.NumPad0].BackColor = ColorTranslator.FromHtml("#6c3891");
+                    LayoutKeys[(int)Keys.NumPad0].ForeColor = Color.White;
+                    break;
+                case Keys.Delete:
+                    LayoutKeys[(int)Keys.Decimal].BackColor = ColorTranslator.FromHtml("#6c3891");
+                    LayoutKeys[(int)Keys.Decimal].ForeColor = Color.White;
+                    break;
+            }
+
             return true;
         }
     }

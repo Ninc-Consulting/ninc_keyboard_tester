@@ -2,8 +2,8 @@
 {
     public enum KeyboardLayoutType
     {
-        Cherry,
-        Toughbook,
-        None
+        None,
+        ISO_105,
+        Toughbook
     }
 }
