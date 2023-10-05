@@ -7,7 +7,7 @@ namespace KeyboardTester
         public KeyboardTesterForm(KeyboardLayoutType keyboarLayoutEnum = KeyboardLayoutType.Toughbook)
         {
             var scaleRate = DeviceDpi / 96f * 100;
-            ScaledFont = new("Segoe UI", _baseLength * 0.14f / scaleRate * 100);
+            ScaledFont = new("Segoe UI", _baseKeyWidth * 0.14f / scaleRate * 100);
 
             InitiateDropDownMenu();
             CustomInitializeComponent(keyboarLayoutEnum);
@@ -24,6 +24,14 @@ namespace KeyboardTester
             {
                 KeyboardLayout.KeyDownEvent(e);
                 InformationLayout.SetTextBoxValues(e);
+
+                // Write to temporary log file to record the new state of the keyboard layout
+                // if the flag indicates that the key stroke was injected, i.e. a UITest.
+                var injectedFlag = 0b10000;
+                if (Convert.ToBoolean(e.KeyFlags & injectedFlag))
+                {
+                    Logger.LogKeyboardLayoutState(KeyboardLayout);
+                }
             }
         }
 

@@ -3,20 +3,20 @@
     public class ToughbookKeyboardLayout : KeyboardLayout
     {
         // Sizes
-        private static readonly int _offset = Convert.ToInt32(BaseLength * 0.05);
+        private static readonly int _offset = Convert.ToInt32(BaseKeyWidth * 0.05);
 
-        private static readonly Size _squareSize = new(BaseLength, BaseLength);
-        private static readonly Size _squareSize0_8 = new(Convert.ToInt32(BaseLength * 0.8), Convert.ToInt32(BaseLength * 0.8));
-        private static readonly Size _squareSize0_85 = new(Convert.ToInt32(BaseLength * 0.85), Convert.ToInt32(BaseLength * 0.85));
-        private static readonly Size _rectangleSize0_75 = new(Convert.ToInt32(BaseLength * 0.75), BaseLength);
-        private static readonly Size _rectangleSize0_9 = new(Convert.ToInt32(BaseLength * 0.9), BaseLength);
-        private static readonly Size _rectangleSize1_25 = new(Convert.ToInt32(BaseLength * 1.25) + (_offset / 4), BaseLength);
-        private static readonly Size _rectangleSize1_5 = new(Convert.ToInt32(BaseLength * 1.5) + (_offset / 2), BaseLength);
-        private static readonly Size _rectangleSize2 = new((BaseLength * 2) + _offset, BaseLength);
-        private static readonly Size _spaceBarSize = new(Convert.ToInt32(BaseLength * 3.5) + Convert.ToInt32(_offset * 2.5), BaseLength);
+        private static readonly Size _squareSize = new(BaseKeyWidth, BaseKeyWidth);
+        private static readonly Size _squareSize0_8 = new(Convert.ToInt32(BaseKeyWidth * 0.8), Convert.ToInt32(BaseKeyWidth * 0.8));
+        private static readonly Size _squareSize0_85 = new(Convert.ToInt32(BaseKeyWidth * 0.85), Convert.ToInt32(BaseKeyWidth * 0.85));
+        private static readonly Size _rectangleSize0_75 = new(Convert.ToInt32(BaseKeyWidth * 0.75), BaseKeyWidth);
+        private static readonly Size _rectangleSize0_9 = new(Convert.ToInt32(BaseKeyWidth * 0.9), BaseKeyWidth);
+        private static readonly Size _rectangleSize1_25 = new(Convert.ToInt32(BaseKeyWidth * 1.25) + (_offset / 4), BaseKeyWidth);
+        private static readonly Size _rectangleSize1_5 = new(Convert.ToInt32(BaseKeyWidth * 1.5) + (_offset / 2), BaseKeyWidth);
+        private static readonly Size _rectangleSize2 = new((BaseKeyWidth * 2) + _offset, BaseKeyWidth);
+        private static readonly Size _spaceBarSize = new(Convert.ToInt32(BaseKeyWidth * 3.5) + Convert.ToInt32(_offset * 2.5), BaseKeyWidth);
 
-        public ToughbookKeyboardLayout(int baseLength)
-            : base(baseLength)
+        public ToughbookKeyboardLayout(int baseKeyWidth)
+            : base(baseKeyWidth)
         {
             KeyboardLayoutType = KeyboardLayoutType.Toughbook;
             InitiateKeys();
@@ -469,8 +469,8 @@
 
         private void DoLayout()
         {
-            var xCoordinate = BaseLength;
-            var yCoordinate = BaseLength;
+            var xCoordinate = BaseKeyWidth;
+            var yCoordinate = BaseKeyWidth;
 
             foreach (var key in LayoutKeys.Values)
             {
@@ -488,7 +488,7 @@
 
                 if (key.KeyCode == Keys.Pause || key.KeyCode == Keys.Home || key.KeyCode == Keys.PageUp || key.KeyCode == Keys.PageDown || key.KeyCode == Keys.End)
                 {
-                    xCoordinate = BaseLength;
+                    xCoordinate = BaseKeyWidth;
                     yCoordinate += key.Height + _offset;
                 }
                 else if (key.KeyCode == Keys.Up)

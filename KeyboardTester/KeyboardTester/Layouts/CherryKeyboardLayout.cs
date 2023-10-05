@@ -3,25 +3,25 @@
     public class CherryKeyboardLayout : KeyboardLayout
     {
         // Sizes
-        private static readonly int _offset = Convert.ToInt32(BaseLength * 0.05);
+        private static readonly int _offset = Convert.ToInt32(BaseKeyWidth * 0.05);
 
-        private static readonly Size _squareSize = new(BaseLength, BaseLength);
-        private static readonly Size _squareSizeHalfHeight = new(BaseLength, BaseLength / 2);
-        private static readonly Size _rectangleSize1_25 = new(Convert.ToInt32(BaseLength * 1.25) + _offset, BaseLength);
-        private static readonly Size _rectangleSize1_5 = new(Convert.ToInt32(BaseLength * 1.5) + _offset, BaseLength);
-        private static readonly Size _rectangleSize1_7 = new(Convert.ToInt32(BaseLength * 1.7) + _offset, BaseLength);
-        private static readonly Size _rectangleSize1_75 = new(Convert.ToInt32(BaseLength * 1.75) + _offset, BaseLength);
-        private static readonly Size _rectangleSize2 = new((BaseLength * 2) + _offset, BaseLength);
-        private static readonly Size _rectangleSize2_75 = new(Convert.ToInt32(BaseLength * 2.75) + _offset, BaseLength);
-        private static readonly Size _reverseRectangleSize2 = new(BaseLength, (BaseLength * 2) + _offset);
-        private static readonly Size _spacebarSize = new(Convert.ToInt32(BaseLength * 5) + _offset, BaseLength);
-        private static readonly Size _returnSize = new(Convert.ToInt32(BaseLength * 1.25), (BaseLength * 2) + _offset);
+        private static readonly Size _squareSize = new(BaseKeyWidth, BaseKeyWidth);
+        private static readonly Size _squareSizeHalfHeight = new(BaseKeyWidth, BaseKeyWidth / 2);
+        private static readonly Size _rectangleSize1_25 = new(Convert.ToInt32(BaseKeyWidth * 1.25) + _offset, BaseKeyWidth);
+        private static readonly Size _rectangleSize1_5 = new(Convert.ToInt32(BaseKeyWidth * 1.5) + _offset, BaseKeyWidth);
+        private static readonly Size _rectangleSize1_7 = new(Convert.ToInt32(BaseKeyWidth * 1.7) + _offset, BaseKeyWidth);
+        private static readonly Size _rectangleSize1_75 = new(Convert.ToInt32(BaseKeyWidth * 1.75) + _offset, BaseKeyWidth);
+        private static readonly Size _rectangleSize2 = new((BaseKeyWidth * 2) + _offset, BaseKeyWidth);
+        private static readonly Size _rectangleSize2_75 = new(Convert.ToInt32(BaseKeyWidth * 2.75) + _offset, BaseKeyWidth);
+        private static readonly Size _reverseRectangleSize2 = new(BaseKeyWidth, (BaseKeyWidth * 2) + _offset);
+        private static readonly Size _spacebarSize = new(Convert.ToInt32(BaseKeyWidth * 5) + _offset, BaseKeyWidth);
+        private static readonly Size _returnSize = new(Convert.ToInt32(BaseKeyWidth * 1.25), (BaseKeyWidth * 2) + _offset);
 
         // Dummy button
         private readonly Key _lockScreen = new();
 
-        public CherryKeyboardLayout(int baseLength)
-            : base(baseLength)
+        public CherryKeyboardLayout(int baseKeyWidth)
+            : base(baseKeyWidth)
         {
             KeyboardLayoutType = KeyboardLayoutType.Cherry;
             InitiateKeys();
@@ -586,8 +586,8 @@
 
         private void DoLayout()
         {
-            var xCoordinate = BaseLength;
-            var yCoordinate = BaseLength;
+            var xCoordinate = BaseKeyWidth;
+            var yCoordinate = BaseKeyWidth;
 
             foreach (var key in LayoutKeys.Values)
             {
@@ -596,43 +596,43 @@
 
                 if (key.KeyCode == Keys.F4 || key.KeyCode == Keys.F12 || key.KeyCode == Keys.Pause)
                 {
-                    xCoordinate += BaseLength / 2;
+                    xCoordinate += BaseKeyWidth / 2;
                 }
                 else if (key.KeyCode == Keys.F8)
                 {
-                    xCoordinate += (BaseLength / 2) + _offset;
+                    xCoordinate += (BaseKeyWidth / 2) + _offset;
                 }
                 else if (key.KeyCode == Keys.Escape)
                 {
-                    xCoordinate += BaseLength + _offset;
+                    xCoordinate += BaseKeyWidth + _offset;
                 }
                 else if (key.KeyCode == Keys.Back || key.KeyCode == Keys.PageUp || (key.KeyCode == Keys.Return && key.KeyCodeValue > 0) || key.KeyCode == Keys.PageDown || key.KeyCode == Keys.RControlKey || key.KeyCode == Keys.Right)
                 {
-                    xCoordinate += BaseLength / 2;
+                    xCoordinate += BaseKeyWidth / 2;
                 }
                 else if (key.KeyCode == Keys.Oem1)
                 {
-                    xCoordinate += Convert.ToInt32(BaseLength * 0.20) + _offset;
+                    xCoordinate += Convert.ToInt32(BaseKeyWidth * 0.20) + _offset;
                 }
                 else if (key.KeyCode == Keys.Oem2)
                 {
-                    xCoordinate += Convert.ToInt32((BaseLength * 5.25) + (4 * _offset));
+                    xCoordinate += Convert.ToInt32((BaseKeyWidth * 5.25) + (4 * _offset));
                 }
                 else if (key.KeyCode == Keys.RShiftKey || key.KeyCode == Keys.Up)
                 {
-                    xCoordinate += Convert.ToInt32((BaseLength * 1.5) + _offset);
+                    xCoordinate += Convert.ToInt32((BaseKeyWidth * 1.5) + _offset);
                 }
 
                 // New row
                 if (key.KeyCode == Keys.LaunchApplication2)
                 {
-                    xCoordinate = BaseLength;
+                    xCoordinate = BaseKeyWidth;
                     yCoordinate += key.Height * 2;
                 }
                 else if (key.KeyCode == Keys.Subtract || key.KeyCode == Keys.Add || key.KeyCode == Keys.NumPad6 || (key.KeyCode == Keys.Enter && key.KeyCodeValue < 0))
                 {
-                    xCoordinate = BaseLength;
-                    yCoordinate += BaseLength + _offset;
+                    xCoordinate = BaseKeyWidth;
+                    yCoordinate += BaseKeyWidth + _offset;
                 }
             }
         }

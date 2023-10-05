@@ -5,18 +5,17 @@
         public Dictionary<int, Key> LayoutKeys { get; private set; } = new Dictionary<int, Key>();
         public Size Size { get; private set; }
         public KeyboardLayoutType KeyboardLayoutType { get; protected set; }
-        protected static int BaseLength { get; private set; }
+        protected static int BaseKeyWidth { get; private set; }
 
-        public KeyboardLayout(int baseLength)
+        public KeyboardLayout(int baseKeyWidth)
         {
-            BaseLength = baseLength;
+            BaseKeyWidth = baseKeyWidth;
         }
 
         public void KeyDownEvent(KeyboardHookEventArgs e)
         {
             var altKeyFlag = 0b100000;
             var extendedKeyFlag = 0b1;
-            var injectedKeyFlag = 0b10000;
 
             // Display a message to the user if the layout does not contain the pressed key
             if (!LayoutKeys.ContainsKey(e.KeyCode)
@@ -55,12 +54,6 @@
 
             LayoutKeys[keyCode].BackColor = ColorTranslator.FromHtml("#6c3891");
             LayoutKeys[keyCode].ForeColor = Color.White;
-
-            // Write to temporary test result file if the key stroke was injected, i.e. not a physical key stroke.
-            if (Convert.ToBoolean(e.KeyFlags & injectedKeyFlag))
-            {
-                Logger.LogKeyboardLayoutState(this);
-            }
         }
 
         protected void AddKeyToLayout(Key key)
@@ -90,8 +83,8 @@
                 maxY = Math.Max(maxY, key.Location.Y + key.Height);
             }
 
-            maxX += BaseLength;
-            maxY += BaseLength;
+            maxX += BaseKeyWidth;
+            maxY += BaseKeyWidth;
             Size = new Size(maxX, maxY);
         }
 

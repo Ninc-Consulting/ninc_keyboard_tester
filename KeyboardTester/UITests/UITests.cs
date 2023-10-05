@@ -1,25 +1,13 @@
-using Newtonsoft.Json;
-
 namespace UITests
 {
     [TestClass]
     public class UITests : TestSession
     {
-        [ClassInitialize]
-        public static void ClassInitialize(TestContext context)
-        {
-            Setup();
-        }
-
-        [ClassCleanup]
-        public static void ClassCleanup()
-        {
-            TearDown();
-        }
-
         [TestInitialize]
         public void TestInitialize()
         {
+            Setup();
+
             var messageDialogs = Session?.FindElementsByName("Key not found!");
             if (messageDialogs != null && messageDialogs.Any())
             {
@@ -34,6 +22,8 @@ namespace UITests
         [TestCleanup]
         public void TestCleanUp()
         {
+            TearDown();
+
             var folderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "KeyboardTester");
             var file = Path.Combine(folderPath, "KeyboardLayoutState.txt");
             if (File.Exists(file))
@@ -109,19 +99,23 @@ namespace UITests
             var keyFlagValueElement = Session.FindElementByAccessibilityId("KeyFlagsValue");
             var resetButtonElement = Session.FindElementByAccessibilityId("ResetButton");
 
+            Logger.Write("before key stroke: " + keyCodeValueElement.Text);
+
             SendKeyboardInput(
                 new KeyboardInput[]
                 {
                     new KeyboardInput
                     {
-                        Wvk = (ushort)Keys.A,
+                        Wvk = (ushort)Keys.B,
                     },
                     new KeyboardInput
                     {
-                        Wvk = (ushort)Keys.A,
+                        Wvk = (ushort)Keys.B,
                         DwFlags = (uint)KeyEventF.KeyUp
                     }
                 });
+
+            Logger.Write("after key stroke: " + keyCodeValueElement.Text);
 
             Assert.IsFalse(string.IsNullOrEmpty(keyCodeValueElement.Text));
             Assert.IsFalse(string.IsNullOrEmpty(keyNameValueElement.Text));

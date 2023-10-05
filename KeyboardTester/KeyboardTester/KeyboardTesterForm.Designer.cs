@@ -2,7 +2,7 @@
 {
     partial class KeyboardTesterForm
     {
-        private static readonly int _baseLength = Screen.FromPoint(Cursor.Position).Bounds.Width / 30;
+        private static readonly int _baseKeyWidth = Screen.FromPoint(Cursor.Position).Bounds.Width / 30;
 
         public InformationLayout InformationLayout { get; private set; }
         public KeyboardLayout KeyboardLayout { get; private set; }
@@ -62,7 +62,7 @@
             DropDownMenu.ValueMember = "KeyboardLayoutType";
             DropDownMenu.SelectedItem = chooseLayoutItem;
             DropDownMenu.Name = "DropDownMenu";
-            DropDownMenu.Location = new Point(_baseLength, _baseLength / 4);
+            DropDownMenu.Location = new Point(_baseKeyWidth, _baseKeyWidth / 4);
             DropDownMenu.DropDownStyle = ComboBoxStyle.DropDownList;
             DropDownMenu.TabStop = false;
             DropDownMenu.Width = GetDropDownWidth();
@@ -84,7 +84,7 @@
                     maxWidth = temp;
                 }
             }
-            return maxWidth + Convert.ToInt32(_baseLength / 2); // Add _baselength divided by 2 to account for the width of the dropdown button
+            return maxWidth + Convert.ToInt32(_baseKeyWidth / 2); // Add _baseKeyWidth divided by 2 to account for the width of the dropdown button
         }
 
         private void CustomInitializeComponent(KeyboardLayoutType keyboarLayoutType)
@@ -93,11 +93,11 @@
 
             KeyboardLayout = keyboarLayoutType switch
             {
-                KeyboardLayoutType.Cherry => new CherryKeyboardLayout(_baseLength),
-                KeyboardLayoutType.Toughbook => new ToughbookKeyboardLayout(_baseLength),
+                KeyboardLayoutType.Cherry => new CherryKeyboardLayout(_baseKeyWidth),
+                KeyboardLayoutType.Toughbook => new ToughbookKeyboardLayout(_baseKeyWidth),
                 _ => throw new ArgumentException($"Unknown keyboard layout: {keyboarLayoutType}"),
             };
-            InformationLayout = new(KeyboardLayout.Size, _baseLength);
+            InformationLayout = new(KeyboardLayout.Size, _baseKeyWidth);
 
             InformationLayout.ResetButton.Click += ResetButton_Click;
             InformationLayout.ExitButton.Click += ExitButton_Click;
@@ -120,10 +120,10 @@
 
             Controls.Add(InformationLayout.KeyCodeValue);
             Controls.Add(InformationLayout.KeyNameValue);
-            Controls.Add(InformationLayout.KeyFlagValue);
+            Controls.Add(InformationLayout.KeyFlagsValue);
             Controls.Add(InformationLayout.KeyCodeText);
             Controls.Add(InformationLayout.KeyNameText);
-            Controls.Add(InformationLayout.KeyFlagText);
+            Controls.Add(InformationLayout.KeyFlagsText);
             Controls.Add(InformationLayout.ResetButton);
             Controls.Add(InformationLayout.ExitButton);
         }

@@ -4,10 +4,10 @@
     {
         public TextBox KeyCodeText { get; private set; } = new();
         public TextBox KeyNameText { get; private set; } = new();
-        public TextBox KeyFlagText { get; private set; } = new();
+        public TextBox KeyFlagsText { get; private set; } = new();
         public TextBox KeyCodeValue { get; private set; } = new();
         public TextBox KeyNameValue { get; private set; } = new();
-        public TextBox KeyFlagValue { get; private set; } = new();
+        public TextBox KeyFlagsValue { get; private set; } = new();
         public Button ResetButton { get; private set; } = new();
         public Button ExitButton { get; private set; } = new();
 
@@ -18,34 +18,21 @@
         private readonly Size _buttonSize;
         private readonly Font? _font;
 
-        public InformationLayout(Size keboardLayoutSize, int baseLength)
+        public InformationLayout(Size keboardLayoutSize, int baseKeyWidth)
         {
-            _offset = Convert.ToInt32(baseLength / 2);
-            _textBoxSize = new(baseLength * 3, Convert.ToInt32(baseLength / 2));
-            _buttonSize = new(Convert.ToInt32(baseLength * 1.5), Convert.ToInt32(baseLength / 2));
+            _offset = Convert.ToInt32(baseKeyWidth / 2);
+            _textBoxSize = new(baseKeyWidth * 3, Convert.ToInt32(baseKeyWidth / 2));
+            _buttonSize = new(Convert.ToInt32(baseKeyWidth * 1.5), Convert.ToInt32(baseKeyWidth / 2));
             _font = KeyboardTesterForm.ScaledFont;
 
-            DoLayout(keboardLayoutSize, baseLength);
+            DoLayout(keboardLayoutSize, baseKeyWidth);
         }
 
         public void SetTextBoxValues(KeyboardHookEventArgs e)
         {
             KeyCodeValue.Text = "0x" + Convert.ToString(e.KeyCode, 16).PadLeft(2, '0').ToUpper();
             KeyNameValue.Text = e.KeyName;
-            KeyFlagValue.Text = Convert.ToString(e.KeyFlags, 2).PadLeft(8, '0');
-        }
-
-        public void ResetLayouts(KeyboardLayout keyboardLayout)
-        {
-            KeyCodeValue.Text = string.Empty;
-            KeyNameValue.Text = string.Empty;
-            KeyFlagValue.Text = string.Empty;
-
-            foreach (var key in keyboardLayout.LayoutKeys.Values)
-            {
-                key.BackColor = Color.FromArgb(0, 250, 250, 250);
-                key.ForeColor = Color.Black;
-            }
+            KeyFlagsValue.Text = Convert.ToString(e.KeyFlags, 2).PadLeft(8, '0');
         }
 
         public void ChangeLayout(KeyboardTesterForm form)
@@ -71,15 +58,28 @@
             form.ActiveControl = null;
         }
 
+        public void ResetLayouts(KeyboardLayout keyboardLayout)
+        {
+            KeyCodeValue.Text = string.Empty;
+            KeyNameValue.Text = string.Empty;
+            KeyFlagsValue.Text = string.Empty;
+
+            foreach (var key in keyboardLayout.LayoutKeys.Values)
+            {
+                key.BackColor = Color.FromArgb(0, 250, 250, 250);
+                key.ForeColor = Color.Black;
+            }
+        }
+
         public void Exit(KeyboardTesterForm form)
         {
             form.Close();
         }
 
-        private void DoLayout(Size keboardLayoutSize, int baseLength)
+        private void DoLayout(Size keboardLayoutSize, int baseKeyWidth)
         {
-            var yCoordinate = keboardLayoutSize.Height + baseLength;
-            var xCoordinate = baseLength;
+            var yCoordinate = keboardLayoutSize.Height + baseKeyWidth;
+            var xCoordinate = baseKeyWidth;
 
             KeyCodeText.BackColor = SystemColors.Control;
             KeyCodeText.BorderStyle = BorderStyle.None;
@@ -104,18 +104,18 @@
             KeyNameText.TabStop = false;
             KeyNameText.Font = _font;
 
-            KeyFlagText.BackColor = SystemColors.Control;
-            KeyFlagText.BorderStyle = BorderStyle.None;
-            KeyFlagText.Location = new Point(xCoordinate + _textBoxSize.Width + _offset, yCoordinate);
-            KeyFlagText.Name = "KeyFlagsText";
-            KeyFlagText.Size = _textBoxSize;
-            KeyFlagText.TabIndex = 14;
-            KeyFlagText.Text = "KeyFlags";
-            KeyFlagText.TextAlign = HorizontalAlignment.Center;
-            KeyFlagText.TabStop = false;
-            KeyFlagText.Font = _font;
+            KeyFlagsText.BackColor = SystemColors.Control;
+            KeyFlagsText.BorderStyle = BorderStyle.None;
+            KeyFlagsText.Location = new Point(xCoordinate + _textBoxSize.Width + _offset, yCoordinate);
+            KeyFlagsText.Name = "KeyFlagsText";
+            KeyFlagsText.Size = _textBoxSize;
+            KeyFlagsText.TabIndex = 14;
+            KeyFlagsText.Text = "KeyFlags";
+            KeyFlagsText.TextAlign = HorizontalAlignment.Center;
+            KeyFlagsText.TabStop = false;
+            KeyFlagsText.Font = _font;
 
-            xCoordinate = baseLength;
+            xCoordinate = baseKeyWidth;
 
             KeyCodeValue.Location = new Point(xCoordinate, yCoordinate + _textBoxSize.Height);
             KeyCodeValue.Name = "KeyCodeValue";
@@ -134,15 +134,15 @@
             KeyNameValue.TabStop = false;
             KeyNameValue.Font = _font;
 
-            KeyFlagValue.Location = new Point(xCoordinate + _textBoxSize.Width + _offset, yCoordinate + _textBoxSize.Height);
-            KeyFlagValue.Name = "KeyFlagsValue";
-            KeyFlagValue.Size = _textBoxSize;
-            KeyFlagValue.TabIndex = 11;
-            KeyFlagValue.TextAlign = HorizontalAlignment.Center;
-            KeyFlagValue.TabStop = false;
-            KeyFlagValue.Font = _font;
+            KeyFlagsValue.Location = new Point(xCoordinate + _textBoxSize.Width + _offset, yCoordinate + _textBoxSize.Height);
+            KeyFlagsValue.Name = "KeyFlagsValue";
+            KeyFlagsValue.Size = _textBoxSize;
+            KeyFlagsValue.TabIndex = 11;
+            KeyFlagsValue.TextAlign = HorizontalAlignment.Center;
+            KeyFlagsValue.TabStop = false;
+            KeyFlagsValue.Font = _font;
 
-            xCoordinate = keboardLayoutSize.Width - baseLength;
+            xCoordinate = keboardLayoutSize.Width - baseKeyWidth;
 
             xCoordinate -= _buttonSize.Width;
             ExitButton.Location = new Point(xCoordinate, yCoordinate + _textBoxSize.Height);
@@ -162,7 +162,7 @@
             ResetButton.TabStop = false;
             ResetButton.Font = _font;
 
-            Size = new Size(xCoordinate + baseLength, yCoordinate + _textBoxSize.Height + baseLength);
+            Size = new Size(xCoordinate + baseKeyWidth, yCoordinate + _textBoxSize.Height + baseKeyWidth);
         }
     }
 }

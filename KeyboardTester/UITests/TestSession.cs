@@ -1,4 +1,6 @@
-﻿namespace UITests
+﻿using OpenQA.Selenium.Remote;
+
+namespace UITests
 {
     public class TestSession
     {
