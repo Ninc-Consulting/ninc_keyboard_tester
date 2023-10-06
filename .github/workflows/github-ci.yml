@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+    
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  lint-job:
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '6.0.x'
+      - name: Check styling and linting
+        run: dotnet format --verbosity detailed --severity warn --verify-no-changes Keyboardtester/KeyboardTester.sln
+  build-job:
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '6.0.x'
+      - name: Build solution
+        run: dotnet build Keyboardtester/KeyboardTester.sln
