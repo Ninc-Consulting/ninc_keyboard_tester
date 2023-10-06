@@ -10,7 +10,7 @@ namespace UnitTests
         private const byte _noFlag = 0;
 
         [TestMethod]
-        public void A010_SendA_ToKeyDownEvent_ColorChanges()
+        public void A010_SendKeyDownA_ToKeyEvent_ColorChanges()
         {
             // Arrange
             var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105);
@@ -21,7 +21,7 @@ namespace UnitTests
             var keyEventArgs = new KeyboardHookEventArgs(_keyDownEvent, key.KeyCodeValue, _noFlag);
 
             // Act
-            form.KeyboardLayout.KeyDownEvent(keyEventArgs);
+            form.KeyboardLayout.KeyEvent(keyEventArgs);
 
             // Assert
             Assert.AreNotEqual(
@@ -30,7 +30,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void A020_SendLControlWithAltFlag_ToKeyDownEvent_ColorDoesNotChange()
+        public void A020_SendKeyDownLControlWithAltFlag_ToKeyDownEvent_ColorDoesNotChange()
         {
             // Arrange
             var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105);
@@ -41,7 +41,7 @@ namespace UnitTests
             var keyEventArgs = new KeyboardHookEventArgs(_keyDownEvent, key.KeyCodeValue, _altFlag);
 
             // Act
-            form.KeyboardLayout.KeyDownEvent(keyEventArgs);
+            form.KeyboardLayout.KeyEvent(keyEventArgs);
 
             // Assert
             Assert.AreEqual(
@@ -50,7 +50,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void A030_SendDeleteWithExtendedFlag_ToKeyDownEvent_ColorChanges()
+        public void A030_SendKeyDownDeleteWithExtendedFlag_ToKeyDownEvent_ColorChanges()
         {
             // Arrange
             var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105);
@@ -61,7 +61,7 @@ namespace UnitTests
             var keyEventArgs = new KeyboardHookEventArgs(_keyDownEvent, key.KeyCodeValue, _extendedFlag);
 
             // Act
-            form.KeyboardLayout.KeyDownEvent(keyEventArgs);
+            form.KeyboardLayout.KeyEvent(keyEventArgs);
 
             // Assert
             Assert.AreNotEqual(
@@ -70,7 +70,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void A040_SendDeleteWithoutExtendedFlag_ToKeyDownEvent_ColorDoesNotChange()
+        public void A040_SendKeyDownDeleteWithoutExtendedFlag_ToKeyDownEvent_ColorDoesNotChange()
         {
             // Arrange
             var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105);
@@ -81,7 +81,7 @@ namespace UnitTests
             var keyEventArgs = new KeyboardHookEventArgs(_keyDownEvent, key.KeyCodeValue, _noFlag);
 
             // Act
-            form.KeyboardLayout.KeyDownEvent(keyEventArgs);
+            form.KeyboardLayout.KeyEvent(keyEventArgs);
 
             // Assert
             Assert.AreEqual(
@@ -90,7 +90,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void A050_SendControlWithAltFlag_ToSetTextBoxValues_TextChangesToCorrectValues()
+        public void A050_SendKeyDownControlWithAltFlag_ToSetTextBoxValues_TextChangesToCorrectValues()
         {
             // Arrange
             var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105);

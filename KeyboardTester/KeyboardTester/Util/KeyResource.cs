@@ -12,7 +12,18 @@
         public static Key Alt { get; private set; }
         public static Key Pause { get; private set; }
         public static Key CapsLock { get; private set; }
+        public static Key KanaMode { get; private set; }
+        public static Key HangulMode { get; private set; }
+        public static Key HanguelMode { get; private set; }
+        public static Key JunjaMode { get; private set; }
+        public static Key FinalMode { get; private set; }
+        public static Key HanjaMode { get; private set; }
+        public static Key KanjiMode { get; private set; }
         public static Key Escape { get; private set; }
+        public static Key ImeConvert { get; private set; }
+        public static Key ImeNonConvert { get; private set; }
+        public static Key ImeAccept { get; private set; }
+        public static Key ImeModeChange { get; private set; }
         public static Key Spacebar { get; private set; }
         public static Key PageUp { get; private set; }
         public static Key PageDown { get; private set; }
@@ -22,10 +33,13 @@
         public static Key UpArrow { get; private set; }
         public static Key RightArrow { get; private set; }
         public static Key DownArrow { get; private set; }
+        public static Key Select { get; private set; }
         public static Key Print { get; private set; }
+        public static Key Execute { get; private set; }
         public static Key PrintScreen { get; private set; }
         public static Key Insert { get; private set; }
         public static Key Delete { get; private set; }
+        public static Key Help { get; private set; }
         public static Key D0 { get; private set; }
         public static Key D1 { get; private set; }
         public static Key D2 { get; private set; }
@@ -94,6 +108,18 @@
         public static Key F10 { get; private set; }
         public static Key F11 { get; private set; }
         public static Key F12 { get; private set; }
+        public static Key F13 { get; private set; }
+        public static Key F14 { get; private set; }
+        public static Key F15 { get; private set; }
+        public static Key F16 { get; private set; }
+        public static Key F17 { get; private set; }
+        public static Key F18 { get; private set; }
+        public static Key F19 { get; private set; }
+        public static Key F20 { get; private set; }
+        public static Key F21 { get; private set; }
+        public static Key F22 { get; private set; }
+        public static Key F23 { get; private set; }
+        public static Key F24 { get; private set; }
         public static Key NumLock { get; private set; }
         public static Key ScrollLock { get; private set; }
         public static Key LeftShift { get; private set; }
@@ -102,11 +128,22 @@
         public static Key RightControl { get; private set; }
         public static Key LeftAlt { get; private set; }
         public static Key RightAlt { get; private set; }
+        public static Key BrowserBack { get; private set; }
+        public static Key BrowserForward { get; private set; }
+        public static Key BrowserRefresh { get; private set; }
+        public static Key BrowserStop { get; private set; }
+        public static Key BrowserSearch { get; private set; }
+        public static Key BrowserFavorites { get; private set; }
         public static Key BrowserHome { get; private set; }
         public static Key VolumeMute { get; private set; }
         public static Key VolumeDown { get; private set; }
         public static Key VolumeUp { get; private set; }
+        public static Key MediaNextTrack { get; private set; }
+        public static Key MediaPreviousTrack { get; private set; }
+        public static Key MediaStop { get; private set; }
+        public static Key MediaPlayPause { get; private set; }
         public static Key LaunchMail { get; private set; }
+        public static Key SelectMedia { get; private set; }
         public static Key LaunchApplication1 { get; private set; }
         public static Key LaunchApplication2 { get; private set; }
         public static Key Oem1 { get; private set; }
@@ -122,6 +159,16 @@
         public static Key Oem7 { get; private set; }
         public static Key Oem8 { get; private set; }
         public static Key Oem102 { get; private set; }
+        public static Key ProcessKey { get; private set; }
+        public static Key Packet { get; private set; }
+        public static Key Attn { get; private set; }
+        public static Key Crsel { get; private set; }
+        public static Key Exsel { get; private set; }
+        public static Key EraseEof { get; private set; }
+        public static Key Play { get; private set; }
+        public static Key Zoom { get; private set; }
+        public static Key Pa1 { get; private set; }
+        public static Key OemClear { get; private set; }
         public static Key Fn { get; private set; }
 
         static KeyResource()
@@ -186,11 +233,83 @@
                 KeyCode = Keys.CapsLock,
                 Name = Keys.CapsLock.ToString()
             };
+            KanaMode = new Key()
+            {
+                KeyCodeValue = (int)Keys.KanaMode,
+                KeyCode = Keys.KanaMode,
+                Name = Keys.KanaMode.ToString()
+            };
+            HangulMode = new Key()
+            {
+                KeyCodeValue = (int)Keys.HangulMode,
+                KeyCode = Keys.HangulMode,
+                Name = Keys.HangulMode.ToString()
+            };
+            HanguelMode = new Key()
+            {
+                KeyCodeValue = (int)Keys.HanguelMode,
+                KeyCode = Keys.HanguelMode,
+                Name = Keys.HanguelMode.ToString()
+            };
+            JunjaMode = new Key()
+            {
+                KeyCodeValue = (int)Keys.JunjaMode,
+                KeyCode = Keys.JunjaMode,
+                Name = Keys.JunjaMode.ToString()
+            };
+            FinalMode = new Key()
+            {
+                KeyCodeValue = (int)Keys.FinalMode,
+                KeyCode = Keys.FinalMode,
+                Name = Keys.FinalMode.ToString()
+            };
+            FinalMode = new Key()
+            {
+                KeyCodeValue = (int)Keys.FinalMode,
+                KeyCode = Keys.FinalMode,
+                Name = Keys.FinalMode.ToString()
+            };
+            HanjaMode = new Key()
+            {
+                KeyCodeValue = (int)Keys.HanjaMode,
+                KeyCode = Keys.HanjaMode,
+                Name = Keys.HanjaMode.ToString()
+            };
+            KanjiMode = new Key()
+            {
+                KeyCodeValue = (int)Keys.KanjiMode,
+                KeyCode = Keys.KanjiMode,
+                Name = Keys.KanjiMode.ToString()
+            };
             Escape = new Key()
             {
                 KeyCodeValue = (int)Keys.Escape,
                 KeyCode = Keys.Escape,
                 Name = Keys.Escape.ToString()
+            };
+            ImeConvert = new Key()
+            {
+                KeyCodeValue = (int)Keys.IMEConvert,
+                KeyCode = Keys.IMEConvert,
+                Name = Keys.IMEConvert.ToString()
+            };
+            ImeNonConvert = new Key()
+            {
+                KeyCodeValue = (int)Keys.IMENonconvert,
+                KeyCode = Keys.IMENonconvert,
+                Name = Keys.IMENonconvert.ToString()
+            };
+            ImeAccept = new Key()
+            {
+                KeyCodeValue = (int)Keys.IMEAccept,
+                KeyCode = Keys.IMEAccept,
+                Name = Keys.IMEAccept.ToString()
+            };
+            ImeModeChange = new Key()
+            {
+                KeyCodeValue = (int)Keys.IMEModeChange,
+                KeyCode = Keys.IMEModeChange,
+                Name = Keys.IMEModeChange.ToString()
             };
             Spacebar = new Key()
             {
@@ -246,11 +365,23 @@
                 KeyCode = Keys.Down,
                 Name = Keys.Down.ToString()
             };
+            Select = new Key()
+            {
+                KeyCodeValue = (int)Keys.Select,
+                KeyCode = Keys.Select,
+                Name = Keys.Select.ToString()
+            };
             Print = new Key()
             {
                 KeyCodeValue = (int)Keys.Print,
                 KeyCode = Keys.Print,
                 Name = Keys.Print.ToString()
+            };
+            Execute = new Key()
+            {
+                KeyCodeValue = (int)Keys.Execute,
+                KeyCode = Keys.Execute,
+                Name = Keys.Execute.ToString()
             };
             PrintScreen = new Key()
             {
@@ -269,6 +400,12 @@
                 KeyCodeValue = (int)Keys.Delete,
                 KeyCode = Keys.Delete,
                 Name = Keys.Delete.ToString()
+            };
+            Help = new Key()
+            {
+                KeyCodeValue = (int)Keys.Help,
+                KeyCode = Keys.Help,
+                Name = Keys.Help.ToString()
             };
             D0 = new Key()
             {
@@ -684,6 +821,78 @@
                 KeyCode = Keys.F12,
                 Name = Keys.F12.ToString()
             };
+            F13 = new Key()
+            {
+                KeyCodeValue = (int)Keys.F13,
+                KeyCode = Keys.F13,
+                Name = Keys.F13.ToString()
+            };
+            F14 = new Key()
+            {
+                KeyCodeValue = (int)Keys.F14,
+                KeyCode = Keys.F14,
+                Name = Keys.F14.ToString()
+            };
+            F15 = new Key()
+            {
+                KeyCodeValue = (int)Keys.F15,
+                KeyCode = Keys.F15,
+                Name = Keys.F15.ToString()
+            };
+            F16 = new Key()
+            {
+                KeyCodeValue = (int)Keys.F16,
+                KeyCode = Keys.F16,
+                Name = Keys.F16.ToString()
+            };
+            F17 = new Key()
+            {
+                KeyCodeValue = (int)Keys.F17,
+                KeyCode = Keys.F17,
+                Name = Keys.F17.ToString()
+            };
+            F18 = new Key()
+            {
+                KeyCodeValue = (int)Keys.F18,
+                KeyCode = Keys.F18,
+                Name = Keys.F18.ToString()
+            };
+            F19 = new Key()
+            {
+                KeyCodeValue = (int)Keys.F19,
+                KeyCode = Keys.F19,
+                Name = Keys.F19.ToString()
+            };
+            F20 = new Key()
+            {
+                KeyCodeValue = (int)Keys.F20,
+                KeyCode = Keys.F20,
+                Name = Keys.F20.ToString()
+            };
+            F21 = new Key()
+            {
+                KeyCodeValue = (int)Keys.F21,
+                KeyCode = Keys.F21,
+                Name = Keys.F21.ToString()
+            };
+            F22 = new Key()
+            {
+                KeyCodeValue = (int)Keys.F22,
+                KeyCode = Keys.F22,
+                Name = Keys.F22.ToString()
+            };
+            F23 = new Key()
+            {
+                KeyCodeValue = (int)Keys.F23,
+                KeyCode = Keys.F23,
+                Name = Keys.F23.ToString()
+            };
+            F24 = new Key()
+            {
+                KeyCodeValue = (int)Keys.F24,
+                KeyCode = Keys.F24,
+                Name = Keys.F24.ToString()
+            };
             NumLock = new Key()
             {
                 KeyCodeValue = (int)Keys.NumLock,
@@ -732,6 +941,42 @@
                 KeyCode = Keys.RMenu,
                 Name = Keys.RMenu.ToString()
             };
+            BrowserBack = new Key()
+            {
+                KeyCodeValue = (int)Keys.BrowserBack,
+                KeyCode = Keys.BrowserBack,
+                Name = Keys.BrowserBack.ToString()
+            };
+            BrowserForward = new Key()
+            {
+                KeyCodeValue = (int)Keys.BrowserForward,
+                KeyCode = Keys.BrowserForward,
+                Name = Keys.BrowserForward.ToString()
+            };
+            BrowserRefresh = new Key()
+            {
+                KeyCodeValue = (int)Keys.BrowserRefresh,
+                KeyCode = Keys.BrowserRefresh,
+                Name = Keys.BrowserRefresh.ToString()
+            };
+            BrowserStop = new Key()
+            {
+                KeyCodeValue = (int)Keys.BrowserStop,
+                KeyCode = Keys.BrowserStop,
+                Name = Keys.BrowserStop.ToString()
+            };
+            BrowserSearch = new Key()
+            {
+                KeyCodeValue = (int)Keys.BrowserSearch,
+                KeyCode = Keys.BrowserSearch,
+                Name = Keys.BrowserSearch.ToString()
+            };
+            BrowserFavorites = new Key()
+            {
+                KeyCodeValue = (int)Keys.BrowserFavorites,
+                KeyCode = Keys.BrowserFavorites,
+                Name = Keys.BrowserFavorites.ToString()
+            };
             BrowserHome = new Key()
             {
                 KeyCodeValue = (int)Keys.BrowserHome,
@@ -756,11 +1001,41 @@
                 KeyCode = Keys.VolumeUp,
                 Name = Keys.VolumeUp.ToString()
             };
+            MediaNextTrack = new Key()
+            {
+                KeyCodeValue = (int)Keys.MediaNextTrack,
+                KeyCode = Keys.MediaNextTrack,
+                Name = Keys.MediaNextTrack.ToString()
+            };
+            MediaPreviousTrack = new Key()
+            {
+                KeyCodeValue = (int)Keys.MediaPreviousTrack,
+                KeyCode = Keys.MediaPreviousTrack,
+                Name = Keys.MediaPreviousTrack.ToString()
+            };
+            MediaStop = new Key()
+            {
+                KeyCodeValue = (int)Keys.MediaStop,
+                KeyCode = Keys.MediaStop,
+                Name = Keys.MediaStop.ToString()
+            };
+            MediaPlayPause = new Key()
+            {
+                KeyCodeValue = (int)Keys.MediaPlayPause,
+                KeyCode = Keys.MediaPlayPause,
+                Name = Keys.MediaPlayPause.ToString()
+            };
             LaunchMail = new Key()
             {
                 KeyCodeValue = (int)Keys.LaunchMail,
                 KeyCode = Keys.LaunchMail,
                 Name = Keys.LaunchMail.ToString()
+            };
+            SelectMedia = new Key()
+            {
+                KeyCodeValue = (int)Keys.SelectMedia,
+                KeyCode = Keys.SelectMedia,
+                Name = Keys.SelectMedia.ToString()
             };
             LaunchApplication1 = new Key()
             {
@@ -852,12 +1127,72 @@
                 KeyCode = Keys.Oem102,
                 Name = Keys.Oem102.ToString()
             };
+            ProcessKey = new Key()
+            {
+                KeyCodeValue = (int)Keys.ProcessKey,
+                KeyCode = Keys.ProcessKey,
+                Name = Keys.ProcessKey.ToString()
+            };
+            Packet = new Key()
+            {
+                KeyCodeValue = (int)Keys.Packet,
+                KeyCode = Keys.Packet,
+                Name = Keys.Packet.ToString()
+            };
+            Attn = new Key()
+            {
+                KeyCodeValue = (int)Keys.Attn,
+                KeyCode = Keys.Attn,
+                Name = Keys.Attn.ToString()
+            };
+            Crsel = new Key()
+            {
+                KeyCodeValue = (int)Keys.Crsel,
+                KeyCode = Keys.Crsel,
+                Name = Keys.Crsel.ToString()
+            };
+            Exsel = new Key()
+            {
+                KeyCodeValue = (int)Keys.Exsel,
+                KeyCode = Keys.Exsel,
+                Name = Keys.Exsel.ToString()
+            };
+            EraseEof = new Key()
+            {
+                KeyCodeValue = (int)Keys.EraseEof,
+                KeyCode = Keys.EraseEof,
+                Name = Keys.EraseEof.ToString()
+            };
+            Play = new Key()
+            {
+                KeyCodeValue = (int)Keys.Play,
+                KeyCode = Keys.Play,
+                Name = Keys.Play.ToString()
+            };
+            Zoom = new Key()
+            {
+                KeyCodeValue = (int)Keys.Zoom,
+                KeyCode = Keys.Zoom,
+                Name = Keys.Zoom.ToString()
+            };
+            Pa1 = new Key()
+            {
+                KeyCodeValue = (int)Keys.Pa1,
+                KeyCode = Keys.Pa1,
+                Name = Keys.Pa1.ToString()
+            };
+            OemClear = new Key()
+            {
+                KeyCodeValue = (int)Keys.OemClear,
+                KeyCode = Keys.OemClear,
+                Name = Keys.OemClear.ToString()
+            };
 
             // There is no KeyCodeValue for Fn button since it doesn't trigger any static Key event.
             // Fn only alters the values of other keys when they are pressed.
             Fn = new Key()
             {
-                KeyCodeValue = -1,
+                KeyCodeValue = (int)Keys.None,
                 KeyCode = Keys.None,
                 Name = "Fn"
             };
