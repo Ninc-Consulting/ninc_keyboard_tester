@@ -11,6 +11,8 @@
         public KeyboardLayout(int baseKeyWidth)
         {
             BaseKeyWidth = baseKeyWidth;
+
+
         }
 
         public void KeyEvent(KeyboardHookEventArgs e)
