@@ -4,13 +4,14 @@ namespace UnitTests
     public class UnitTests
     {
         private const int _keyDownEvent = 0x0100;
+        private const int _keyUpEvent = 0x0101;
 
         private const byte _extendedFlag = 0b1;
         private const byte _altFlag = 0b100000;
         private const byte _noFlag = 0;
 
         [TestMethod]
-        public void A010_SendKeyDownA_ToKeyEvent_ColorChanges()
+        public void A010_SendKeyDownA_ToKeyEvent_BackColorChanges()
         {
             // Arrange
             var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105);
@@ -30,7 +31,27 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void A020_SendKeyDownLControlWithAltFlag_ToKeyDownEvent_ColorDoesNotChange()
+        public void A020_SendKeyUpA_ToKeyEvent_BorderColorChanges()
+        {
+            // Arrange
+            var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105);
+            var key = form.KeyboardLayout.LayoutKeys
+                .Select(x => x.Value)
+                .Single(x => x.KeyCode == Keys.A);
+            var previousBorderColor = key.FlatAppearance.BorderColor;
+            var keyEventArgs = new KeyboardHookEventArgs(_keyUpEvent, key.KeyCodeValue, _noFlag);
+
+            // Act
+            form.KeyboardLayout.KeyEvent(keyEventArgs);
+
+            // Assert
+            Assert.AreNotEqual(
+                notExpected: previousBorderColor,
+                actual: key.FlatAppearance.BorderColor);
+        }
+
+        [TestMethod]
+        public void A030_SendKeyDownLControlWithAltFlag_ToKeyEvent_BackColorDoesNotChange()
         {
             // Arrange
             var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105);
@@ -50,7 +71,36 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void A030_SendKeyDownDeleteWithExtendedFlag_ToKeyDownEvent_ColorChanges()
+        public void A040_SendKeyUpLControlWithAltFlag_ToKeyEvent_BorderColorDoesNotChange()
+        {
+            // Arrange
+            var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105);
+
+            // Send AltGr to store as latest key down value
+            var altGr = form.KeyboardLayout.LayoutKeys
+               .Select(x => x.Value)
+               .Single(x => x.KeyCode == Keys.RMenu);
+            var keyEventArgs = new KeyboardHookEventArgs(_keyDownEvent, altGr.KeyCodeValue, _altFlag);
+            form.KeyboardLayout.KeyEvent(keyEventArgs);
+
+            // Send left control key up
+            var leftControlKey = form.KeyboardLayout.LayoutKeys
+                .Select(x => x.Value)
+                .Single(x => x.KeyCode == Keys.LControlKey);
+            var previousBorderColor = leftControlKey.FlatAppearance.BorderColor;
+            keyEventArgs = new KeyboardHookEventArgs(_keyUpEvent, leftControlKey.KeyCodeValue, _noFlag);
+
+            // Act
+            form.KeyboardLayout.KeyEvent(keyEventArgs);
+
+            // Assert
+            Assert.AreEqual(
+                expected: previousBorderColor,
+                actual: leftControlKey.FlatAppearance.BorderColor);
+        }
+
+        [TestMethod]
+        public void A050_SendKeyDownDeleteWithExtendedFlag_ToKeyEvent_BackColorChanges()
         {
             // Arrange
             var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105);
@@ -70,7 +120,27 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void A040_SendKeyDownDeleteWithoutExtendedFlag_ToKeyDownEvent_ColorDoesNotChange()
+        public void A060_SendKeyUpDeleteWithExtendedFlag_ToKeyEvent_BorderColorChanges()
+        {
+            // Arrange
+            var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105);
+            var key = form.KeyboardLayout.LayoutKeys
+                .Select(x => x.Value)
+                .Single(x => x.KeyCode == Keys.Delete);
+            var previousBorderColor = key.FlatAppearance.BorderColor;
+            var keyEventArgs = new KeyboardHookEventArgs(_keyUpEvent, key.KeyCodeValue, _extendedFlag);
+
+            // Act
+            form.KeyboardLayout.KeyEvent(keyEventArgs);
+
+            // Assert
+            Assert.AreNotEqual(
+                notExpected: previousBorderColor,
+                actual: key.FlatAppearance.BorderColor);
+        }
+
+        [TestMethod]
+        public void A070_SendKeyDownDeleteWithoutExtendedFlag_ToKeyEvent_BackColorDoesNotChange()
         {
             // Arrange
             var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105);
@@ -90,7 +160,27 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void A050_SendKeyDownControlWithAltFlag_ToSetTextBoxValues_TextChangesToCorrectValues()
+        public void A080_SendKeyUpDeleteWithoutExtendedFlag_ToKeyEvent_BorderColorDoesNotChange()
+        {
+            // Arrange
+            var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105);
+            var key = form.KeyboardLayout.LayoutKeys
+                .Select(x => x.Value)
+                .Single(x => x.KeyCode == Keys.Delete);
+            var previousBorderColor = key.FlatAppearance.BorderColor;
+            var keyEventArgs = new KeyboardHookEventArgs(_keyUpEvent, key.KeyCodeValue, _noFlag);
+
+            // Act
+            form.KeyboardLayout.KeyEvent(keyEventArgs);
+
+            // Assert
+            Assert.AreEqual(
+                expected: previousBorderColor,
+                actual: key.FlatAppearance.BorderColor);
+        }
+
+        [TestMethod]
+        public void A090_SendKeyDownControlWithAltFlag_ToSetTextBoxValues_TextChangesToCorrectValues()
         {
             // Arrange
             var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105);
@@ -128,10 +218,10 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void A060_SendKeyboardLayout_ToResetLayouts_LayoutsAreReset()
+        public void A100_SendKeyboardLayout_ToResetLayouts_LayoutsAreReset()
         {
             // Arrange
-            var defaultColor = Color.FromArgb(0, 250, 250, 250);
+            var defaultColor = SystemColors.ControlLight;
             var purpleColor = ColorTranslator.FromHtml("#6c3891");
             var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105);
             var previousCode = form.InformationLayout.KeyCodeValue.Text = "0x41";
@@ -174,12 +264,12 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void A070_SendNewKeyboardLayoutType_ToChangeLayout_LayoutIsChanged()
+        public void A110_SendNewKeyboardLayoutType_ToChangeLayout_LayoutIsChanged()
         {
             // Arrange
             var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105);
             var previousKeyboardLayoutType = form.KeyboardLayout.KeyboardLayoutType;
-            form.DropDownMenu.SelectedValue = KeyboardLayoutType.Toughbook;
+            form.DropDownMenu.SelectedValue = KeyboardLayoutType.AllKeys;
 
             // Act
             form.InformationLayout.ChangeLayout(form);
@@ -189,7 +279,7 @@ namespace UnitTests
                 expected: KeyboardLayoutType.ISO_105,
                 actual: previousKeyboardLayoutType);
             Assert.AreEqual(
-                expected: KeyboardLayoutType.Toughbook,
+                expected: KeyboardLayoutType.AllKeys,
                 actual: form.KeyboardLayout.KeyboardLayoutType);
         }
     }

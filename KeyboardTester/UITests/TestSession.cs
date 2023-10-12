@@ -1,6 +1,4 @@
-﻿using OpenQA.Selenium.Remote;
-
-namespace UITests
+﻿namespace UITests
 {
     public class TestSession
     {
@@ -12,7 +10,7 @@ namespace UITests
         {
         }
 
-        public static void Setup()
+        protected static void Setup()
         {
             if (Session == null)
             {
@@ -44,7 +42,7 @@ namespace UITests
             }
         }
 
-        public static void TearDown()
+        protected static void TearDown()
         {
             if (Session != null)
             {

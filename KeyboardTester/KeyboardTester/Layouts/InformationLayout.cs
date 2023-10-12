@@ -2,6 +2,8 @@
 {
     public class InformationLayout
     {
+        public Button KeyDownButtonExample { get; private set; } = new();
+        public Button KeyUpButtonExample { get; private set; } = new();
         public TextBox KeyCodeText { get; private set; } = new();
         public TextBox KeyNameText { get; private set; } = new();
         public TextBox KeyFlagsText { get; private set; } = new();
@@ -10,7 +12,6 @@
         public TextBox KeyFlagsValue { get; private set; } = new();
         public Button ResetButton { get; private set; } = new();
         public Button ExitButton { get; private set; } = new();
-
         public Size Size { get; private set; }
 
         private readonly int _offset;
@@ -54,7 +55,9 @@
                 form.Controls.Remove(textBoxControl);
             }
 
+            KeyResource.SetDefaultTextValues();
             form.ReInitializeComponent(selectedValue);
+            ResetLayouts(form.KeyboardLayout);
             form.ActiveControl = null;
         }
 
@@ -66,7 +69,7 @@
 
             foreach (var key in keyboardLayout.LayoutKeys.Values)
             {
-                key.BackColor = Color.FromArgb(0, 250, 250, 250);
+                key.BackColor = SystemColors.ControlLight;
                 key.ForeColor = Color.Black;
                 key.FlatStyle = FlatStyle.Standard;
             }
@@ -79,15 +82,38 @@
 
         private void DoLayout(Size keboardLayoutSize, int baseKeyWidth)
         {
-            var yCoordinate = keboardLayoutSize.Height + baseKeyWidth;
+            var yCoordinate = keboardLayoutSize.Height;
             var xCoordinate = baseKeyWidth;
+
+            KeyDownButtonExample.BackColor = ColorTranslator.FromHtml("#6c3891");
+            KeyDownButtonExample.ForeColor = Color.White;
+            KeyDownButtonExample.Location = new Point(xCoordinate, yCoordinate);
+            KeyDownButtonExample.Name = "KeyDownButtonExample";
+            KeyDownButtonExample.Size = new Size(baseKeyWidth, baseKeyWidth);
+            KeyDownButtonExample.Text = "Key Down";
+            KeyDownButtonExample.TabStop = false;
+            KeyDownButtonExample.Font = _font;
+
+            xCoordinate += KeyDownButtonExample.Width + _offset;
+            KeyUpButtonExample.FlatStyle = FlatStyle.Flat;
+            KeyUpButtonExample.FlatAppearance.BorderSize = Convert.ToInt32(baseKeyWidth / 20);
+            KeyUpButtonExample.FlatAppearance.BorderColor = Color.Red;
+            KeyUpButtonExample.BackColor = SystemColors.ControlLight;
+            KeyUpButtonExample.Location = new Point(xCoordinate, yCoordinate);
+            KeyUpButtonExample.Name = "KeyUpButtonExample";
+            KeyUpButtonExample.Size = new Size(baseKeyWidth, baseKeyWidth);
+            KeyUpButtonExample.Text = "Key Up";
+            KeyUpButtonExample.TabStop = false;
+            KeyUpButtonExample.Font = _font;
+
+            xCoordinate = baseKeyWidth;
+            yCoordinate += baseKeyWidth + _offset;
 
             KeyCodeText.BackColor = SystemColors.Control;
             KeyCodeText.BorderStyle = BorderStyle.None;
             KeyCodeText.Location = new Point(xCoordinate, yCoordinate);
             KeyCodeText.Name = "KeyCodeText";
             KeyCodeText.Size = _textBoxSize;
-            KeyCodeText.TabIndex = 12;
             KeyCodeText.Text = "KeyCode";
             KeyCodeText.TextAlign = HorizontalAlignment.Center;
             KeyCodeText.TabStop = false;
@@ -99,7 +125,6 @@
             KeyNameText.Location = new Point(xCoordinate, yCoordinate);
             KeyNameText.Name = "KeyNameText";
             KeyNameText.Size = _textBoxSize;
-            KeyNameText.TabIndex = 13;
             KeyNameText.Text = "KeyName";
             KeyNameText.TextAlign = HorizontalAlignment.Center;
             KeyNameText.TabStop = false;
@@ -110,7 +135,6 @@
             KeyFlagsText.Location = new Point(xCoordinate + _textBoxSize.Width + _offset, yCoordinate);
             KeyFlagsText.Name = "KeyFlagsText";
             KeyFlagsText.Size = _textBoxSize;
-            KeyFlagsText.TabIndex = 14;
             KeyFlagsText.Text = "KeyFlags";
             KeyFlagsText.TextAlign = HorizontalAlignment.Center;
             KeyFlagsText.TabStop = false;
@@ -121,7 +145,6 @@
             KeyCodeValue.Location = new Point(xCoordinate, yCoordinate + _textBoxSize.Height);
             KeyCodeValue.Name = "KeyCodeValue";
             KeyCodeValue.Size = _textBoxSize;
-            KeyCodeValue.TabIndex = 9;
             KeyCodeValue.TextAlign = HorizontalAlignment.Center;
             KeyCodeValue.TabStop = false;
             KeyCodeValue.Font = _font;
@@ -130,7 +153,6 @@
             KeyNameValue.Location = new Point(xCoordinate, yCoordinate + _textBoxSize.Height);
             KeyNameValue.Name = "KeyNameValue";
             KeyNameValue.Size = _textBoxSize;
-            KeyNameValue.TabIndex = 10;
             KeyNameValue.TextAlign = HorizontalAlignment.Center;
             KeyNameValue.TabStop = false;
             KeyNameValue.Font = _font;
@@ -138,7 +160,6 @@
             KeyFlagsValue.Location = new Point(xCoordinate + _textBoxSize.Width + _offset, yCoordinate + _textBoxSize.Height);
             KeyFlagsValue.Name = "KeyFlagsValue";
             KeyFlagsValue.Size = _textBoxSize;
-            KeyFlagsValue.TabIndex = 11;
             KeyFlagsValue.TextAlign = HorizontalAlignment.Center;
             KeyFlagsValue.TabStop = false;
             KeyFlagsValue.Font = _font;

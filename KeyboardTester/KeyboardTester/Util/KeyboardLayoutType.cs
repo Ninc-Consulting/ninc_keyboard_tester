@@ -4,6 +4,7 @@
     {
         None,
         ISO_105,
-        Toughbook
+        Toughbook,
+        AllKeys
     }
 }

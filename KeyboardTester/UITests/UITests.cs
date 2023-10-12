@@ -3,27 +3,10 @@ namespace UITests
     [TestClass]
     public class UITests : TestSession
     {
-        [TestInitialize]
-        public void TestInitialize()
+        [ClassCleanup]
+        public static void ClassCleanUp()
         {
-            Setup();
-
-            var messageDialogs = Session?.FindElementsByName("Key not found!");
-            if (messageDialogs != null && messageDialogs.Any())
-            {
-                foreach (var messageDialog in messageDialogs)
-                {
-                    var okButton = messageDialog.FindElementsByName("OK").Single();
-                    okButton.Click();
-                }
-            }
-        }
-
-        [TestCleanup]
-        public void TestCleanUp()
-        {
-            TearDown();
-
+            // Delete KeyboardLayoutState.txt after all tests are done
             var folderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "KeyboardTester");
             var file = Path.Combine(folderPath, "KeyboardLayoutState.txt");
             if (File.Exists(file))
@@ -32,43 +15,48 @@ namespace UITests
             }
         }
 
-        [TestMethod]
-        public void A010_ChangeLayout_WithDropDownMenu()
+        [TestInitialize]
+        public void TestInitialize()
         {
-            // Arrange
-            Assert.IsNotNull(Session);
-            var numPad5CountBefore = Session.FindElementsByAccessibilityId("NumPad5").Count;
+            Setup();
+        }
 
-            // Act
-            var comboBoxElement = Session.FindElementByAccessibilityId("DropDownMenu");
-            comboBoxElement.Click();
-            comboBoxElement.FindElementByName("Keyboard layout: 'Cherry'").Click();
-
-            // Assert
-            Assert.AreEqual(
-                expected: 1,
-                actual: Session.FindElementsByAccessibilityId("NumPad5").Count,
-                message: "Could not find NumPad5. The layout has not changed!");
-            Assert.AreEqual(
-                expected: 0,
-                actual: numPad5CountBefore,
-                message: "NumPad5 should not be found before the layout is changed!");
+        [TestCleanup]
+        public void TestCleanUp()
+        {
+            TearDown();
         }
 
         [TestMethod]
-        public void A020_InCherryLayout_PressAndReleaseKeyA_BackColorIsPurple()
+        public void A010_ChangeLayout_WithDropDownMenu_LayoutIsChanged()
         {
             // Arrange
             Assert.IsNotNull(Session);
-            var comboBoxElement = Session.FindElementByAccessibilityId("DropDownMenu");
-            comboBoxElement.Click();
-            comboBoxElement.FindElementByName("Keyboard layout: 'Cherry'").Click();
-            var key = Keys.A;
+            var key = Keys.Space;
 
-            var keyboardLayoutDto = GetKeyboardLayoutState();
-            Assert.IsNull(keyboardLayoutDto);
+            // Send key to create file for initial KeyboardState
+            SendKeyboardInput(
+                new KeyboardInput[]
+                {
+                    new KeyboardInput
+                    {
+                        Wvk = (ushort)key,
+                    },
+                    new KeyboardInput
+                    {
+                        Wvk = (ushort)key,
+                        DwFlags = (uint)KeyEventF.KeyUp
+                    }
+                });
+            var initialKeyboardLayoutDto = GetKeyboardLayoutState();
+            Assert.IsNotNull(initialKeyboardLayoutDto);
 
             // Act
+            var comboBoxElement = Session.FindElementByAccessibilityId("DropDownMenu");
+            comboBoxElement.Click();
+            comboBoxElement.FindElementByName("Keyboard layout: 'All Keys'").Click();
+
+            // Send key to update file with current KeyboardState
             SendKeyboardInput(
                 new KeyboardInput[]
                 {
@@ -84,13 +72,16 @@ namespace UITests
                 });
 
             // Assert
-            keyboardLayoutDto = GetKeyboardLayoutState();
-            Assert.IsNotNull(keyboardLayoutDto);
-            Assert.AreEqual("ff6c3891", keyboardLayoutDto.LayoutKeys.Single(keyDto => keyDto.KeyCode == key).BackColor.Name);
+            var currentKeyboardLayoutDto = GetKeyboardLayoutState();
+            Assert.IsNotNull(currentKeyboardLayoutDto);
+            Assert.AreNotEqual(
+                notExpected: initialKeyboardLayoutDto.KeyboardLayoutType,
+                actual: currentKeyboardLayoutDto.KeyboardLayoutType,
+                message: "The layout has not changed!");
         }
 
         [TestMethod]
-        public void A030_ClickResetButton_TextBoxesAreReset()
+        public void A020_ClickResetButton_TextBoxesAreReset()
         {
             // Arrange
             Assert.IsNotNull(Session);
@@ -124,6 +115,47 @@ namespace UITests
             Assert.IsTrue(string.IsNullOrEmpty(keyCodeValueElement.Text));
             Assert.IsTrue(string.IsNullOrEmpty(keyNameValueElement.Text));
             Assert.IsTrue(string.IsNullOrEmpty(keyFlagValueElement.Text));
+        }
+
+        [TestMethod]
+        [DataRow(Keys.A)]
+        [DataRow(Keys.B)]
+        [DataRow(Keys.C)]
+        [DataRow(Keys.D)]
+        [DataRow(Keys.E)]
+        public void A030_InCherryLayout_PressAndReleaseKey_BackColorAndBorderColorIsCorrect(Keys key)
+        {
+            // Arrange
+            Assert.IsNotNull(Session);
+
+            // Act
+            SendKeyboardInput(
+                new KeyboardInput[]
+                {
+                    new KeyboardInput
+                    {
+                        Wvk = (ushort)key,
+                    },
+                    new KeyboardInput
+                    {
+                        Wvk = (ushort)key,
+                        DwFlags = (uint)KeyEventF.KeyUp
+                    }
+                });
+
+            // Assert
+            var keyboardLayoutDto = GetKeyboardLayoutState();
+            Assert.IsNotNull(keyboardLayoutDto);
+
+            var keyDto = keyboardLayoutDto.LayoutKeys.Single(keyDto => keyDto.KeyCode == key);
+            Assert.AreEqual(
+                expected: "ff6c3891",
+                actual: keyDto.BackColor.Name,
+                message: $"Input:<{key}>");
+            Assert.AreEqual(
+                expected: Color.Red,
+                actual: keyDto.BorderColor,
+                message: $"Input:<{key}>");
         }
 
         private static KeyboardLayoutDto? GetKeyboardLayoutState()

@@ -23,13 +23,7 @@ namespace KeyboardTester
             KeyboardLayout.KeyEvent(e);
             InformationLayout.SetTextBoxValues(e);
 
-            // Write to temporary log file to record the new state of the keyboard layout if the flag indicates that the key stroke was injected, i.e. a UITest.
-            // OBS! It is not guaranteed that it's a UITest just because the key is injected, but all key strokes from UITests are injected.
-            var injectedFlag = 0b10000;
-            if (Convert.ToBoolean(e.KeyFlags & injectedFlag))
-            {
-                Logger.LogKeyboardLayoutState(KeyboardLayout);
-            }
+            Logger.LogKeyboardLayoutState(KeyboardLayout);
         }
 
         private void DropDownMenu_SelectedValueChanged(object? sender, EventArgs e)
@@ -45,6 +39,17 @@ namespace KeyboardTester
         private void ExitButton_Click(object? sender, EventArgs e)
         {
             InformationLayout.Exit(this);
+        }
+
+        private void KeyboardTesterForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Delete KeyboardLayoutState.txt if it has been created, since it is only used for UI tests
+            var folderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "KeyboardTester");
+            var file = Path.Combine(folderPath, "KeyboardLayoutState.txt");
+            if (File.Exists(file))
+            {
+                File.Delete(file);
+            }
         }
     }
 }

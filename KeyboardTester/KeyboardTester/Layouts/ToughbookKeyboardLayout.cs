@@ -15,6 +15,10 @@
         private static readonly Size _rectangleSize2 = new((BaseKeyWidth * 2) + _offset, BaseKeyWidth);
         private static readonly Size _spaceBarSize = new(Convert.ToInt32(BaseKeyWidth * 3.5) + Convert.ToInt32(_offset * 2.5), BaseKeyWidth);
 
+        // There is no KeyCodeValue for Fn button since it doesn't trigger any static Key event.
+        // Fn only alters the values of other keys when they are pressed. Adding dummy button for the GUI
+        private Key Fn { get; set; } = new();
+
         public ToughbookKeyboardLayout(int baseKeyWidth)
             : base(baseKeyWidth)
         {
@@ -312,10 +316,10 @@
             KeyResource.L.TextAlign = ContentAlignment.TopLeft;
             AddKeyToLayout(KeyResource.L);
 
-            KeyResource.Oem3.Size = _squareSize;
-            KeyResource.Oem3.Text = "Ö";
-            KeyResource.Oem3.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.Oem3);
+            KeyResource.OemTilde.Size = _squareSize;
+            KeyResource.OemTilde.Text = "Ö";
+            KeyResource.OemTilde.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(KeyResource.OemTilde);
 
             KeyResource.Oem7.Size = _squareSize;
             KeyResource.Oem7.Text = "Ä";
@@ -402,10 +406,12 @@
             KeyResource.LeftControl.TextAlign = ContentAlignment.MiddleCenter;
             AddKeyToLayout(KeyResource.LeftControl);
 
-            KeyResource.Fn.Size = _squareSize;
-            KeyResource.Fn.Text = "Fn";
-            KeyResource.Fn.TextAlign = ContentAlignment.MiddleCenter;
-            AddKeyToLayout(KeyResource.Fn);
+            Fn.Size = _squareSize;
+            Fn.Name = "Fn";
+            Fn.Text = "Fn";
+            Fn.TextAlign = ContentAlignment.MiddleCenter;
+            Fn.Enabled = false;
+            AddKeyToLayout(Fn);
 
             KeyResource.LeftWindows.Size = _squareSize;
             KeyResource.LeftWindows.Text = "⊞";

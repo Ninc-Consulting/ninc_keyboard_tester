@@ -49,6 +49,12 @@
                 KeyboardLayoutText = "Keyboard layout: 'Toughbook'"
             };
             comboBoxItems.Add(toughbookItem);
+            var allKeys = new ComboBoxKeyboardLayoutItem()
+            {
+                KeyboardLayoutType = KeyboardLayoutType.AllKeys,
+                KeyboardLayoutText = "Keyboard layout: 'All Keys'"
+            };
+            comboBoxItems.Add(allKeys);
 
             DropDownMenu.Font = ScaledFont;
             DropDownMenu.DataSource = comboBoxItems;
@@ -89,6 +95,7 @@
             {
                 KeyboardLayoutType.ISO_105 => new Iso105KeyboardLayout(_baseKeyWidth),
                 KeyboardLayoutType.Toughbook => new ToughbookKeyboardLayout(_baseKeyWidth),
+                KeyboardLayoutType.AllKeys => new AllKeysLayout(_baseKeyWidth),
                 _ => throw new ArgumentException($"Unknown keyboard layout: {keyboarLayoutType}"),
             };
             InformationLayout = new(KeyboardLayout.Size, _baseKeyWidth);
@@ -104,6 +111,7 @@
             Rectangle screen = Screen.FromPoint(Cursor.Position).Bounds;
             ClientSize = GetTotalSize();
             Location = new Point(screen.Left + (screen.Width - Width) / 2, screen.Top + (screen.Height - Height) / 2);
+            FormClosing += KeyboardTesterForm_FormClosing;
 
             ResumeLayout(false);
         }
@@ -112,6 +120,8 @@
         {
             Controls.AddRange(KeyboardLayout.LayoutKeys.Values.ToArray());
 
+            Controls.Add(InformationLayout.KeyDownButtonExample);
+            Controls.Add(InformationLayout.KeyUpButtonExample);
             Controls.Add(InformationLayout.KeyCodeValue);
             Controls.Add(InformationLayout.KeyNameValue);
             Controls.Add(InformationLayout.KeyFlagsValue);

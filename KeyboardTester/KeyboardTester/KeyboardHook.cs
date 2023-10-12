@@ -15,10 +15,13 @@ namespace KeyboardTester
     /// </summary>
     public class KeyboardHook : IDisposable
     {
-        // Variables used in the call to SetWindowsHookEx
         private readonly IntPtr _hookID = IntPtr.Zero;
+        private delegate IntPtr HookHandlerDelegate(int nCode, IntPtr wParam, ref KbDllHookStruct lParam);
 
-        internal delegate IntPtr HookHandlerDelegate(int nCode, IntPtr wParam, ref KbDllHookStruct lParam);
+        // Disable warning becuase the handler has to be static so it can survive the duration of the application
+#pragma warning disable S1450 // Private fields only used as local variables in methods should become local variables
+        private static HookHandlerDelegate _hookHandler = default!;
+#pragma warning restore S1450 // Private fields only used as local variables in methods should become local variables
 
         /// <summary>
         /// Event triggered when a keystroke is intercepted by the
@@ -44,14 +47,18 @@ namespace KeyboardTester
             // Keyboard API constant
             var whKeyboardLl = 13;
 
-            var proc = new HookHandlerDelegate(HookCallback);
+            // Disable warning because we can't initialize it statically
+#pragma warning disable S3010 // Static fields should not be updated in constructors
+            _hookHandler = new HookHandlerDelegate(HookCallback);
+#pragma warning restore S3010 // Static fields should not be updated in constructors
+
             using Process curProcess = Process.GetCurrentProcess();
             if (curProcess.MainModule is not null)
             {
                 using ProcessModule curModule = curProcess.MainModule;
                 if (curModule.ModuleName is not null)
                 {
-                    _hookID = NativeMethods.SetWindowsHookEx(whKeyboardLl, proc, NativeMethods.GetModuleHandle(curModule.ModuleName), 0);
+                    _hookID = NativeMethods.SetWindowsHookEx(whKeyboardLl, _hookHandler, NativeMethods.GetModuleHandle(curModule.ModuleName), 0);
                 }
             }
         }
@@ -145,7 +152,7 @@ namespace KeyboardTester
                 }
             }
         }
-        #endregion
+        #endregion Event Handling
 
         /// <summary>
         /// Releases the keyboard hook.
@@ -186,7 +193,6 @@ namespace KeyboardTester
             return NativeMethods.CallNextHookEx(_hookID, nCode, wParam, ref lParam);
         }
 
-        [ComVisible(false)]
         private static class NativeMethods
         {
             [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]

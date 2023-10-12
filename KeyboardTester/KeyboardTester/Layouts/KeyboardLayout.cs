@@ -11,8 +11,6 @@
         public KeyboardLayout(int baseKeyWidth)
         {
             BaseKeyWidth = baseKeyWidth;
-
-
         }
 
         public void KeyEvent(KeyboardHookEventArgs e)
@@ -21,6 +19,7 @@
             var extendedKeyFlag = 0b1;
 
             // Do nothing if the layout does not contain the key
+            // Do nothing if NumPad Enter was pressed and the layout does not contain NumPad Enter
             if (!LayoutKeys.ContainsKey(e.KeyCode)
                 || ((Keys)e.KeyCode == Keys.Return && Convert.ToBoolean(e.KeyFlags & extendedKeyFlag) && !LayoutKeys.ContainsKey(-e.KeyCode)))
             {
@@ -28,13 +27,14 @@
             }
 
             // Since we can't intercept the NumLock functionality in the webhook, we have to handle each key manually.
-            if (NumPadKeyIsPressedWhileNumLockIsOff(e))
+            // If all keys are shown, we don't have to handle the key differently
+            if (KeyboardLayoutType != KeyboardLayoutType.AllKeys && NumPadKeyIsPressedWhileNumLockIsOff(e))
             {
                 return;
             }
 
-            // The AltGr key triggers two key events.
-            // First left control with a flag that indicates that an Alt key is pressed and then right menu (Alt Gr).
+            // The AltGr key triggers two key events,
+            // first left control with a flag that indicates that an Alt key is pressed and then right menu (Alt Gr).
             // Do nothing when the event for the left control key is triggered
             if (((Keys)e.KeyCode == Keys.LControlKey && Convert.ToBoolean(e.KeyFlags & altKeyFlag))
                 || (e.KeyEventType == KeyEventType.KeyUp && (Keys)e.KeyCode == Keys.LControlKey && _previousKeyDown == Keys.RMenu))
@@ -47,6 +47,7 @@
             // If the Return/Enter key is pressed, check the extended key flag to distinguish between regular Enter and NumPad Enter
             if ((Keys)e.KeyCode == Keys.Return && Convert.ToBoolean(e.KeyFlags & extendedKeyFlag))
             {
+                // Inverting the KeyCodeValue to distinguish between Return and Enter since they both have the same values in the Keys enumerator
                 keyCode *= -1;
             }
 
@@ -77,7 +78,7 @@
             {
                 key.TabStop = false;
                 key.Font = KeyboardTesterForm.ScaledFont;
-                key.BackColor = Color.FromArgb(0, 250, 250, 250);
+                key.BackColor = SystemColors.ControlLight;
                 key.ForeColor = Color.Black;
             }
         }
@@ -175,6 +176,8 @@
                     LayoutKeys[(int)Keys.Decimal].BackColor = ColorTranslator.FromHtml("#6c3891");
                     LayoutKeys[(int)Keys.Decimal].ForeColor = Color.White;
                     break;
+                default:
+                    return false;
             }
 
             return true;

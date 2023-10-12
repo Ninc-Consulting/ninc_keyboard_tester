@@ -16,7 +16,8 @@
                     {
                         KeyCodeValue = key.KeyCodeValue,
                         KeyCode = key.KeyCode,
-                        BackColor = key.BackColor
+                        BackColor = key.BackColor,
+                        BorderColor = key.FlatAppearance.BorderColor
                     });
             }
         }
