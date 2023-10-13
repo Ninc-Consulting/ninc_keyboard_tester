@@ -1,4 +1,4 @@
-﻿namespace KeyboardTester.Layouts
+﻿namespace KeyboardTester.Models.KeyboardLayouts
 {
     public class Iso105KeyboardLayout : KeyboardLayout
     {

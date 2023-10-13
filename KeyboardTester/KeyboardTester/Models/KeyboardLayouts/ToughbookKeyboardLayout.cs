@@ -1,4 +1,4 @@
-﻿namespace KeyboardTester.Layouts
+﻿namespace KeyboardTester.Models.KeyboardLayouts
 {
     public class ToughbookKeyboardLayout : KeyboardLayout
     {
@@ -17,7 +17,7 @@
 
         // There is no KeyCodeValue for Fn button since it doesn't trigger any static Key event.
         // Fn only alters the values of other keys when they are pressed. Adding dummy button for the GUI
-        private Key Fn { get; set; } = new();
+        public Key Fn { get; set; } = new();
 
         public ToughbookKeyboardLayout(int baseKeyWidth)
             : base(baseKeyWidth)
@@ -410,7 +410,6 @@
             Fn.Name = "Fn";
             Fn.Text = "Fn";
             Fn.TextAlign = ContentAlignment.MiddleCenter;
-            Fn.Enabled = false;
             AddKeyToLayout(Fn);
 
             KeyResource.LeftWindows.Size = _squareSize;
@@ -471,6 +470,16 @@
             KeyResource.RightArrow.Text = "→";
             KeyResource.RightArrow.TextAlign = ContentAlignment.MiddleCenter;
             AddKeyToLayout(KeyResource.RightArrow);
+
+            // Hidden keys for detecting when Fn is pressed
+            KeyResource.VolumeMute.Hide();
+            AddKeyToLayout(KeyResource.VolumeMute);
+
+            KeyResource.VolumeDown.Hide();
+            AddKeyToLayout(KeyResource.VolumeDown);
+
+            KeyResource.VolumeUp.Hide();
+            AddKeyToLayout(KeyResource.VolumeUp);
         }
 
         private void DoLayout()

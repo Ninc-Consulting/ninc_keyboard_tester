@@ -1,4 +1,7 @@
-﻿global using KeyboardTester.Layouts;
+﻿global using KeyboardTester.Models;
+global using KeyboardTester.Models.DataTransferObjects;
+global using KeyboardTester.Models.KeyboardLayouts;
+global using KeyboardTester.Services;
 global using KeyboardTester.Util;
 global using Newtonsoft.Json;
 global using System.Diagnostics;

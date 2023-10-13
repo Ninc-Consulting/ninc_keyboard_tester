@@ -35,19 +35,8 @@ namespace UITests
             var key = Keys.Space;
 
             // Send key to create file for initial KeyboardState
-            SendKeyboardInput(
-                new KeyboardInput[]
-                {
-                    new KeyboardInput
-                    {
-                        Wvk = (ushort)key,
-                    },
-                    new KeyboardInput
-                    {
-                        Wvk = (ushort)key,
-                        DwFlags = (uint)KeyEventF.KeyUp
-                    }
-                });
+            SendKeyAsKeyDownAndKeyUp(key);
+
             var initialKeyboardLayoutDto = GetKeyboardLayoutState();
             Assert.IsNotNull(initialKeyboardLayoutDto);
 
@@ -57,19 +46,7 @@ namespace UITests
             comboBoxElement.FindElementByName("Keyboard layout: 'All Keys'").Click();
 
             // Send key to update file with current KeyboardState
-            SendKeyboardInput(
-                new KeyboardInput[]
-                {
-                    new KeyboardInput
-                    {
-                        Wvk = (ushort)key,
-                    },
-                    new KeyboardInput
-                    {
-                        Wvk = (ushort)key,
-                        DwFlags = (uint)KeyEventF.KeyUp
-                    }
-                });
+            SendKeyAsKeyDownAndKeyUp(key);
 
             // Assert
             var currentKeyboardLayoutDto = GetKeyboardLayoutState();
@@ -90,19 +67,7 @@ namespace UITests
             var keyFlagValueElement = Session.FindElementByAccessibilityId("KeyFlagsValue");
             var resetButtonElement = Session.FindElementByAccessibilityId("ResetButton");
 
-            SendKeyboardInput(
-                new KeyboardInput[]
-                {
-                    new KeyboardInput
-                    {
-                        Wvk = (ushort)Keys.B,
-                    },
-                    new KeyboardInput
-                    {
-                        Wvk = (ushort)Keys.B,
-                        DwFlags = (uint)KeyEventF.KeyUp
-                    }
-                });
+            SendKeyAsKeyDownAndKeyUp(Keys.B);
 
             Assert.IsFalse(string.IsNullOrEmpty(keyCodeValueElement.Text));
             Assert.IsFalse(string.IsNullOrEmpty(keyNameValueElement.Text));
@@ -129,19 +94,7 @@ namespace UITests
             Assert.IsNotNull(Session);
 
             // Act
-            SendKeyboardInput(
-                new KeyboardInput[]
-                {
-                    new KeyboardInput
-                    {
-                        Wvk = (ushort)key,
-                    },
-                    new KeyboardInput
-                    {
-                        Wvk = (ushort)key,
-                        DwFlags = (uint)KeyEventF.KeyUp
-                    }
-                });
+            SendKeyAsKeyDownAndKeyUp(key);
 
             // Assert
             var keyboardLayoutDto = GetKeyboardLayoutState();
@@ -170,6 +123,24 @@ namespace UITests
 
             var jsonText = File.ReadAllText(filePath);
             return JsonConvert.DeserializeObject<KeyboardLayoutDto>(jsonText);
+        }
+
+        private void SendKeyAsKeyDownAndKeyUp(Keys key, uint keyDownFlags = 0)
+        {
+            SendKeyboardInput(
+               new KeyboardInput[]
+               {
+                    new KeyboardInput
+                    {
+                        Wvk = (ushort)key,
+                        DwFlags = keyDownFlags
+                    },
+                    new KeyboardInput
+                    {
+                        Wvk = (ushort)key,
+                        DwFlags = (uint)KeyEventF.KeyUp
+                    }
+               });
         }
     }
 }

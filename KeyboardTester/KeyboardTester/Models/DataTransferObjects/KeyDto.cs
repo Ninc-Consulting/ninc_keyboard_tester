@@ -1,4 +1,4 @@
-﻿namespace KeyboardTester.Util
+﻿namespace KeyboardTester.Models.DataTransferObjects
 {
     public class KeyDto
     {

@@ -1,6 +1,6 @@
-﻿namespace KeyboardTester.Util
+﻿namespace KeyboardTester.Models
 {
-    public class ComboBoxKeyboardLayoutItem
+    public class ComboBoxItem
     {
         public KeyboardLayoutType KeyboardLayoutType { get; set; }
         public string? KeyboardLayoutText { get; set; }

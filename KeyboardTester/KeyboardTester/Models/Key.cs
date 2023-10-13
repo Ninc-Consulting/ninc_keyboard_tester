@@ -1,4 +1,4 @@
-﻿namespace KeyboardTester.Util
+﻿namespace KeyboardTester.Models
 {
     public class Key : Button
     {

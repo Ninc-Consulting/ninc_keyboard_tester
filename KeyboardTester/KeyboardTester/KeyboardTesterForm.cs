@@ -2,10 +2,18 @@ namespace KeyboardTester
 {
     public partial class KeyboardTesterForm : Form
     {
+        private readonly InformationBoxService _informationBoxService;
+        private readonly KeyboardLayoutService _keyboardLayoutService;
+        private readonly DropDownMenuService _dropDownMenuService;
+
         public static Font? ScaledFont { get; private set; }
 
         public KeyboardTesterForm(KeyboardLayoutType keyboarLayoutEnum = KeyboardLayoutType.ISO_105)
         {
+            _informationBoxService = new InformationBoxService();
+            _keyboardLayoutService = new KeyboardLayoutService();
+            _dropDownMenuService = new DropDownMenuService();
+
             var scaleRate = DeviceDpi / 96f * 100;
             ScaledFont = new("Segoe UI", _baseKeyWidth * 0.14f / scaleRate * 100);
 
@@ -20,25 +28,25 @@ namespace KeyboardTester
 
         private void Kh_KeyIntercepted(KeyboardHookEventArgs e)
         {
-            KeyboardLayout.KeyEvent(e);
-            InformationLayout.SetTextBoxValues(e);
+            _keyboardLayoutService.KeyEvent(KeyboardLayout, e);
+            _informationBoxService.SetTextBoxValues(InformationBox, e);
 
             Logger.LogKeyboardLayoutState(KeyboardLayout);
         }
 
         private void DropDownMenu_SelectedValueChanged(object? sender, EventArgs e)
         {
-            InformationLayout.ChangeLayout(this);
+            _dropDownMenuService.ChangeLayout(this);
         }
 
         private void ResetButton_Click(object? sender, EventArgs e)
         {
-            InformationLayout.ResetLayouts(KeyboardLayout);
+            _informationBoxService.ResetLayout(this);
         }
 
         private void ExitButton_Click(object? sender, EventArgs e)
         {
-            InformationLayout.Exit(this);
+            _informationBoxService.Exit(this);
         }
 
         private void KeyboardTesterForm_FormClosing(object sender, FormClosingEventArgs e)

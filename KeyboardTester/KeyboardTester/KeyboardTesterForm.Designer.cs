@@ -4,7 +4,7 @@
     {
         private static readonly int _baseKeyWidth = Screen.FromPoint(Cursor.Position).Bounds.Width / 30;
 
-        public InformationLayout InformationLayout { get; private set; }
+        public InformationBox InformationBox { get; private set; }
         public KeyboardLayout KeyboardLayout { get; private set; }
         public ComboBox DropDownMenu { get; private set; }
 
@@ -36,20 +36,20 @@
             DropDownMenu = new ComboBox();
             Controls.Add(DropDownMenu);
 
-            var comboBoxItems = new List<ComboBoxKeyboardLayoutItem>();
-            var iso105Item = new ComboBoxKeyboardLayoutItem()
+            var comboBoxItems = new List<ComboBoxItem>();
+            var iso105Item = new ComboBoxItem()
             {
                 KeyboardLayoutType = KeyboardLayoutType.ISO_105,
                 KeyboardLayoutText = "Keyboard layout: 'ISO 105'"
             };
             comboBoxItems.Add(iso105Item);
-            var toughbookItem = new ComboBoxKeyboardLayoutItem()
+            var toughbookItem = new ComboBoxItem()
             {
                 KeyboardLayoutType = KeyboardLayoutType.Toughbook,
                 KeyboardLayoutText = "Keyboard layout: 'Toughbook'"
             };
             comboBoxItems.Add(toughbookItem);
-            var allKeys = new ComboBoxKeyboardLayoutItem()
+            var allKeys = new ComboBoxItem()
             {
                 KeyboardLayoutType = KeyboardLayoutType.AllKeys,
                 KeyboardLayoutText = "Keyboard layout: 'All Keys'"
@@ -74,7 +74,7 @@
             int maxWidth = 0;
             int temp = 0;
 
-            foreach (ComboBoxKeyboardLayoutItem item in DropDownMenu.Items)
+            foreach (ComboBoxItem item in DropDownMenu.Items)
             {
                 var text = item.KeyboardLayoutText;
                 Size size = TextRenderer.MeasureText(text, DropDownMenu.Font);
@@ -98,10 +98,10 @@
                 KeyboardLayoutType.AllKeys => new AllKeysLayout(_baseKeyWidth),
                 _ => throw new ArgumentException($"Unknown keyboard layout: {keyboarLayoutType}"),
             };
-            InformationLayout = new(KeyboardLayout.Size, _baseKeyWidth);
 
-            InformationLayout.ResetButton.Click += ResetButton_Click;
-            InformationLayout.ExitButton.Click += ExitButton_Click;
+            InformationBox = new(KeyboardLayout.Size, _baseKeyWidth);
+            InformationBox.ResetButton.Click += ResetButton_Click;
+            InformationBox.ExitButton.Click += ExitButton_Click;
 
             AddLayoutsToControls();
 
@@ -120,23 +120,23 @@
         {
             Controls.AddRange(KeyboardLayout.LayoutKeys.Values.ToArray());
 
-            Controls.Add(InformationLayout.KeyDownButtonExample);
-            Controls.Add(InformationLayout.KeyUpButtonExample);
-            Controls.Add(InformationLayout.KeyCodeValue);
-            Controls.Add(InformationLayout.KeyNameValue);
-            Controls.Add(InformationLayout.KeyFlagsValue);
-            Controls.Add(InformationLayout.KeyCodeText);
-            Controls.Add(InformationLayout.KeyNameText);
-            Controls.Add(InformationLayout.KeyFlagsText);
-            Controls.Add(InformationLayout.ResetButton);
-            Controls.Add(InformationLayout.ExitButton);
+            Controls.Add(InformationBox.KeyDownButtonExample);
+            Controls.Add(InformationBox.KeyUpButtonExample);
+            Controls.Add(InformationBox.KeyCodeValue);
+            Controls.Add(InformationBox.KeyNameValue);
+            Controls.Add(InformationBox.KeyFlagsValue);
+            Controls.Add(InformationBox.KeyCodeText);
+            Controls.Add(InformationBox.KeyNameText);
+            Controls.Add(InformationBox.KeyFlagsText);
+            Controls.Add(InformationBox.ResetButton);
+            Controls.Add(InformationBox.ExitButton);
         }
 
         private Size GetTotalSize()
                 {
             return new Size(
-                Math.Max(KeyboardLayout.Size.Width, InformationLayout.Size.Width),
-                Math.Max(KeyboardLayout.Size.Height, InformationLayout.Size.Height));
+                Math.Max(KeyboardLayout.Size.Width, InformationBox.Size.Width),
+                Math.Max(KeyboardLayout.Size.Height, InformationBox.Size.Height));
         }
     }
 }

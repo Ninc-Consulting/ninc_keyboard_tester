@@ -10,6 +10,10 @@ namespace UnitTests
         private const byte _altFlag = 0b100000;
         private const byte _noFlag = 0;
 
+        private readonly KeyboardLayoutService _keyboardLayoutService = new KeyboardLayoutService();
+        private readonly InformationBoxService _informationBoxService = new InformationBoxService();
+        private readonly DropDownMenuService _downMenuService = new DropDownMenuService();
+
         [TestMethod]
         public void A010_SendKeyDownA_ToKeyEvent_BackColorChanges()
         {
@@ -22,7 +26,7 @@ namespace UnitTests
             var keyEventArgs = new KeyboardHookEventArgs(_keyDownEvent, key.KeyCodeValue, _noFlag);
 
             // Act
-            form.KeyboardLayout.KeyEvent(keyEventArgs);
+            _keyboardLayoutService.KeyEvent(form.KeyboardLayout, keyEventArgs);
 
             // Assert
             Assert.AreNotEqual(
@@ -42,7 +46,7 @@ namespace UnitTests
             var keyEventArgs = new KeyboardHookEventArgs(_keyUpEvent, key.KeyCodeValue, _noFlag);
 
             // Act
-            form.KeyboardLayout.KeyEvent(keyEventArgs);
+            _keyboardLayoutService.KeyEvent(form.KeyboardLayout, keyEventArgs);
 
             // Assert
             Assert.AreNotEqual(
@@ -62,7 +66,7 @@ namespace UnitTests
             var keyEventArgs = new KeyboardHookEventArgs(_keyDownEvent, key.KeyCodeValue, _altFlag);
 
             // Act
-            form.KeyboardLayout.KeyEvent(keyEventArgs);
+            _keyboardLayoutService.KeyEvent(form.KeyboardLayout, keyEventArgs);
 
             // Assert
             Assert.AreEqual(
@@ -81,7 +85,7 @@ namespace UnitTests
                .Select(x => x.Value)
                .Single(x => x.KeyCode == Keys.RMenu);
             var keyEventArgs = new KeyboardHookEventArgs(_keyDownEvent, altGr.KeyCodeValue, _altFlag);
-            form.KeyboardLayout.KeyEvent(keyEventArgs);
+            _keyboardLayoutService.KeyEvent(form.KeyboardLayout, keyEventArgs);
 
             // Send left control key up
             var leftControlKey = form.KeyboardLayout.LayoutKeys
@@ -91,7 +95,7 @@ namespace UnitTests
             keyEventArgs = new KeyboardHookEventArgs(_keyUpEvent, leftControlKey.KeyCodeValue, _noFlag);
 
             // Act
-            form.KeyboardLayout.KeyEvent(keyEventArgs);
+            _keyboardLayoutService.KeyEvent(form.KeyboardLayout, keyEventArgs);
 
             // Assert
             Assert.AreEqual(
@@ -111,7 +115,7 @@ namespace UnitTests
             var keyEventArgs = new KeyboardHookEventArgs(_keyDownEvent, key.KeyCodeValue, _extendedFlag);
 
             // Act
-            form.KeyboardLayout.KeyEvent(keyEventArgs);
+            _keyboardLayoutService.KeyEvent(form.KeyboardLayout, keyEventArgs);
 
             // Assert
             Assert.AreNotEqual(
@@ -131,7 +135,7 @@ namespace UnitTests
             var keyEventArgs = new KeyboardHookEventArgs(_keyUpEvent, key.KeyCodeValue, _extendedFlag);
 
             // Act
-            form.KeyboardLayout.KeyEvent(keyEventArgs);
+            _keyboardLayoutService.KeyEvent(form.KeyboardLayout, keyEventArgs);
 
             // Assert
             Assert.AreNotEqual(
@@ -151,7 +155,7 @@ namespace UnitTests
             var keyEventArgs = new KeyboardHookEventArgs(_keyDownEvent, key.KeyCodeValue, _noFlag);
 
             // Act
-            form.KeyboardLayout.KeyEvent(keyEventArgs);
+            _keyboardLayoutService.KeyEvent(form.KeyboardLayout, keyEventArgs);
 
             // Assert
             Assert.AreEqual(
@@ -171,7 +175,7 @@ namespace UnitTests
             var keyEventArgs = new KeyboardHookEventArgs(_keyUpEvent, key.KeyCodeValue, _noFlag);
 
             // Act
-            form.KeyboardLayout.KeyEvent(keyEventArgs);
+            _keyboardLayoutService.KeyEvent(form.KeyboardLayout, keyEventArgs);
 
             // Assert
             Assert.AreEqual(
@@ -188,33 +192,33 @@ namespace UnitTests
                 .Select(x => x.Value)
                 .Single(x => x.KeyCode == Keys.LControlKey);
             var keyEventArgs = new KeyboardHookEventArgs(_keyDownEvent, key.KeyCodeValue, _altFlag);
-            var initialKeyCode = form.InformationLayout.KeyCodeValue.Text;
-            var initialKeyName = form.InformationLayout.KeyNameValue.Text;
-            var initialKeyFlags = form.InformationLayout.KeyFlagsValue.Text;
+            var initialKeyCode = form.InformationBox.KeyCodeValue.Text;
+            var initialKeyName = form.InformationBox.KeyNameValue.Text;
+            var initialKeyFlags = form.InformationBox.KeyFlagsValue.Text;
 
             // Act
-            form.InformationLayout.SetTextBoxValues(keyEventArgs);
+            _informationBoxService.SetTextBoxValues(form.InformationBox, keyEventArgs);
 
             // Assert
             Assert.AreNotEqual(
                 notExpected: initialKeyCode,
-                actual: form.InformationLayout.KeyCodeValue.Text);
+                actual: form.InformationBox.KeyCodeValue.Text);
             Assert.AreNotEqual(
                 notExpected: initialKeyName,
-                actual: form.InformationLayout.KeyNameValue.Text);
+                actual: form.InformationBox.KeyNameValue.Text);
             Assert.AreNotEqual(
                 notExpected: initialKeyFlags,
-                actual: form.InformationLayout.KeyFlagsValue.Text);
+                actual: form.InformationBox.KeyFlagsValue.Text);
 
             Assert.AreEqual(
                 expected: "0x" + Convert.ToString((int)Keys.LControlKey, 16).PadLeft(2, '0').ToUpper(),
-                actual: form.InformationLayout.KeyCodeValue.Text);
+                actual: form.InformationBox.KeyCodeValue.Text);
             Assert.AreEqual(
                 expected: Keys.LControlKey.ToString(),
-                actual: form.InformationLayout.KeyNameValue.Text);
+                actual: form.InformationBox.KeyNameValue.Text);
             Assert.AreEqual(
                 expected: Convert.ToString(_altFlag, 2).PadLeft(8, '0'),
-                actual: form.InformationLayout.KeyFlagsValue.Text);
+                actual: form.InformationBox.KeyFlagsValue.Text);
         }
 
         [TestMethod]
@@ -224,40 +228,40 @@ namespace UnitTests
             var defaultColor = SystemColors.ControlLight;
             var purpleColor = ColorTranslator.FromHtml("#6c3891");
             var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105);
-            var previousCode = form.InformationLayout.KeyCodeValue.Text = "0x41";
-            var previousName = form.InformationLayout.KeyNameValue.Text = "A";
-            var previousFlag = form.InformationLayout.KeyFlagsValue.Text = "00000000";
+            var previousCode = form.InformationBox.KeyCodeValue.Text = "0x41";
+            var previousName = form.InformationBox.KeyNameValue.Text = "A";
+            var previousFlag = form.InformationBox.KeyFlagsValue.Text = "00000000";
             form.KeyboardLayout.LayoutKeys
                 .Select(dict => dict.Value)
                 .Single(key => key.KeyCode == Keys.A)
                 .BackColor = purpleColor;
 
             // Act
-            form.InformationLayout.ResetLayouts(form.KeyboardLayout);
+            _informationBoxService.ResetLayout(form);
 
             // Assert
             Assert.AreNotEqual(
                 notExpected: previousCode,
-                actual: form.InformationLayout.KeyCodeValue.Text);
+                actual: form.InformationBox.KeyCodeValue.Text);
             Assert.AreNotEqual(
                 notExpected: previousName,
-                actual: form.InformationLayout.KeyNameValue.Text);
+                actual: form.InformationBox.KeyNameValue.Text);
             Assert.AreNotEqual(
                 notExpected: previousFlag,
-                actual: form.InformationLayout.KeyFlagsValue.Text);
+                actual: form.InformationBox.KeyFlagsValue.Text);
             Assert.AreNotEqual(
                 notExpected: purpleColor,
                 actual: form.KeyboardLayout.LayoutKeys.Select(dict => dict.Value).Single(key => key.KeyCode == Keys.A).BackColor);
 
             Assert.AreEqual(
                 expected: string.Empty,
-                actual: form.InformationLayout.KeyCodeValue.Text);
+                actual: form.InformationBox.KeyCodeValue.Text);
             Assert.AreEqual(
                 expected: string.Empty,
-                actual: form.InformationLayout.KeyNameValue.Text);
+                actual: form.InformationBox.KeyNameValue.Text);
             Assert.AreEqual(
                 expected: string.Empty,
-                actual: form.InformationLayout.KeyFlagsValue.Text);
+                actual: form.InformationBox.KeyFlagsValue.Text);
             Assert.AreEqual(
                 expected: defaultColor,
                 actual: form.KeyboardLayout.LayoutKeys.Select(dict => dict.Value).Single(key => key.KeyCode == Keys.A).BackColor);
@@ -272,7 +276,7 @@ namespace UnitTests
             form.DropDownMenu.SelectedValue = KeyboardLayoutType.AllKeys;
 
             // Act
-            form.InformationLayout.ChangeLayout(form);
+            _downMenuService.ChangeLayout(form);
 
             // Assert
             Assert.AreEqual(

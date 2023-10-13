@@ -1,4 +1,4 @@
-global using KeyboardTester.Util;
+global using KeyboardTester.Models.DataTransferObjects;
 global using Microsoft.VisualStudio.TestTools.UnitTesting;
 global using Newtonsoft.Json;
 global using OpenQA.Selenium.Appium;
