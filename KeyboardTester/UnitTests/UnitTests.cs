@@ -15,7 +15,7 @@ namespace UnitTests
         private readonly DropDownMenuService _downMenuService = new DropDownMenuService();
 
         [TestMethod]
-        public void A010_SendKeyDownA_ToKeyEvent_BackColorChanges()
+        public void U010_SendKeyDownA_ToKeyEvent_BackColorChanges()
         {
             // Arrange
             var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105);
@@ -35,7 +35,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void A020_SendKeyUpA_ToKeyEvent_BorderColorChanges()
+        public void U020_SendKeyUpA_ToKeyEvent_BorderColorChanges()
         {
             // Arrange
             var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105);
@@ -55,7 +55,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void A030_SendKeyDownLControlWithAltFlag_ToKeyEvent_BackColorDoesNotChange()
+        public void U030_SendKeyDownLControlWithAltFlag_ToKeyEvent_BackColorDoesNotChange()
         {
             // Arrange
             var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105);
@@ -75,7 +75,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void A040_SendKeyUpLControlWithAltFlag_ToKeyEvent_BorderColorDoesNotChange()
+        public void U040_SendKeyUpLControlWithAltFlag_ToKeyEvent_BorderColorDoesNotChange()
         {
             // Arrange
             var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105);
@@ -104,7 +104,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void A050_SendKeyDownDeleteWithExtendedFlag_ToKeyEvent_BackColorChanges()
+        public void U050_SendKeyDownDeleteWithExtendedFlag_ToKeyEvent_BackColorChanges()
         {
             // Arrange
             var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105);
@@ -124,7 +124,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void A060_SendKeyUpDeleteWithExtendedFlag_ToKeyEvent_BorderColorChanges()
+        public void U060_SendKeyUpDeleteWithExtendedFlag_ToKeyEvent_BorderColorChanges()
         {
             // Arrange
             var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105);
@@ -144,7 +144,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void A070_SendKeyDownDeleteWithoutExtendedFlag_ToKeyEvent_BackColorDoesNotChange()
+        public void U070_SendKeyDownDeleteWithoutExtendedFlag_ToKeyEvent_BackColorDoesNotChange()
         {
             // Arrange
             var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105);
@@ -164,7 +164,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void A080_SendKeyUpDeleteWithoutExtendedFlag_ToKeyEvent_BorderColorDoesNotChange()
+        public void U080_SendKeyUpDeleteWithoutExtendedFlag_ToKeyEvent_BorderColorDoesNotChange()
         {
             // Arrange
             var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105);
@@ -184,7 +184,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void A090_SendKeyDownControlWithAltFlag_ToSetTextBoxValues_TextChangesToCorrectValues()
+        public void U090_SendKeyDownControlWithAltFlag_ToSetTextBoxValues_TextChangesToCorrectValues()
         {
             // Arrange
             var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105);
@@ -222,7 +222,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void A100_SendKeyboardLayout_ToResetLayouts_LayoutsAreReset()
+        public void U100_SendKeyboardLayout_ToResetLayouts_LayoutsAreReset()
         {
             // Arrange
             var defaultColor = SystemColors.ControlLight;
@@ -268,7 +268,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void A110_SendNewKeyboardLayoutType_ToChangeLayout_LayoutIsChanged()
+        public void U110_SendNewKeyboardLayoutType_ToChangeLayout_LayoutIsChanged()
         {
             // Arrange
             var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105);

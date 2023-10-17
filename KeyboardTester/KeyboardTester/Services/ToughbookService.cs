@@ -2,16 +2,33 @@
 {
     public class ToughbookService
     {
-        public bool FnKeyIsPressed(KeyboardLayout keyboardLayout, KeyboardHookEventArgs e)
+        private const int _extendedFlag = 0b1;
+
+        public bool HandleFnKey(KeyboardLayout keyboardLayout, KeyboardHookEventArgs e)
         {
-            var volumeKeys = new Dictionary<Keys, Keys>()
+            var onlyFnKeys = new Dictionary<Keys, Keys>()
             {
                 { Keys.VolumeMute, Keys.F4 },
                 { Keys.VolumeDown, Keys.F5 },
-                { Keys.VolumeUp, Keys.F6 }
+                { Keys.VolumeUp, Keys.F6 },
+                { Keys.Clear, Keys.L }
             };
 
-            var numLockOffKeys = new Dictionary<Keys, Keys>()
+            var extendedFlagFnKeys = new Dictionary<Keys, Keys>()
+            {
+                { Keys.Insert, Keys.M },
+                { Keys.End, Keys.J },
+                { Keys.Down, Keys.K },
+                { Keys.PageDown, Keys.L },
+                { Keys.Right, Keys.O },
+                { Keys.Left, Keys.U },
+                { Keys.PageUp, Keys.D9 },
+                { Keys.Up, Keys.D8 },
+                { Keys.Home, Keys.D7 },
+                { Keys.Delete, Keys.OemPeriod }
+            };
+
+            var numLockKeys = new Dictionary<Keys, Keys>()
             {
                 { Keys.NumPad0, Keys.M },
                 { Keys.NumPad1, Keys.J },
@@ -30,58 +47,89 @@
                 { Keys.Multiply, Keys.D0 }
             };
 
-            var numLockOnKeys = new Dictionary<Keys, Keys>()
+            var numPadKeys = new List<Keys>()
             {
-                { Keys.M, Keys.NumPad0 },
-                { Keys.J, Keys.NumPad1 },
-                { Keys.K, Keys.NumPad2 },
-                { Keys.L, Keys.NumPad3 },
-                { Keys.U, Keys.NumPad4 },
-                { Keys.I, Keys.NumPad5 },
-                { Keys.O, Keys.NumPad6 },
-                { Keys.D7, Keys.NumPad7 },
-                { Keys.D8, Keys.NumPad8 },
-                { Keys.D9, Keys.NumPad9 },
-                { Keys.OemPeriod, Keys.Decimal },
-                { Keys.OemMinus, Keys.Divide },
-                { Keys.Oemtilde, Keys.Add },
-                { Keys.P, Keys.Subtract },
-                { Keys.D0, Keys.Multiply }
+                Keys.Up,
+                Keys.Down,
+                Keys.Left,
+                Keys.Right,
+                Keys.Home,
+                Keys.PageUp,
+                Keys.PageDown,
+                Keys.End,
+                Keys.Clear,
+                Keys.Insert,
+                Keys.Delete
             };
 
-            // If any of the volume keys are pressed the Fn key must have been used
-            // If any of the numlockOffKeys are pressed when NumLock is on the Fn key must have been used
-            // If any of the numlockOnKeys are pressed when NumLock is off the Fn key must have been used
-            if (volumeKeys.ContainsKey((Keys)e.KeyCode))
+            var allFnKeys = onlyFnKeys.Keys.Concat(extendedFlagFnKeys.Keys).Concat(numLockKeys.Keys);
+
+            // Do nothing if the key is not in the layout
+            if (!IsKeyInLayout(allFnKeys, keyboardLayout, e))
             {
-                ChangeKeyColors(keyboardLayout, volumeKeys[(Keys)e.KeyCode], e.KeyEventType);
                 return true;
             }
-            else if (Control.IsKeyLocked(Keys.NumLock) && numLockOffKeys.ContainsKey((Keys)e.KeyCode))
+
+            if (onlyFnKeys.ContainsKey((Keys)e.KeyCode))
             {
-                ChangeKeyColors(keyboardLayout, numLockOffKeys[(Keys)e.KeyCode], e.KeyEventType);
+                // If any of the onlyFnKeys keys are pressed
+                // or if any of the extendedFlagFnKeys keys are pressed and the extended keyflag is not set,
+                // the Fn key must have been used
+                ChangeKeyColorsOfKey(keyboardLayout, onlyFnKeys[(Keys)e.KeyCode], e.KeyEventType);
+                ChangeKeyColorsOfKey(keyboardLayout, Keys.None, e.KeyEventType); // Fn KeyCode = Keys.None
                 return true;
             }
-            else if (!Control.IsKeyLocked(Keys.NumLock) && numLockOnKeys.ContainsKey((Keys)e.KeyCode))
+            else if (extendedFlagFnKeys.ContainsKey((Keys)e.KeyCode) && !Convert.ToBoolean(e.KeyFlags & _extendedFlag))
             {
-                ChangeKeyColors(keyboardLayout, numLockOnKeys[(Keys)e.KeyCode], e.KeyEventType);
+                // If any of the extendedFlagFnKeys keys are pressed and the extended flag is not set,
+                // the Fn key must have been used
+                ChangeKeyColorsOfKey(keyboardLayout, extendedFlagFnKeys[(Keys)e.KeyCode], e.KeyEventType);
+                ChangeKeyColorsOfKey(keyboardLayout, Keys.None, e.KeyEventType); // Fn KeyCode = Keys.None
+                return true;
+            }
+            else if (Control.IsKeyLocked(Keys.NumLock) && numLockKeys.ContainsValue((Keys)e.KeyCode))
+            {
+                // If NumLock is on and any of the numLockKeys values are pressed,
+                // the Fn key must have been used
+                ChangeKeyColorsOfKey(keyboardLayout, (Keys)e.KeyCode, e.KeyEventType);
+                ChangeKeyColorsOfKey(keyboardLayout, Keys.None, e.KeyEventType); // Fn KeyCode = Keys.None
+                return true;
+            }
+            else if (!Control.IsKeyLocked(Keys.NumLock) && numLockKeys.ContainsKey((Keys)e.KeyCode))
+            {
+                // If NumLock is off and any of the numLockKeys keys are pressed,
+                // the Fn key must have been used
+                ChangeKeyColorsOfKey(keyboardLayout, numLockKeys[(Keys)e.KeyCode], e.KeyEventType);
+                ChangeKeyColorsOfKey(keyboardLayout, Keys.None, e.KeyEventType); // Fn KeyCode = Keys.None
+                return true;
+            }
+            else if (Control.IsKeyLocked(Keys.NumLock) && numLockKeys.ContainsKey((Keys)e.KeyCode))
+            {
+                // If NumLock is on and any of the numLockKeys keys are pressed,
+                // the Fn key was not used
+                ChangeKeyColorsOfKey(keyboardLayout, numLockKeys[(Keys)e.KeyCode], e.KeyEventType);
+                return true;
+            }
+            else if (!Control.IsKeyLocked(Keys.NumLock)
+                && (numLockKeys.ContainsValue((Keys)e.KeyCode) || numPadKeys.Contains((Keys)e.KeyCode)))
+            {
+                // If NumLock is off and
+                // any of the numLockKeys values are pressed or if any of the numPadKeys are pressed,
+                // the Fn key was not used
+                ChangeKeyColorsOfKey(keyboardLayout, (Keys)e.KeyCode, e.KeyEventType);
                 return true;
             }
 
             return false;
         }
 
-        private void ChangeKeyColors(KeyboardLayout keyboardLayout, Keys keyCode, KeyEventType keyEventType)
+        private void ChangeKeyColorsOfKey(KeyboardLayout keyboardLayout, Keys keyCode, KeyEventType keyEventType)
         {
             if (keyEventType == KeyEventType.KeyDown)
             {
                 // Set the background to purple on the pressed key
                 keyboardLayout.LayoutKeys[(int)keyCode].BackColor = ColorTranslator.FromHtml("#6c3891");
                 keyboardLayout.LayoutKeys[(int)keyCode].ForeColor = Color.White;
-
-                // Set the background to purple on Fn. Fn has KeyCodeValue = Keys.None = 0
-                keyboardLayout.LayoutKeys[0].BackColor = ColorTranslator.FromHtml("#6c3891");
-                keyboardLayout.LayoutKeys[0].ForeColor = Color.White;
             }
             else
             {
@@ -89,12 +137,18 @@
                 keyboardLayout.LayoutKeys[(int)keyCode].FlatStyle = FlatStyle.Flat;
                 keyboardLayout.LayoutKeys[(int)keyCode].FlatAppearance.BorderSize = Convert.ToInt32(KeyboardLayout.BaseKeyWidth / 20);
                 keyboardLayout.LayoutKeys[(int)keyCode].FlatAppearance.BorderColor = Color.Red;
-
-                // Set the border to red on Fn
-                keyboardLayout.LayoutKeys[0].FlatStyle = FlatStyle.Flat;
-                keyboardLayout.LayoutKeys[0].FlatAppearance.BorderSize = Convert.ToInt32(KeyboardLayout.BaseKeyWidth / 20);
-                keyboardLayout.LayoutKeys[0].FlatAppearance.BorderColor = Color.Red;
             }
+        }
+
+        private bool IsKeyInLayout(IEnumerable<Keys> fnKeys, KeyboardLayout keyboardLayout, KeyboardHookEventArgs e)
+        {
+            if ((!keyboardLayout.LayoutKeys.ContainsKey(e.KeyCode) && !fnKeys.Contains((Keys)e.KeyCode))
+                || ((Keys)e.KeyCode == Keys.Return && Convert.ToBoolean(e.KeyFlags & _extendedFlag) && !keyboardLayout.LayoutKeys.ContainsKey(-e.KeyCode)))
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

@@ -189,7 +189,7 @@
 
         private void DoLayout()
         {
-            var xCoordinate = BaseKeyWidth;
+            var xCoordinate = BaseKeyWidth / 2;
             var yCoordinate = BaseKeyWidth;
             var offset = Convert.ToInt32(BaseKeyWidth * 0.05);
             var columnCounter = 0;
@@ -202,10 +202,10 @@
 
                 // Disable rule since sonar incorrectly thinks that the statement is always false https://github.com/SonarSource/sonar-dotnet/issues/8108
 #pragma warning disable S2583 // Conditionally executed code should be reachable
-                if (columnCounter % 24 == 0)
+                if (columnCounter % 22 == 0)
                 {
                     yCoordinate += key.Height + offset;
-                    xCoordinate = BaseKeyWidth;
+                    xCoordinate = BaseKeyWidth / 2;
                 }
 #pragma warning restore S2583 // Conditionally executed code should be reachable
             }

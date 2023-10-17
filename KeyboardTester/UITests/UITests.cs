@@ -1,3 +1,5 @@
+using KeyboardTester.Util;
+
 namespace UITests
 {
     [TestClass]
@@ -28,15 +30,10 @@ namespace UITests
         }
 
         [TestMethod]
-        public void A010_ChangeLayout_WithDropDownMenu_LayoutIsChanged()
+        public void UI010_ChangeLayout_ToAllKeys_LayoutIsChanged()
         {
             // Arrange
             Assert.IsNotNull(Session);
-            var key = Keys.Space;
-
-            // Send key to create file for initial KeyboardState
-            SendKeyAsKeyDownAndKeyUp(key);
-
             var initialKeyboardLayoutDto = GetKeyboardLayoutState();
             Assert.IsNotNull(initialKeyboardLayoutDto);
 
@@ -44,21 +41,23 @@ namespace UITests
             var comboBoxElement = Session.FindElementByAccessibilityId("DropDownMenu");
             comboBoxElement.Click();
             comboBoxElement.FindElementByName("Keyboard layout: 'All Keys'").Click();
-
-            // Send key to update file with current KeyboardState
-            SendKeyAsKeyDownAndKeyUp(key);
+            Thread.Sleep(500);
 
             // Assert
             var currentKeyboardLayoutDto = GetKeyboardLayoutState();
             Assert.IsNotNull(currentKeyboardLayoutDto);
+            Assert.AreEqual(
+                expected: KeyboardLayoutType.AllKeys,
+                actual: currentKeyboardLayoutDto.KeyboardLayoutType,
+                message: "The layout should have changed to 'All Keys'!");
             Assert.AreNotEqual(
                 notExpected: initialKeyboardLayoutDto.KeyboardLayoutType,
                 actual: currentKeyboardLayoutDto.KeyboardLayoutType,
-                message: "The layout has not changed!");
+                message: "The layout was already 'All Keys' at the start of the test!");
         }
 
         [TestMethod]
-        public void A020_ClickResetButton_TextBoxesAreReset()
+        public void UI020_ClickResetButton_TextBoxesAreReset()
         {
             // Arrange
             Assert.IsNotNull(Session);
@@ -83,18 +82,18 @@ namespace UITests
         }
 
         [TestMethod]
-        [DataRow(Keys.A)]
-        [DataRow(Keys.B)]
-        [DataRow(Keys.C)]
-        [DataRow(Keys.D)]
-        [DataRow(Keys.E)]
-        public void A030_InCherryLayout_PressAndReleaseKey_BackColorAndBorderColorIsCorrect(Keys key)
+        [DataRow(Keys.A, 0)]
+        [DataRow(Keys.B, 0)]
+        [DataRow(Keys.C, 0)]
+        [DataRow(Keys.D, 0)]
+        [DataRow(Keys.E, 0)]
+        public void UI030_InCherryLayout_PressAndReleaseKey_BackColorAndBorderColorIsCorrect(Keys key, int flags)
         {
             // Arrange
             Assert.IsNotNull(Session);
 
             // Act
-            SendKeyAsKeyDownAndKeyUp(key);
+            SendKeyAsKeyDownAndKeyUp(key, flags);
 
             // Assert
             var keyboardLayoutDto = GetKeyboardLayoutState();
@@ -125,7 +124,7 @@ namespace UITests
             return JsonConvert.DeserializeObject<KeyboardLayoutDto>(jsonText);
         }
 
-        private void SendKeyAsKeyDownAndKeyUp(Keys key, uint keyDownFlags = 0)
+        private void SendKeyAsKeyDownAndKeyUp(Keys key, int flags = 0)
         {
             SendKeyboardInput(
                new KeyboardInput[]
@@ -133,12 +132,12 @@ namespace UITests
                     new KeyboardInput
                     {
                         Wvk = (ushort)key,
-                        DwFlags = keyDownFlags
+                        DwFlags = (uint)flags
                     },
                     new KeyboardInput
                     {
                         Wvk = (ushort)key,
-                        DwFlags = (uint)KeyEventF.KeyUp
+                        DwFlags = (uint)flags | (uint)KeyEventF.KeyUp
                     }
                });
         }

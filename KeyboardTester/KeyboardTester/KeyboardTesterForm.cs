@@ -8,7 +8,7 @@ namespace KeyboardTester
 
         public static Font? ScaledFont { get; private set; }
 
-        public KeyboardTesterForm(KeyboardLayoutType keyboarLayoutEnum = KeyboardLayoutType.ISO_105)
+        public KeyboardTesterForm(KeyboardLayoutType keyboarLayoutEnum = KeyboardLayoutType.Toughbook)
         {
             _informationBoxService = new InformationBoxService();
             _keyboardLayoutService = new KeyboardLayoutService();
@@ -24,6 +24,8 @@ namespace KeyboardTester
             {
                 Program.KeyboardHook.KeyIntercepted += new KeyboardHookEventHandler(Kh_KeyIntercepted);
             }
+
+            Logger.LogKeyboardLayoutState(KeyboardLayout);
         }
 
         private void Kh_KeyIntercepted(KeyboardHookEventArgs e)
@@ -37,11 +39,15 @@ namespace KeyboardTester
         private void DropDownMenu_SelectedValueChanged(object? sender, EventArgs e)
         {
             _dropDownMenuService.ChangeLayout(this);
+
+            Logger.LogKeyboardLayoutState(KeyboardLayout);
         }
 
         private void ResetButton_Click(object? sender, EventArgs e)
         {
             _informationBoxService.ResetLayout(this);
+
+            Logger.LogKeyboardLayoutState(KeyboardLayout);
         }
 
         private void ExitButton_Click(object? sender, EventArgs e)

@@ -133,7 +133,7 @@
             ResetButton.TabStop = false;
             ResetButton.Font = _font;
 
-            Size = new Size(xCoordinate + baseKeyWidth, yCoordinate + _textBoxSize.Height + baseKeyWidth);
+            Size = new Size(xCoordinate + (baseKeyWidth / 2), yCoordinate + _textBoxSize.Height + baseKeyWidth);
         }
     }
 }

@@ -37,32 +37,32 @@
             AddKeyToLayout(KeyResource.Escape);
 
             KeyResource.F1.Size = _squareSize0_85;
-            KeyResource.F1.Text = "F1\n▼☼";
+            KeyResource.F1.Text = "F1";
             KeyResource.F1.TextAlign = ContentAlignment.TopCenter;
             AddKeyToLayout(KeyResource.F1);
 
             KeyResource.F2.Size = _squareSize0_85;
-            KeyResource.F2.Text = "F2\n▲☼";
+            KeyResource.F2.Text = "F2";
             KeyResource.F2.TextAlign = ContentAlignment.TopCenter;
             AddKeyToLayout(KeyResource.F2);
 
             KeyResource.F3.Size = _squareSize0_85;
-            KeyResource.F3.Text = "F3\n▢/▣";
+            KeyResource.F3.Text = "F3";
             KeyResource.F3.TextAlign = ContentAlignment.TopCenter;
             AddKeyToLayout(KeyResource.F3);
 
             KeyResource.F4.Size = _squareSize0_85;
-            KeyResource.F4.Text = "F4\n🔇";
+            KeyResource.F4.Text = "F4";
             KeyResource.F4.TextAlign = ContentAlignment.TopCenter;
             AddKeyToLayout(KeyResource.F4);
 
             KeyResource.F5.Size = _squareSize0_85;
-            KeyResource.F5.Text = "F5\n▼🔊";
+            KeyResource.F5.Text = "F5";
             KeyResource.F5.TextAlign = ContentAlignment.TopCenter;
             AddKeyToLayout(KeyResource.F5);
 
             KeyResource.F6.Size = _squareSize0_85;
-            KeyResource.F6.Text = "F6\n▲🔊";
+            KeyResource.F6.Text = "F6";
             KeyResource.F6.TextAlign = ContentAlignment.TopCenter;
             AddKeyToLayout(KeyResource.F6);
 
@@ -470,21 +470,11 @@
             KeyResource.RightArrow.Text = "→";
             KeyResource.RightArrow.TextAlign = ContentAlignment.MiddleCenter;
             AddKeyToLayout(KeyResource.RightArrow);
-
-            // Hidden keys for detecting when Fn is pressed
-            KeyResource.VolumeMute.Hide();
-            AddKeyToLayout(KeyResource.VolumeMute);
-
-            KeyResource.VolumeDown.Hide();
-            AddKeyToLayout(KeyResource.VolumeDown);
-
-            KeyResource.VolumeUp.Hide();
-            AddKeyToLayout(KeyResource.VolumeUp);
         }
 
         private void DoLayout()
         {
-            var xCoordinate = BaseKeyWidth;
+            var xCoordinate = BaseKeyWidth / 2;
             var yCoordinate = BaseKeyWidth;
 
             foreach (var key in LayoutKeys.Values)
@@ -501,9 +491,9 @@
                     xCoordinate += _squareSize0_8.Width + _offset;
                 }
 
-                if (key.KeyCode == Keys.Pause || key.KeyCode == Keys.Home || key.KeyCode == Keys.PageUp || key.KeyCode == Keys.PageDown || key.KeyCode == Keys.End)
+                if (key.KeyCode == Keys.Pause || key.KeyCode == Keys.Home || key.KeyCode == Keys.PageUp || key.KeyCode == Keys.PageDown || key.KeyCode == Keys.End || key.KeyCode == Keys.Right || key.KeyCode == Keys.NumPad5)
                 {
-                    xCoordinate = BaseKeyWidth;
+                    xCoordinate = BaseKeyWidth / 2;
                     yCoordinate += key.Height + _offset;
                 }
                 else if (key.KeyCode == Keys.Up)

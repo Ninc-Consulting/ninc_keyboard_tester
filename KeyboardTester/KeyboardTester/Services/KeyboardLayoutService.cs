@@ -2,13 +2,19 @@
 {
     public class KeyboardLayoutService
     {
-        private readonly ToughbookService _toughbookService = new ToughbookService();
+        private readonly ToughbookService _toughbookService = new();
         private Keys _previousKeyDown;
 
         public void KeyEvent(KeyboardLayout keyboardLayout, KeyboardHookEventArgs e)
         {
             var altKeyFlag = 0b100000;
             var extendedKeyFlag = 0b1;
+
+            // Check if the Fn key was used in the Toughbook layout and handle separately if true
+            if (keyboardLayout.KeyboardLayoutType == KeyboardLayoutType.Toughbook && _toughbookService.HandleFnKey(keyboardLayout, e))
+            {
+                return;
+            }
 
             // Do nothing if the layout does not contain the key
             // Do nothing if NumPad Enter was pressed and the layout does not contain NumPad Enter
@@ -43,107 +49,58 @@
                 keyCode *= -1;
             }
 
-            // Check if the Fn key was used in the Toughbook layout
-            // Handle separately if true
-            if (keyboardLayout.KeyboardLayoutType == KeyboardLayoutType.Toughbook && _toughbookService.FnKeyIsPressed(keyboardLayout, e))
-            {
-                return;
-            }
-
             if (e.KeyEventType == KeyEventType.KeyDown)
             {
                 _previousKeyDown = (Keys)e.KeyCode;
             }
 
-            ChangeKeyColors(keyboardLayout, keyCode, e.KeyEventType);
+            ChangeKeyColors(keyboardLayout, (Keys)keyCode, e.KeyEventType);
         }
 
         private bool NumPadKeyIsPressedWhileNumLockIsOff(KeyboardLayout keyboardLayout, KeyboardHookEventArgs e)
         {
-            var alternativeNumPadKeyCodes = new List<int>()
+            var extendedFlag = 0b1;
+
+            var alternativeNumPadKeyCodes = new Dictionary<Keys, Keys>()
             {
-                (int)Keys.Up,
-                (int)Keys.Down,
-                (int)Keys.Left,
-                (int)Keys.Right,
-                (int)Keys.Home,
-                (int)Keys.PageUp,
-                (int)Keys.PageDown,
-                (int)Keys.End,
-                (int)Keys.Clear,
-                (int)Keys.Insert,
-                (int)Keys.Delete
+                { Keys.PageUp, Keys.NumPad9 },
+                { Keys.Up, Keys.NumPad8 },
+                { Keys.Down, Keys.NumPad7 },
+                { Keys.Left, Keys.NumPad6 },
+                { Keys.Right, Keys.NumPad5 },
+                { Keys.Home, Keys.NumPad4 },
+                { Keys.PageDown, Keys.NumPad3 },
+                { Keys.End, Keys.NumPad2 },
+                { Keys.Clear, Keys.NumPad1 },
+                { Keys.Insert, Keys.NumPad0 },
+                { Keys.Delete, Keys.Decimal }
             };
 
-            if (!alternativeNumPadKeyCodes.Contains(e.KeyCode))
+            // If any of the alternativeNumPadKeyCodes keys are pressed and the extended flag is set,
+            // change the color of the NumPad key instead
+            if (alternativeNumPadKeyCodes.ContainsKey((Keys)e.KeyCode) && !Convert.ToBoolean(e.KeyFlags & extendedFlag))
             {
-                // The pressed key is not an alternative NumPad key
-                return false;
-            }
-            else if (Control.IsKeyLocked(Keys.NumLock))
-            {
-                // The pressed key is an alternative NumPad key but NumLock is turned off
-                return false;
+                ChangeKeyColors(keyboardLayout, alternativeNumPadKeyCodes[(Keys)e.KeyCode], e.KeyEventType);
+                return true;
             }
 
-            // The pressed key is an alternative NumPad key and NumLock is turned on
-            // Handle the correct NumPad key
-            switch ((Keys)e.KeyCode)
-            {
-                case Keys.PageUp:
-                    ChangeKeyColors(keyboardLayout, (int)Keys.NumPad9, e.KeyEventType);
-                    break;
-                case Keys.Up:
-                    ChangeKeyColors(keyboardLayout, (int)Keys.NumPad8, e.KeyEventType);
-                    break;
-                case Keys.Home:
-                    ChangeKeyColors(keyboardLayout, (int)Keys.NumPad7, e.KeyEventType);
-                    break;
-                case Keys.Right:
-                    ChangeKeyColors(keyboardLayout, (int)Keys.NumPad6, e.KeyEventType);
-                    break;
-                case Keys.Clear:
-                    ChangeKeyColors(keyboardLayout, (int)Keys.NumPad5, e.KeyEventType);
-                    break;
-                case Keys.Left:
-                    ChangeKeyColors(keyboardLayout, (int)Keys.NumPad4, e.KeyEventType);
-                    break;
-                case Keys.PageDown:
-                    ChangeKeyColors(keyboardLayout, (int)Keys.NumPad3, e.KeyEventType);
-                    break;
-                case Keys.Down:
-                    ChangeKeyColors(keyboardLayout, (int)Keys.NumPad2, e.KeyEventType);
-                    break;
-                case Keys.End:
-                    ChangeKeyColors(keyboardLayout, (int)Keys.NumPad1, e.KeyEventType);
-                    break;
-                case Keys.Insert:
-                    ChangeKeyColors(keyboardLayout, (int)Keys.NumPad0, e.KeyEventType);
-                    break;
-                case Keys.Delete:
-                    ChangeKeyColors(keyboardLayout, (int)Keys.Decimal, e.KeyEventType);
-                    break;
-                default:
-                    return false;
-            }
-
-            return true;
+            return false;
         }
 
-        private void ChangeKeyColors(KeyboardLayout keyboardLayout, int keyCodeValue, KeyEventType keyEventType)
+        private void ChangeKeyColors(KeyboardLayout keyboardLayout, Keys keyCodeValue, KeyEventType keyEventType)
         {
             if (keyEventType == KeyEventType.KeyDown)
             {
                 // Set the background to purple if the key was pressed
-                keyboardLayout.LayoutKeys[keyCodeValue].BackColor = ColorTranslator.FromHtml("#6c3891");
-                keyboardLayout.LayoutKeys[keyCodeValue].ForeColor = Color.White;
+                keyboardLayout.LayoutKeys[(int)keyCodeValue].BackColor = ColorTranslator.FromHtml("#6c3891");
+                keyboardLayout.LayoutKeys[(int)keyCodeValue].ForeColor = Color.White;
             }
             else
             {
                 // Set the border to if the key was released
-                keyboardLayout.LayoutKeys[keyCodeValue].FlatStyle = FlatStyle.Flat;
-                keyboardLayout.LayoutKeys[keyCodeValue].FlatAppearance.BorderSize = Convert.ToInt32(KeyboardLayout.BaseKeyWidth / 20);
-                keyboardLayout.LayoutKeys[keyCodeValue].FlatAppearance.BorderColor = Color.Red;
+                keyboardLayout.LayoutKeys[(int)keyCodeValue].FlatStyle = FlatStyle.Flat;
+                keyboardLayout.LayoutKeys[(int)keyCodeValue].FlatAppearance.BorderSize = Convert.ToInt32(KeyboardLayout.BaseKeyWidth / 20);
+                keyboardLayout.LayoutKeys[(int)keyCodeValue].FlatAppearance.BorderColor = Color.Red;
             }
         }
     }

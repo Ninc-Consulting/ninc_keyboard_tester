@@ -369,7 +369,7 @@
             {
                 KeyCodeValue = (int)Keys.PageDown,
                 KeyCode = Keys.PageDown,
-                Name = Keys.PageDown.ToString()
+                Name = "Page Down"
             };
             _keys.Add(PageDown);
 
@@ -1509,15 +1509,16 @@
             };
             _keys.Add(OemClear);
 
-            SetDefaultTextValues();
+            SetDefaultValues();
         }
 
-        public static void SetDefaultTextValues()
+        public static void SetDefaultValues()
         {
             var regex = new Regex("(?<=[A-Z])(?=[A-Z][a-z])|(?<=[^A-Z])(?=[A-Z])");
             foreach (var key in _keys)
             {
                 key.Text = regex.Replace(key.Name, " ");
+                key.Size = new Size(1, 1);
             }
 
             Back.Text = "←";

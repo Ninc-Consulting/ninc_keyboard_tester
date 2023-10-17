@@ -454,7 +454,7 @@
 
         private void DoLayout()
         {
-            var xCoordinate = BaseKeyWidth;
+            var xCoordinate = BaseKeyWidth / 2;
             var yCoordinate = BaseKeyWidth;
 
             foreach (var key in LayoutKeys.Values)
@@ -494,12 +494,12 @@
                 // New row
                 if (key.KeyCode == Keys.Pause)
                 {
-                    xCoordinate = BaseKeyWidth;
+                    xCoordinate = BaseKeyWidth / 2;
                     yCoordinate += Convert.ToInt32(key.Height * 1.5);
                 }
                 else if (key.KeyCode == Keys.Subtract || key.KeyCode == Keys.Add || key.KeyCode == Keys.NumPad6 || (key.KeyCode == Keys.Enter && key.KeyCodeValue < 0))
                 {
-                    xCoordinate = BaseKeyWidth;
+                    xCoordinate = BaseKeyWidth / 2;
                     yCoordinate += BaseKeyWidth + _offset;
                 }
             }

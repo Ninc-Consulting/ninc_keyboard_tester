@@ -39,7 +39,7 @@
                 maxY = Math.Max(maxY, key.Location.Y + key.Height);
             }
 
-            maxX += BaseKeyWidth;
+            maxX += BaseKeyWidth / 2;
             maxY += BaseKeyWidth;
             Size = new Size(maxX, maxY);
         }

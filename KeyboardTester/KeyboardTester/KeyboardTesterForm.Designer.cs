@@ -2,7 +2,7 @@
 {
     partial class KeyboardTesterForm
     {
-        private static readonly int _baseKeyWidth = Screen.FromPoint(Cursor.Position).Bounds.Width / 30;
+        private static readonly int _baseKeyWidth = Screen.FromPoint(Cursor.Position).Bounds.Width / 25;
 
         public InformationBox InformationBox { get; private set; }
         public KeyboardLayout KeyboardLayout { get; private set; }
@@ -37,18 +37,18 @@
             Controls.Add(DropDownMenu);
 
             var comboBoxItems = new List<ComboBoxItem>();
-            var iso105Item = new ComboBoxItem()
-            {
-                KeyboardLayoutType = KeyboardLayoutType.ISO_105,
-                KeyboardLayoutText = "Keyboard layout: 'ISO 105'"
-            };
-            comboBoxItems.Add(iso105Item);
             var toughbookItem = new ComboBoxItem()
             {
                 KeyboardLayoutType = KeyboardLayoutType.Toughbook,
                 KeyboardLayoutText = "Keyboard layout: 'Toughbook'"
             };
             comboBoxItems.Add(toughbookItem);
+            var iso105Item = new ComboBoxItem()
+            {
+                KeyboardLayoutType = KeyboardLayoutType.ISO_105,
+                KeyboardLayoutText = "Keyboard layout: 'ISO 105'"
+            };
+            comboBoxItems.Add(iso105Item);
             var allKeys = new ComboBoxItem()
             {
                 KeyboardLayoutType = KeyboardLayoutType.AllKeys,
@@ -60,7 +60,7 @@
             DropDownMenu.DataSource = comboBoxItems;
             DropDownMenu.DisplayMember = "KeyboardLayoutText";
             DropDownMenu.ValueMember = "KeyboardLayoutType";
-            DropDownMenu.SelectedItem = iso105Item;
+            DropDownMenu.SelectedItem = toughbookItem;
             DropDownMenu.Name = "DropDownMenu";
             DropDownMenu.Location = new Point(_baseKeyWidth, _baseKeyWidth / 4);
             DropDownMenu.DropDownStyle = ComboBoxStyle.DropDownList;
