@@ -101,11 +101,11 @@ namespace UITests
 
             var keyDto = keyboardLayoutDto.LayoutKeys.Single(keyDto => keyDto.KeyCode == key);
             Assert.AreEqual(
-                expected: "ff6c3891",
-                actual: keyDto.BackColor.Name,
+                expected: Resources.Colors.NincPurple,
+                actual: keyDto.BackColor,
                 message: $"Input:<{key}>");
             Assert.AreEqual(
-                expected: Color.Red,
+                expected: Resources.Colors.Red,
                 actual: keyDto.BorderColor,
                 message: $"Input:<{key}>");
         }

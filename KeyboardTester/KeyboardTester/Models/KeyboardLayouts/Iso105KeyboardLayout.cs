@@ -28,428 +28,428 @@
 
         private void InitiateKeys()
         {
-            KeyResource.Escape.Size = _squareSize;
-            KeyResource.Escape.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.Escape);
-
-            KeyResource.F1.Size = _squareSize;
-            KeyResource.F1.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.F1);
-
-            KeyResource.F2.Size = _squareSize;
-            KeyResource.F2.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.F2);
-
-            KeyResource.F3.Size = _squareSize;
-            KeyResource.F3.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.F3);
-
-            KeyResource.F4.Size = _squareSize;
-            KeyResource.F4.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.F4);
-
-            KeyResource.F5.Size = _squareSize;
-            KeyResource.F5.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.F5);
-
-            KeyResource.F6.Size = _squareSize;
-            KeyResource.F6.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.F6);
-
-            KeyResource.F7.Size = _squareSize;
-            KeyResource.F7.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.F7);
-
-            KeyResource.F8.Size = _squareSize;
-            KeyResource.F8.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.F8);
-
-            KeyResource.F9.Size = _squareSize;
-            KeyResource.F9.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.F9);
-
-            KeyResource.F10.Size = _squareSize;
-            KeyResource.F10.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.F10);
-
-            KeyResource.F11.Size = _squareSize;
-            KeyResource.F11.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.F11);
-
-            KeyResource.F12.Size = _squareSize;
-            KeyResource.F12.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.F12);
-
-            KeyResource.PrintScreen.Size = _squareSize;
-            KeyResource.PrintScreen.TextAlign = ContentAlignment.TopCenter;
-            AddKeyToLayout(KeyResource.PrintScreen);
-
-            KeyResource.ScrollLock.Size = _squareSize;
-            KeyResource.ScrollLock.TextAlign = ContentAlignment.TopCenter;
-            AddKeyToLayout(KeyResource.ScrollLock);
-
-            KeyResource.Pause.Size = _squareSize;
-            KeyResource.Pause.TextAlign = ContentAlignment.TopCenter;
-            AddKeyToLayout(KeyResource.Pause);
-
-            KeyResource.Oem5.Size = _squareSize;
-            KeyResource.Oem5.TextAlign = ContentAlignment.BottomLeft;
-            AddKeyToLayout(KeyResource.Oem5);
-
-            KeyResource.D1.Size = _squareSize;
-            KeyResource.D1.TextAlign = ContentAlignment.BottomLeft;
-            AddKeyToLayout(KeyResource.D1);
-
-            KeyResource.D2.Size = _squareSize;
-            KeyResource.D2.TextAlign = ContentAlignment.BottomLeft;
-            AddKeyToLayout(KeyResource.D2);
-
-            KeyResource.D3.Size = _squareSize;
-            KeyResource.D3.TextAlign = ContentAlignment.BottomLeft;
-            AddKeyToLayout(KeyResource.D3);
-
-            KeyResource.D4.Size = _squareSize;
-            KeyResource.D4.TextAlign = ContentAlignment.BottomLeft;
-            AddKeyToLayout(KeyResource.D4);
-
-            KeyResource.D5.Size = _squareSize;
-            KeyResource.D5.TextAlign = ContentAlignment.BottomLeft;
-            AddKeyToLayout(KeyResource.D5);
-
-            KeyResource.D6.Size = _squareSize;
-            KeyResource.D6.TextAlign = ContentAlignment.BottomLeft;
-            AddKeyToLayout(KeyResource.D6);
-
-            KeyResource.D7.Size = _squareSize;
-            KeyResource.D7.TextAlign = ContentAlignment.BottomLeft;
-            AddKeyToLayout(KeyResource.D7);
-
-            KeyResource.D8.Size = _squareSize;
-            KeyResource.D8.TextAlign = ContentAlignment.BottomLeft;
-            AddKeyToLayout(KeyResource.D8);
-
-            KeyResource.D9.Size = _squareSize;
-            KeyResource.D9.TextAlign = ContentAlignment.BottomLeft;
-            AddKeyToLayout(KeyResource.D9);
-
-            KeyResource.D0.Size = _squareSize;
-            KeyResource.D0.TextAlign = ContentAlignment.BottomLeft;
-            AddKeyToLayout(KeyResource.D0);
-
-            KeyResource.OemPlus.Size = _squareSize;
-            KeyResource.OemPlus.TextAlign = ContentAlignment.BottomLeft;
-            AddKeyToLayout(KeyResource.OemPlus);
-
-            KeyResource.Oem4.Size = _squareSize;
-            KeyResource.Oem4.TextAlign = ContentAlignment.BottomLeft;
-            AddKeyToLayout(KeyResource.Oem4);
-
-            KeyResource.Back.Size = _rectangleSize2;
-            KeyResource.Back.TextAlign = ContentAlignment.BottomLeft;
-            AddKeyToLayout(KeyResource.Back);
-
-            KeyResource.Insert.Size = _squareSize;
-            KeyResource.Insert.TextAlign = ContentAlignment.BottomCenter;
-            AddKeyToLayout(KeyResource.Insert);
-
-            KeyResource.Home.Size = _squareSize;
-            KeyResource.Home.TextAlign = ContentAlignment.BottomCenter;
-            AddKeyToLayout(KeyResource.Home);
-
-            KeyResource.PageUp.Size = _squareSize;
-            KeyResource.PageUp.TextAlign = ContentAlignment.BottomCenter;
-            AddKeyToLayout(KeyResource.PageUp);
-
-            KeyResource.NumLock.Size = _squareSize;
-            KeyResource.NumLock.TextAlign = ContentAlignment.BottomCenter;
-            AddKeyToLayout(KeyResource.NumLock);
-
-            KeyResource.Divide.Size = _squareSize;
-            KeyResource.Divide.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.Divide);
-
-            KeyResource.Multiply.Size = _squareSize;
-            KeyResource.Multiply.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.Multiply);
-
-            KeyResource.Subtract.Size = _squareSize;
-            KeyResource.Subtract.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.Subtract);
-
-            KeyResource.Tab.Size = _rectangleSize1_5;
-            KeyResource.Tab.TextAlign = ContentAlignment.BottomLeft;
-            AddKeyToLayout(KeyResource.Tab);
-
-            KeyResource.Q.Size = _squareSize;
-            KeyResource.Q.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.Q);
-
-            KeyResource.W.Size = _squareSize;
-            KeyResource.W.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.W);
-
-            KeyResource.E.Size = _squareSize;
-            KeyResource.E.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.E);
-
-            KeyResource.R.Size = _squareSize;
-            KeyResource.R.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.R);
-
-            KeyResource.T.Size = _squareSize;
-            KeyResource.T.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.T);
-
-            KeyResource.Y.Size = _squareSize;
-            KeyResource.Y.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.Y);
-
-            KeyResource.U.Size = _squareSize;
-            KeyResource.U.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.U);
-
-            KeyResource.I.Size = _squareSize;
-            KeyResource.I.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.I);
-
-            KeyResource.O.Size = _squareSize;
-            KeyResource.O.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.O);
-
-            KeyResource.P.Size = _squareSize;
-            KeyResource.P.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.P);
-
-            KeyResource.Oem6.Size = _squareSize;
-            KeyResource.Oem6.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.Oem6);
-
-            KeyResource.Oem1.Size = _squareSize;
-            KeyResource.Oem1.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.Oem1);
-
-            KeyResource.Return.Size = _returnSize;
-            KeyResource.Return.TextAlign = ContentAlignment.BottomLeft;
-            AddKeyToLayout(KeyResource.Return);
-
-            KeyResource.Delete.Size = _squareSize;
-            KeyResource.Delete.TextAlign = ContentAlignment.BottomCenter;
-            AddKeyToLayout(KeyResource.Delete);
-
-            KeyResource.End.Size = _squareSize;
-            KeyResource.End.TextAlign = ContentAlignment.BottomCenter;
-            AddKeyToLayout(KeyResource.End);
-
-            KeyResource.PageDown.Size = _squareSize;
-            KeyResource.PageDown.TextAlign = ContentAlignment.BottomCenter;
-            AddKeyToLayout(KeyResource.PageDown);
-
-            KeyResource.NumPad7.Size = _squareSize;
-            KeyResource.NumPad7.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.NumPad7);
-
-            KeyResource.NumPad8.Size = _squareSize;
-            KeyResource.NumPad8.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.NumPad8);
-
-            KeyResource.NumPad9.Size = _squareSize;
-            KeyResource.NumPad9.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.NumPad9);
-
-            KeyResource.Add.Size = _reverseRectangleSize2;
-            KeyResource.Add.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.Add);
-
-            KeyResource.CapsLock.Size = _rectangleSize1_75;
-            KeyResource.CapsLock.TextAlign = ContentAlignment.BottomLeft;
-            AddKeyToLayout(KeyResource.CapsLock);
-
-            KeyResource.A.Size = _squareSize;
-            KeyResource.A.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.A);
-
-            KeyResource.S.Size = _squareSize;
-            KeyResource.S.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.S);
-
-            KeyResource.D.Size = _squareSize;
-            KeyResource.D.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.D);
-
-            KeyResource.F.Size = _squareSize;
-            KeyResource.F.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.F);
-
-            KeyResource.G.Size = _squareSize;
-            KeyResource.G.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.G);
-
-            KeyResource.H.Size = _squareSize;
-            KeyResource.H.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.H);
-
-            KeyResource.J.Size = _squareSize;
-            KeyResource.J.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.J);
-
-            KeyResource.K.Size = _squareSize;
-            KeyResource.K.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.K);
-
-            KeyResource.L.Size = _squareSize;
-            KeyResource.L.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.L);
-
-            KeyResource.OemTilde.Size = _squareSize;
-            KeyResource.OemTilde.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.OemTilde);
-
-            KeyResource.Oem7.Size = _squareSize;
-            KeyResource.Oem7.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.Oem7);
-
-            KeyResource.Oem2.Size = _squareSize;
-            KeyResource.Oem2.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.Oem2);
-
-            KeyResource.NumPad4.Size = _squareSize;
-            KeyResource.NumPad4.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.NumPad4);
-
-            KeyResource.NumPad5.Size = _squareSize;
-            KeyResource.NumPad5.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.NumPad5);
-
-            KeyResource.NumPad6.Size = _squareSize;
-            KeyResource.NumPad6.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.NumPad6);
-
-            KeyResource.LeftShift.Size = _rectangleSize1_25;
-            KeyResource.LeftShift.TextAlign = ContentAlignment.BottomLeft;
-            AddKeyToLayout(KeyResource.LeftShift);
-
-            KeyResource.Oem102.Size = _squareSize;
-            KeyResource.Oem102.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.Oem102);
-
-            KeyResource.Z.Size = _squareSize;
-            KeyResource.Z.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.Z);
-
-            KeyResource.X.Size = _squareSize;
-            KeyResource.X.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.X);
-
-            KeyResource.C.Size = _squareSize;
-            KeyResource.C.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.C);
-
-            KeyResource.V.Size = _squareSize;
-            KeyResource.V.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.V);
-
-            KeyResource.B.Size = _squareSize;
-            KeyResource.B.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.B);
-
-            KeyResource.N.Size = _squareSize;
-            KeyResource.N.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.N);
-
-            KeyResource.M.Size = _squareSize;
-            KeyResource.M.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.M);
-
-            KeyResource.OemComma.Size = _squareSize;
-            KeyResource.OemComma.TextAlign = ContentAlignment.BottomLeft;
-            AddKeyToLayout(KeyResource.OemComma);
-
-            KeyResource.OemPeriod.Size = _squareSize;
-            KeyResource.OemPeriod.TextAlign = ContentAlignment.BottomLeft;
-            AddKeyToLayout(KeyResource.OemPeriod);
-
-            KeyResource.OemMinus.Size = _squareSize;
-            KeyResource.OemMinus.TextAlign = ContentAlignment.BottomLeft;
-            AddKeyToLayout(KeyResource.OemMinus);
-
-            KeyResource.RightShift.Size = _rectangleSize2_75;
-            KeyResource.RightShift.TextAlign = ContentAlignment.BottomLeft;
-            AddKeyToLayout(KeyResource.RightShift);
-
-            KeyResource.UpArrow.Size = _squareSize;
-            KeyResource.UpArrow.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.UpArrow);
-
-            KeyResource.NumPad1.Size = _squareSize;
-            KeyResource.NumPad1.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.NumPad1);
-
-            KeyResource.NumPad2.Size = _squareSize;
-            KeyResource.NumPad2.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.NumPad2);
-
-            KeyResource.NumPad3.Size = _squareSize;
-            KeyResource.NumPad3.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.NumPad3);
-
-            KeyResource.Enter.Size = _reverseRectangleSize2;
-            KeyResource.Enter.TextAlign = ContentAlignment.BottomCenter;
-            AddKeyToLayout(KeyResource.Enter);
-
-            KeyResource.LeftControl.Size = _rectangleSize1_7;
-            KeyResource.LeftControl.TextAlign = ContentAlignment.BottomLeft;
-            AddKeyToLayout(KeyResource.LeftControl);
-
-            KeyResource.LeftWindows.Size = _rectangleSize1_5;
-            KeyResource.LeftWindows.TextAlign = ContentAlignment.BottomLeft;
-            AddKeyToLayout(KeyResource.LeftWindows);
-
-            KeyResource.LeftAlt.Size = _rectangleSize1_5;
-            KeyResource.LeftAlt.TextAlign = ContentAlignment.BottomLeft;
-            AddKeyToLayout(KeyResource.LeftAlt);
-
-            KeyResource.Spacebar.Size = _spacebarSize;
-            KeyResource.Spacebar.Text = string.Empty;
-            AddKeyToLayout(KeyResource.Spacebar);
-
-            KeyResource.RightAlt.Size = _rectangleSize1_5;
-            KeyResource.RightAlt.TextAlign = ContentAlignment.BottomLeft;
-            AddKeyToLayout(KeyResource.RightAlt);
-
-            KeyResource.RightWindows.Size = _rectangleSize1_25;
-            KeyResource.RightWindows.TextAlign = ContentAlignment.BottomLeft;
-            AddKeyToLayout(KeyResource.RightWindows);
-
-            KeyResource.Applications.Size = _rectangleSize1_25;
-            KeyResource.Applications.TextAlign = ContentAlignment.BottomLeft;
-            AddKeyToLayout(KeyResource.Applications);
-
-            KeyResource.RightControl.Size = _rectangleSize1_25;
-            KeyResource.RightControl.TextAlign = ContentAlignment.BottomLeft;
-            AddKeyToLayout(KeyResource.RightControl);
-
-            KeyResource.LeftArrow.Size = _squareSize;
-            KeyResource.LeftArrow.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.LeftArrow);
-
-            KeyResource.DownArrow.Size = _squareSize;
-            KeyResource.DownArrow.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.DownArrow);
-
-            KeyResource.RightArrow.Size = _squareSize;
-            KeyResource.RightArrow.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.RightArrow);
-
-            KeyResource.NumPad0.Size = _rectangleSize2;
-            KeyResource.NumPad0.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.NumPad0);
-
-            KeyResource.Decimal.Size = _squareSize;
-            KeyResource.Decimal.TextAlign = ContentAlignment.TopLeft;
-            AddKeyToLayout(KeyResource.Decimal);
-
-            KeyResource.Clear.Hide();
-            AddKeyToLayout(KeyResource.Clear);
+            Resources.Keys.Escape.Size = _squareSize;
+            Resources.Keys.Escape.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.Escape);
+
+            Resources.Keys.F1.Size = _squareSize;
+            Resources.Keys.F1.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.F1);
+
+            Resources.Keys.F2.Size = _squareSize;
+            Resources.Keys.F2.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.F2);
+
+            Resources.Keys.F3.Size = _squareSize;
+            Resources.Keys.F3.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.F3);
+
+            Resources.Keys.F4.Size = _squareSize;
+            Resources.Keys.F4.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.F4);
+
+            Resources.Keys.F5.Size = _squareSize;
+            Resources.Keys.F5.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.F5);
+
+            Resources.Keys.F6.Size = _squareSize;
+            Resources.Keys.F6.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.F6);
+
+            Resources.Keys.F7.Size = _squareSize;
+            Resources.Keys.F7.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.F7);
+
+            Resources.Keys.F8.Size = _squareSize;
+            Resources.Keys.F8.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.F8);
+
+            Resources.Keys.F9.Size = _squareSize;
+            Resources.Keys.F9.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.F9);
+
+            Resources.Keys.F10.Size = _squareSize;
+            Resources.Keys.F10.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.F10);
+
+            Resources.Keys.F11.Size = _squareSize;
+            Resources.Keys.F11.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.F11);
+
+            Resources.Keys.F12.Size = _squareSize;
+            Resources.Keys.F12.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.F12);
+
+            Resources.Keys.PrintScreen.Size = _squareSize;
+            Resources.Keys.PrintScreen.TextAlign = ContentAlignment.TopCenter;
+            AddKeyToLayout(Resources.Keys.PrintScreen);
+
+            Resources.Keys.ScrollLock.Size = _squareSize;
+            Resources.Keys.ScrollLock.TextAlign = ContentAlignment.TopCenter;
+            AddKeyToLayout(Resources.Keys.ScrollLock);
+
+            Resources.Keys.Pause.Size = _squareSize;
+            Resources.Keys.Pause.TextAlign = ContentAlignment.TopCenter;
+            AddKeyToLayout(Resources.Keys.Pause);
+
+            Resources.Keys.Oem5.Size = _squareSize;
+            Resources.Keys.Oem5.TextAlign = ContentAlignment.BottomLeft;
+            AddKeyToLayout(Resources.Keys.Oem5);
+
+            Resources.Keys.D1.Size = _squareSize;
+            Resources.Keys.D1.TextAlign = ContentAlignment.BottomLeft;
+            AddKeyToLayout(Resources.Keys.D1);
+
+            Resources.Keys.D2.Size = _squareSize;
+            Resources.Keys.D2.TextAlign = ContentAlignment.BottomLeft;
+            AddKeyToLayout(Resources.Keys.D2);
+
+            Resources.Keys.D3.Size = _squareSize;
+            Resources.Keys.D3.TextAlign = ContentAlignment.BottomLeft;
+            AddKeyToLayout(Resources.Keys.D3);
+
+            Resources.Keys.D4.Size = _squareSize;
+            Resources.Keys.D4.TextAlign = ContentAlignment.BottomLeft;
+            AddKeyToLayout(Resources.Keys.D4);
+
+            Resources.Keys.D5.Size = _squareSize;
+            Resources.Keys.D5.TextAlign = ContentAlignment.BottomLeft;
+            AddKeyToLayout(Resources.Keys.D5);
+
+            Resources.Keys.D6.Size = _squareSize;
+            Resources.Keys.D6.TextAlign = ContentAlignment.BottomLeft;
+            AddKeyToLayout(Resources.Keys.D6);
+
+            Resources.Keys.D7.Size = _squareSize;
+            Resources.Keys.D7.TextAlign = ContentAlignment.BottomLeft;
+            AddKeyToLayout(Resources.Keys.D7);
+
+            Resources.Keys.D8.Size = _squareSize;
+            Resources.Keys.D8.TextAlign = ContentAlignment.BottomLeft;
+            AddKeyToLayout(Resources.Keys.D8);
+
+            Resources.Keys.D9.Size = _squareSize;
+            Resources.Keys.D9.TextAlign = ContentAlignment.BottomLeft;
+            AddKeyToLayout(Resources.Keys.D9);
+
+            Resources.Keys.D0.Size = _squareSize;
+            Resources.Keys.D0.TextAlign = ContentAlignment.BottomLeft;
+            AddKeyToLayout(Resources.Keys.D0);
+
+            Resources.Keys.OemPlus.Size = _squareSize;
+            Resources.Keys.OemPlus.TextAlign = ContentAlignment.BottomLeft;
+            AddKeyToLayout(Resources.Keys.OemPlus);
+
+            Resources.Keys.Oem4.Size = _squareSize;
+            Resources.Keys.Oem4.TextAlign = ContentAlignment.BottomLeft;
+            AddKeyToLayout(Resources.Keys.Oem4);
+
+            Resources.Keys.Back.Size = _rectangleSize2;
+            Resources.Keys.Back.TextAlign = ContentAlignment.BottomLeft;
+            AddKeyToLayout(Resources.Keys.Back);
+
+            Resources.Keys.Insert.Size = _squareSize;
+            Resources.Keys.Insert.TextAlign = ContentAlignment.BottomCenter;
+            AddKeyToLayout(Resources.Keys.Insert);
+
+            Resources.Keys.Home.Size = _squareSize;
+            Resources.Keys.Home.TextAlign = ContentAlignment.BottomCenter;
+            AddKeyToLayout(Resources.Keys.Home);
+
+            Resources.Keys.PageUp.Size = _squareSize;
+            Resources.Keys.PageUp.TextAlign = ContentAlignment.BottomCenter;
+            AddKeyToLayout(Resources.Keys.PageUp);
+
+            Resources.Keys.NumLock.Size = _squareSize;
+            Resources.Keys.NumLock.TextAlign = ContentAlignment.BottomCenter;
+            AddKeyToLayout(Resources.Keys.NumLock);
+
+            Resources.Keys.Divide.Size = _squareSize;
+            Resources.Keys.Divide.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.Divide);
+
+            Resources.Keys.Multiply.Size = _squareSize;
+            Resources.Keys.Multiply.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.Multiply);
+
+            Resources.Keys.Subtract.Size = _squareSize;
+            Resources.Keys.Subtract.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.Subtract);
+
+            Resources.Keys.Tab.Size = _rectangleSize1_5;
+            Resources.Keys.Tab.TextAlign = ContentAlignment.BottomLeft;
+            AddKeyToLayout(Resources.Keys.Tab);
+
+            Resources.Keys.Q.Size = _squareSize;
+            Resources.Keys.Q.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.Q);
+
+            Resources.Keys.W.Size = _squareSize;
+            Resources.Keys.W.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.W);
+
+            Resources.Keys.E.Size = _squareSize;
+            Resources.Keys.E.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.E);
+
+            Resources.Keys.R.Size = _squareSize;
+            Resources.Keys.R.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.R);
+
+            Resources.Keys.T.Size = _squareSize;
+            Resources.Keys.T.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.T);
+
+            Resources.Keys.Y.Size = _squareSize;
+            Resources.Keys.Y.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.Y);
+
+            Resources.Keys.U.Size = _squareSize;
+            Resources.Keys.U.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.U);
+
+            Resources.Keys.I.Size = _squareSize;
+            Resources.Keys.I.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.I);
+
+            Resources.Keys.O.Size = _squareSize;
+            Resources.Keys.O.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.O);
+
+            Resources.Keys.P.Size = _squareSize;
+            Resources.Keys.P.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.P);
+
+            Resources.Keys.Oem6.Size = _squareSize;
+            Resources.Keys.Oem6.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.Oem6);
+
+            Resources.Keys.Oem1.Size = _squareSize;
+            Resources.Keys.Oem1.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.Oem1);
+
+            Resources.Keys.Return.Size = _returnSize;
+            Resources.Keys.Return.TextAlign = ContentAlignment.BottomLeft;
+            AddKeyToLayout(Resources.Keys.Return);
+
+            Resources.Keys.Delete.Size = _squareSize;
+            Resources.Keys.Delete.TextAlign = ContentAlignment.BottomCenter;
+            AddKeyToLayout(Resources.Keys.Delete);
+
+            Resources.Keys.End.Size = _squareSize;
+            Resources.Keys.End.TextAlign = ContentAlignment.BottomCenter;
+            AddKeyToLayout(Resources.Keys.End);
+
+            Resources.Keys.PageDown.Size = _squareSize;
+            Resources.Keys.PageDown.TextAlign = ContentAlignment.BottomCenter;
+            AddKeyToLayout(Resources.Keys.PageDown);
+
+            Resources.Keys.NumPad7.Size = _squareSize;
+            Resources.Keys.NumPad7.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.NumPad7);
+
+            Resources.Keys.NumPad8.Size = _squareSize;
+            Resources.Keys.NumPad8.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.NumPad8);
+
+            Resources.Keys.NumPad9.Size = _squareSize;
+            Resources.Keys.NumPad9.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.NumPad9);
+
+            Resources.Keys.Add.Size = _reverseRectangleSize2;
+            Resources.Keys.Add.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.Add);
+
+            Resources.Keys.CapsLock.Size = _rectangleSize1_75;
+            Resources.Keys.CapsLock.TextAlign = ContentAlignment.BottomLeft;
+            AddKeyToLayout(Resources.Keys.CapsLock);
+
+            Resources.Keys.A.Size = _squareSize;
+            Resources.Keys.A.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.A);
+
+            Resources.Keys.S.Size = _squareSize;
+            Resources.Keys.S.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.S);
+
+            Resources.Keys.D.Size = _squareSize;
+            Resources.Keys.D.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.D);
+
+            Resources.Keys.F.Size = _squareSize;
+            Resources.Keys.F.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.F);
+
+            Resources.Keys.G.Size = _squareSize;
+            Resources.Keys.G.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.G);
+
+            Resources.Keys.H.Size = _squareSize;
+            Resources.Keys.H.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.H);
+
+            Resources.Keys.J.Size = _squareSize;
+            Resources.Keys.J.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.J);
+
+            Resources.Keys.K.Size = _squareSize;
+            Resources.Keys.K.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.K);
+
+            Resources.Keys.L.Size = _squareSize;
+            Resources.Keys.L.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.L);
+
+            Resources.Keys.OemTilde.Size = _squareSize;
+            Resources.Keys.OemTilde.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.OemTilde);
+
+            Resources.Keys.Oem7.Size = _squareSize;
+            Resources.Keys.Oem7.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.Oem7);
+
+            Resources.Keys.Oem2.Size = _squareSize;
+            Resources.Keys.Oem2.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.Oem2);
+
+            Resources.Keys.NumPad4.Size = _squareSize;
+            Resources.Keys.NumPad4.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.NumPad4);
+
+            Resources.Keys.NumPad5.Size = _squareSize;
+            Resources.Keys.NumPad5.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.NumPad5);
+
+            Resources.Keys.NumPad6.Size = _squareSize;
+            Resources.Keys.NumPad6.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.NumPad6);
+
+            Resources.Keys.LeftShift.Size = _rectangleSize1_25;
+            Resources.Keys.LeftShift.TextAlign = ContentAlignment.BottomLeft;
+            AddKeyToLayout(Resources.Keys.LeftShift);
+
+            Resources.Keys.Oem102.Size = _squareSize;
+            Resources.Keys.Oem102.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.Oem102);
+
+            Resources.Keys.Z.Size = _squareSize;
+            Resources.Keys.Z.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.Z);
+
+            Resources.Keys.X.Size = _squareSize;
+            Resources.Keys.X.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.X);
+
+            Resources.Keys.C.Size = _squareSize;
+            Resources.Keys.C.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.C);
+
+            Resources.Keys.V.Size = _squareSize;
+            Resources.Keys.V.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.V);
+
+            Resources.Keys.B.Size = _squareSize;
+            Resources.Keys.B.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.B);
+
+            Resources.Keys.N.Size = _squareSize;
+            Resources.Keys.N.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.N);
+
+            Resources.Keys.M.Size = _squareSize;
+            Resources.Keys.M.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.M);
+
+            Resources.Keys.OemComma.Size = _squareSize;
+            Resources.Keys.OemComma.TextAlign = ContentAlignment.BottomLeft;
+            AddKeyToLayout(Resources.Keys.OemComma);
+
+            Resources.Keys.OemPeriod.Size = _squareSize;
+            Resources.Keys.OemPeriod.TextAlign = ContentAlignment.BottomLeft;
+            AddKeyToLayout(Resources.Keys.OemPeriod);
+
+            Resources.Keys.OemMinus.Size = _squareSize;
+            Resources.Keys.OemMinus.TextAlign = ContentAlignment.BottomLeft;
+            AddKeyToLayout(Resources.Keys.OemMinus);
+
+            Resources.Keys.RightShift.Size = _rectangleSize2_75;
+            Resources.Keys.RightShift.TextAlign = ContentAlignment.BottomLeft;
+            AddKeyToLayout(Resources.Keys.RightShift);
+
+            Resources.Keys.UpArrow.Size = _squareSize;
+            Resources.Keys.UpArrow.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.UpArrow);
+
+            Resources.Keys.NumPad1.Size = _squareSize;
+            Resources.Keys.NumPad1.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.NumPad1);
+
+            Resources.Keys.NumPad2.Size = _squareSize;
+            Resources.Keys.NumPad2.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.NumPad2);
+
+            Resources.Keys.NumPad3.Size = _squareSize;
+            Resources.Keys.NumPad3.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.NumPad3);
+
+            Resources.Keys.Enter.Size = _reverseRectangleSize2;
+            Resources.Keys.Enter.TextAlign = ContentAlignment.BottomCenter;
+            AddKeyToLayout(Resources.Keys.Enter);
+
+            Resources.Keys.LeftControl.Size = _rectangleSize1_7;
+            Resources.Keys.LeftControl.TextAlign = ContentAlignment.BottomLeft;
+            AddKeyToLayout(Resources.Keys.LeftControl);
+
+            Resources.Keys.LeftWindows.Size = _rectangleSize1_5;
+            Resources.Keys.LeftWindows.TextAlign = ContentAlignment.BottomLeft;
+            AddKeyToLayout(Resources.Keys.LeftWindows);
+
+            Resources.Keys.LeftAlt.Size = _rectangleSize1_5;
+            Resources.Keys.LeftAlt.TextAlign = ContentAlignment.BottomLeft;
+            AddKeyToLayout(Resources.Keys.LeftAlt);
+
+            Resources.Keys.Spacebar.Size = _spacebarSize;
+            Resources.Keys.Spacebar.Text = string.Empty;
+            AddKeyToLayout(Resources.Keys.Spacebar);
+
+            Resources.Keys.RightAlt.Size = _rectangleSize1_5;
+            Resources.Keys.RightAlt.TextAlign = ContentAlignment.BottomLeft;
+            AddKeyToLayout(Resources.Keys.RightAlt);
+
+            Resources.Keys.RightWindows.Size = _rectangleSize1_25;
+            Resources.Keys.RightWindows.TextAlign = ContentAlignment.BottomLeft;
+            AddKeyToLayout(Resources.Keys.RightWindows);
+
+            Resources.Keys.Applications.Size = _rectangleSize1_25;
+            Resources.Keys.Applications.TextAlign = ContentAlignment.BottomLeft;
+            AddKeyToLayout(Resources.Keys.Applications);
+
+            Resources.Keys.RightControl.Size = _rectangleSize1_25;
+            Resources.Keys.RightControl.TextAlign = ContentAlignment.BottomLeft;
+            AddKeyToLayout(Resources.Keys.RightControl);
+
+            Resources.Keys.LeftArrow.Size = _squareSize;
+            Resources.Keys.LeftArrow.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.LeftArrow);
+
+            Resources.Keys.DownArrow.Size = _squareSize;
+            Resources.Keys.DownArrow.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.DownArrow);
+
+            Resources.Keys.RightArrow.Size = _squareSize;
+            Resources.Keys.RightArrow.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.RightArrow);
+
+            Resources.Keys.NumPad0.Size = _rectangleSize2;
+            Resources.Keys.NumPad0.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.NumPad0);
+
+            Resources.Keys.Decimal.Size = _squareSize;
+            Resources.Keys.Decimal.TextAlign = ContentAlignment.TopLeft;
+            AddKeyToLayout(Resources.Keys.Decimal);
+
+            Resources.Keys.Clear.Hide();
+            AddKeyToLayout(Resources.Keys.Clear);
         }
 
         private void DoLayout()

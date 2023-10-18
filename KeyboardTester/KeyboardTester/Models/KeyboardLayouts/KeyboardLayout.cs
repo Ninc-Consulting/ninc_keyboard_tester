@@ -23,8 +23,8 @@
             {
                 key.TabStop = false;
                 key.Font = KeyboardTesterForm.ScaledFont;
-                key.BackColor = SystemColors.ControlLight;
-                key.ForeColor = Color.Black;
+                key.BackColor = Resources.Colors.DefaultKeyBackground;
+                key.ForeColor = Resources.Colors.Black;
             }
         }
 

@@ -128,15 +128,15 @@
             if (keyEventType == KeyEventType.KeyDown)
             {
                 // Set the background to purple on the pressed key
-                keyboardLayout.LayoutKeys[(int)keyCode].BackColor = ColorTranslator.FromHtml("#6c3891");
-                keyboardLayout.LayoutKeys[(int)keyCode].ForeColor = Color.White;
+                keyboardLayout.LayoutKeys[(int)keyCode].BackColor = Resources.Colors.NincPurple;
+                keyboardLayout.LayoutKeys[(int)keyCode].ForeColor = Resources.Colors.White;
             }
             else
             {
                 // Set the border to red on the pressed key
                 keyboardLayout.LayoutKeys[(int)keyCode].FlatStyle = FlatStyle.Flat;
                 keyboardLayout.LayoutKeys[(int)keyCode].FlatAppearance.BorderSize = Convert.ToInt32(KeyboardLayout.BaseKeyWidth / 20);
-                keyboardLayout.LayoutKeys[(int)keyCode].FlatAppearance.BorderColor = Color.Red;
+                keyboardLayout.LayoutKeys[(int)keyCode].FlatAppearance.BorderColor = Resources.Colors.Red;
             }
         }
 

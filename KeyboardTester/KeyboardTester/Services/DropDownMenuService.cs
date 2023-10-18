@@ -28,7 +28,7 @@
                 form.Controls.Remove(textBoxControl);
             }
 
-            KeyResource.SetDefaultValues();
+            Resources.Keys.SetDefaultValues();
             form.ReInitializeComponent(selectedValue);
             _informationBoxService.ResetLayout(form);
             form.ActiveControl = null;

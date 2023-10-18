@@ -17,8 +17,8 @@
 
             foreach (var key in form.KeyboardLayout.LayoutKeys.Values)
             {
-                key.BackColor = SystemColors.ControlLight;
-                key.ForeColor = Color.Black;
+                key.BackColor = Resources.Colors.DefaultKeyBackground;
+                key.ForeColor = Resources.Colors.Black;
                 key.FlatStyle = FlatStyle.Standard;
             }
         }

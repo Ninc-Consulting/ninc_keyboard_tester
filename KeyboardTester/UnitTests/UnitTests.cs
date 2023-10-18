@@ -225,8 +225,6 @@ namespace UnitTests
         public void U100_SendKeyboardLayout_ToResetLayouts_LayoutsAreReset()
         {
             // Arrange
-            var defaultColor = SystemColors.ControlLight;
-            var purpleColor = ColorTranslator.FromHtml("#6c3891");
             var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105);
             var previousCode = form.InformationBox.KeyCodeValue.Text = "0x41";
             var previousName = form.InformationBox.KeyNameValue.Text = "A";
@@ -234,7 +232,7 @@ namespace UnitTests
             form.KeyboardLayout.LayoutKeys
                 .Select(dict => dict.Value)
                 .Single(key => key.KeyCode == Keys.A)
-                .BackColor = purpleColor;
+                .BackColor = Resources.Colors.NincPurple;
 
             // Act
             _informationBoxService.ResetLayout(form);
@@ -250,7 +248,7 @@ namespace UnitTests
                 notExpected: previousFlag,
                 actual: form.InformationBox.KeyFlagsValue.Text);
             Assert.AreNotEqual(
-                notExpected: purpleColor,
+                notExpected: Resources.Colors.NincPurple,
                 actual: form.KeyboardLayout.LayoutKeys.Select(dict => dict.Value).Single(key => key.KeyCode == Keys.A).BackColor);
 
             Assert.AreEqual(
@@ -263,7 +261,7 @@ namespace UnitTests
                 expected: string.Empty,
                 actual: form.InformationBox.KeyFlagsValue.Text);
             Assert.AreEqual(
-                expected: defaultColor,
+                expected: Resources.Colors.DefaultKeyBackground,
                 actual: form.KeyboardLayout.LayoutKeys.Select(dict => dict.Value).Single(key => key.KeyCode == Keys.A).BackColor);
         }
 

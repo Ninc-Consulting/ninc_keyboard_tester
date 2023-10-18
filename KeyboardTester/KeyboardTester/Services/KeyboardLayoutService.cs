@@ -92,15 +92,15 @@
             if (keyEventType == KeyEventType.KeyDown)
             {
                 // Set the background to purple if the key was pressed
-                keyboardLayout.LayoutKeys[(int)keyCodeValue].BackColor = ColorTranslator.FromHtml("#6c3891");
-                keyboardLayout.LayoutKeys[(int)keyCodeValue].ForeColor = Color.White;
+                keyboardLayout.LayoutKeys[(int)keyCodeValue].BackColor = Resources.Colors.NincPurple;
+                keyboardLayout.LayoutKeys[(int)keyCodeValue].ForeColor = Resources.Colors.White;
             }
             else
             {
                 // Set the border to if the key was released
                 keyboardLayout.LayoutKeys[(int)keyCodeValue].FlatStyle = FlatStyle.Flat;
                 keyboardLayout.LayoutKeys[(int)keyCodeValue].FlatAppearance.BorderSize = Convert.ToInt32(KeyboardLayout.BaseKeyWidth / 20);
-                keyboardLayout.LayoutKeys[(int)keyCodeValue].FlatAppearance.BorderColor = Color.Red;
+                keyboardLayout.LayoutKeys[(int)keyCodeValue].FlatAppearance.BorderColor = Resources.Colors.Red;
             }
         }
     }

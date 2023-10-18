@@ -34,8 +34,8 @@
             var yCoordinate = keboardLayoutSize.Height;
             var xCoordinate = baseKeyWidth;
 
-            KeyDownButtonExample.BackColor = ColorTranslator.FromHtml("#6c3891");
-            KeyDownButtonExample.ForeColor = Color.White;
+            KeyDownButtonExample.BackColor = Resources.Colors.NincPurple;
+            KeyDownButtonExample.ForeColor = Resources.Colors.White;
             KeyDownButtonExample.Location = new Point(xCoordinate, yCoordinate);
             KeyDownButtonExample.Name = "KeyDownButtonExample";
             KeyDownButtonExample.Size = new Size(baseKeyWidth, baseKeyWidth);
@@ -46,8 +46,8 @@
             xCoordinate += KeyDownButtonExample.Width + _offset;
             KeyUpButtonExample.FlatStyle = FlatStyle.Flat;
             KeyUpButtonExample.FlatAppearance.BorderSize = Convert.ToInt32(baseKeyWidth / 20);
-            KeyUpButtonExample.FlatAppearance.BorderColor = Color.Red;
-            KeyUpButtonExample.BackColor = SystemColors.ControlLight;
+            KeyUpButtonExample.FlatAppearance.BorderColor = Resources.Colors.Red;
+            KeyUpButtonExample.BackColor = Resources.Colors.DefaultKeyBackground;
             KeyUpButtonExample.Location = new Point(xCoordinate, yCoordinate);
             KeyUpButtonExample.Name = "KeyUpButtonExample";
             KeyUpButtonExample.Size = new Size(baseKeyWidth, baseKeyWidth);
@@ -58,7 +58,7 @@
             xCoordinate = baseKeyWidth;
             yCoordinate += baseKeyWidth + _offset;
 
-            KeyCodeText.BackColor = SystemColors.Control;
+            KeyCodeText.BackColor = Resources.Colors.DefaultControlBackground;
             KeyCodeText.BorderStyle = BorderStyle.None;
             KeyCodeText.Location = new Point(xCoordinate, yCoordinate);
             KeyCodeText.Name = "KeyCodeText";
@@ -69,7 +69,7 @@
             KeyCodeText.Font = _font;
 
             xCoordinate += _textBoxSize.Width + _offset;
-            KeyNameText.BackColor = SystemColors.Control;
+            KeyNameText.BackColor = Resources.Colors.DefaultControlBackground;
             KeyNameText.BorderStyle = BorderStyle.None;
             KeyNameText.Location = new Point(xCoordinate, yCoordinate);
             KeyNameText.Name = "KeyNameText";
@@ -79,7 +79,7 @@
             KeyNameText.TabStop = false;
             KeyNameText.Font = _font;
 
-            KeyFlagsText.BackColor = SystemColors.Control;
+            KeyFlagsText.BackColor = Resources.Colors.DefaultControlBackground;
             KeyFlagsText.BorderStyle = BorderStyle.None;
             KeyFlagsText.Location = new Point(xCoordinate + _textBoxSize.Width + _offset, yCoordinate);
             KeyFlagsText.Name = "KeyFlagsText";
