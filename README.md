@@ -27,29 +27,39 @@ Download and install Docker from their [website](https://www.docker.com/get-star
 
 Execute the following commands to build the application as a standalone exe file with Docker.
 ```
-docker build -t my-image -f <RelativePath>/KeyboardTester/Dockerfile <RelativePath>/ninc_keyboad_tester/KeyboardTester
+docker build -t my-image -f <RelativePath>/KeyboardTester/Dockerfile_publish <RelativePath>/ninc_keyboad_tester/KeyboardTester
 docker run --rm --name my-container --mount type=mount,source=<AbsolutPath>/ninc_keyboard_tester/KeyboardTester,target=C:/app my-image
 ```
 The KeyboardTester.exe file is created in the ninc_keyboard_tester/KeyboardTester/artifacts folder.
+
+## Checking style and linting
+
+You can use either the .NET CLI or Docker to do a static code analysis as shown below.
+#### .NET CLI
+```
+dotnet format <RelativePath>/KeyboardTester.sln --verbosity minimal --verify-no-changes
+```
+
+#### Docker
+```
+docker build -t my-image -f <RelativePath>/Dockerfile_lint <RelativePath>/ninc_keyboad_tester/KeyboardTester
+docker run --rm --name my-container --mount type=mount,source=<AbsolutPath>/ninc_keyboard_tester/KeyboardTester,target=C:/app my-image
+```
 
 ## Running tests
 
 ### Unit Tests
 
-Unit tests can be run by using either the .NET CLI or Docker.
+Unit tests can be run by using either the .NET CLI or Docker. When the tests are finished, an html file of the results are created in the UnitTests/TestResults folder.
 
 #### Using the .NET CLI
-
-Use the following command to run the unit tests and create an html file of the results in the UnitTests/TestResults folder.
 ```
 dotnet test <RelativePath>/UnitTests.csproj --logger "html"
 ```
 
 #### Using Docker
-
-Execute the following commands to run the unit tests and create an html file of the results in the folder specified by the _\<RelativePath\>_ in the docker cp command. Note that all folders in the _\<RelativePath\>_ in the docker cp command must already exist when running the command.
 ```
-docker build -t my-image -f <RelativePath>/UnitTests/Dockerfile <RelativePath>/ninc_keyboad_tester/KeyboardTester
+docker build -t my-image -f <RelativePath>/UnitTests/Dockerfile_test <RelativePath>/ninc_keyboad_tester/KeyboardTester
 docker run --rm --name my-container --mount type=mount,source=<AbsolutPath>/ninc_keyboard_tester/KeyboardTester,target=C:/app my-image
 ```
 
@@ -58,7 +68,7 @@ docker run --rm --name my-container --mount type=mount,source=<AbsolutPath>/ninc
 The UI tests can only be run with the .NET CLI because they can not run in a container since they require an active desktop session. To run the UI tests:
 1. Download and install [Microsoft Application Driver](https://github.com/Microsoft/WinAppDriver/releases)
 2. Turn on developer mode
-    1. Search for "developer settings" in the task bar search box
+    1. Search for "developer settings" in the task bar's search box
     2. Turn on Developer Mode
 3. Start WinAppDriver.exe loacated in C:\Program Files (x86)\Windows Application Driver
 4. Run the following command:
