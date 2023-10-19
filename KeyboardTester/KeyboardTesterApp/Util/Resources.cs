@@ -1,6 +1,6 @@
 ﻿using Forms = System.Windows.Forms;
 
-namespace KeyboardTester.Util
+namespace KeyboardTesterApp.Util
 {
     public static class Resources
     {

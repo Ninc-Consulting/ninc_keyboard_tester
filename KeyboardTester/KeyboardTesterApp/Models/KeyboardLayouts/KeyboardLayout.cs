@@ -1,4 +1,4 @@
-﻿namespace KeyboardTester.Models.KeyboardLayouts
+﻿namespace KeyboardTesterApp.Models.KeyboardLayouts
 {
     public class KeyboardLayout
     {

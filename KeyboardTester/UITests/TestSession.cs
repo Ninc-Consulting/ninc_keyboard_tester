@@ -22,7 +22,7 @@
                     return;
                 }
 
-                var testApp = $@"{solutionDirectory}/KeyboardTester/bin/Debug/net6.0-windows/KeyboardTester.exe";
+                var testApp = $@"{solutionDirectory}/KeyboardTesterApp/bin/Debug/net6.0-windows/KeyboardTesterApp.exe";
                 if (!File.Exists(testApp))
                 {
                     return;

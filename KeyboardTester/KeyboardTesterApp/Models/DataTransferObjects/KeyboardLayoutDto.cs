@@ -1,4 +1,4 @@
-﻿namespace KeyboardTester.Models.DataTransferObjects
+﻿namespace KeyboardTesterApp.Models.DataTransferObjects
 {
     public class KeyboardLayoutDto
     {

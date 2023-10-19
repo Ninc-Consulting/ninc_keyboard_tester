@@ -1,0 +1,10 @@
+﻿global using KeyboardTesterApp.Models;
+global using KeyboardTesterApp.Models.DataTransferObjects;
+global using KeyboardTesterApp.Models.KeyboardLayouts;
+global using KeyboardTesterApp.Services;
+global using KeyboardTesterApp.Util;
+global using Newtonsoft.Json;
+global using System.Diagnostics;
+global using System.Runtime.InteropServices;
+global using System.Text.RegularExpressions;
+global using static KeyboardTesterApp.KeyboardHook;

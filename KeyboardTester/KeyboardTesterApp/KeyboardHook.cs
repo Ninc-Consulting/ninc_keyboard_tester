@@ -8,7 +8,7 @@
 //    returned by the KeyIntercepted event.
 //  - Original code: https://www.codeproject.com/Articles/14485/Low-level-Windows-API-hooks-from-C-to-stop-unwante
 
-namespace KeyboardTester
+namespace KeyboardTesterApp
 {
     /// <summary>
     /// Low-level keyboard intercept class to trap and suppress system keys.

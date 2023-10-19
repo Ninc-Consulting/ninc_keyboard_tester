@@ -1,4 +1,4 @@
-namespace KeyboardTester
+namespace KeyboardTesterApp
 {
     public partial class KeyboardTesterForm : Form
     {

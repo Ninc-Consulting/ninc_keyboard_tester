@@ -1,4 +1,4 @@
-namespace KeyboardTester
+namespace KeyboardTesterApp
 {
     internal static class Program
     {

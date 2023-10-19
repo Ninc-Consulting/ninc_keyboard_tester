@@ -1,4 +1,4 @@
-﻿namespace KeyboardTester.Services
+﻿namespace KeyboardTesterApp.Services
 {
     public class ToughbookService
     {

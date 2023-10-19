@@ -1,4 +1,4 @@
-﻿namespace KeyboardTester.Models
+﻿namespace KeyboardTesterApp.Models
 {
     public class ComboBoxItem
     {

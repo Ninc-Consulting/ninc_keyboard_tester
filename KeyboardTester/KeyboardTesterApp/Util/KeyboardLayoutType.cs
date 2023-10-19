@@ -1,4 +1,4 @@
-﻿namespace KeyboardTester.Util
+﻿namespace KeyboardTesterApp.Util
 {
     public enum KeyboardLayoutType
     {

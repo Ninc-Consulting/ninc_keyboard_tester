@@ -1,5 +1,3 @@
-using KeyboardTester.Util;
-
 namespace UITests
 {
     [TestClass]

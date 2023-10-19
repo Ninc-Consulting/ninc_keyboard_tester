@@ -1,4 +1,4 @@
-﻿namespace KeyboardTester
+﻿namespace KeyboardTesterApp
 {
     partial class KeyboardTesterForm
     {

@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\KeyboardTester\KeyboardTester.csproj" />
+    <ProjectReference Include="..\KeyboardTesterApp\KeyboardTesterApp.csproj" />
   </ItemGroup>
 
 </Project>
