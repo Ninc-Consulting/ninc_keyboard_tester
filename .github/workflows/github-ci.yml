@@ -41,12 +41,8 @@ jobs:
         # run: echo "::set-output name=date::$(date +'%Y-%m-%d_%H:%M:%S')"
         run: echo "DATE=$(date +'%Y-%m-%d %H:%M:%S')" >> "$GITHUB_OUTPUT"
       - name: Run unit tests
-        env:
-          DATE: ${{ steps.date.outputs.DATE }}
         run: dotnet test Keyboardtester/UnitTests/UnitTests.csproj --no-build --logger "html;LogFileName=TestResults_$DATE.html"
       - name: Upload test results to build
-        env:
-          DATE: ${{ steps.date.outputs.DATE }}
         uses: actions/upload-artifact@v3
         with:
           name: Test results
