@@ -12,7 +12,17 @@ on:
   workflow_dispatch:
 
 jobs:
-  lint-job:
+  # lint-job:
+  #   runs-on: windows-2019
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - name: Setup dotnet
+  #       uses: actions/setup-dotnet@v3
+  #       with:
+  #         dotnet-version: '6.0.x'
+     
+  test-job:
+    needs: lint-job
     runs-on: windows-2019
     steps:
       - uses: actions/checkout@v4
@@ -22,15 +32,6 @@ jobs:
           dotnet-version: '6.0.x'
       - name: Check styling and linting
         run: dotnet format --verbosity normal --severity warn --verify-no-changes Keyboardtester/KeyboardTester.sln
-  build-and-test-job:
-    needs: lint-job
-    runs-on: windows-2019
-    steps:
-      - uses: actions/checkout@v4
-      - name: Setup dotnet
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '6.0.x'
       - name: Restore all projects
         run: dotnet restore Keyboardtester/KeyboardTester.sln
       - name: Build solution
