@@ -12,17 +12,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  # lint-job:
-  #   runs-on: windows-2019
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - name: Setup dotnet
-  #       uses: actions/setup-dotnet@v3
-  #       with:
-  #         dotnet-version: '6.0.x'
-     
-  test-job:
-    # needs: lint-job
+  lint-job:
     runs-on: windows-2019
     steps:
       - uses: actions/checkout@v4
@@ -32,14 +22,23 @@ jobs:
           dotnet-version: '6.0.x'
       - name: Check styling and linting
         run: dotnet format --verbosity normal --severity warn --verify-no-changes Keyboardtester/KeyboardTester.sln
+     
+  build-and-test-job:
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '6.0.x'
       - name: Restore all projects
         run: dotnet restore Keyboardtester/KeyboardTester.sln
       - name: Build solution
         run: dotnet build Keyboardtester/KeyboardTester.sln --no-restore
       - name: Set current date
-        id: date
-        # run: echo "::set-output name=date::$(date +'%Y-%m-%d_%H:%M:%S')"
         run: echo "DATE=$(date +'%Y-%m-%d %H:%M:%S')" >> "$GITHUB_OUTPUT"
+      - name: Test environment variable
+        run: echo $DATE
       - name: Run unit tests
         run: dotnet test Keyboardtester/UnitTests/UnitTests.csproj --no-build --logger "html;LogFileName=TestResults_$DATE.html"
       - name: Upload test results to build
