@@ -22,7 +22,7 @@ jobs:
   #         dotnet-version: '6.0.x'
      
   test-job:
-    needs: lint-job
+    # needs: lint-job
     runs-on: windows-2019
     steps:
       - uses: actions/checkout@v4
