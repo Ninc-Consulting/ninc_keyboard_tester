@@ -1,4 +1,5 @@
-﻿using Forms = System.Windows.Forms;
+﻿using System.Diagnostics.Tracing;
+using Forms = System.Windows.Forms;
 
 namespace KeyboardTesterApp.Util
 {
@@ -1513,18 +1514,21 @@ namespace KeyboardTesterApp.Util
                 };
                 _keys.Add(OemClear);
 
-                SetDefaultValues();
+                ResetToDefaultValues();
             }
 
-            public static void SetDefaultValues()
+            public static void ResetToDefaultValues()
             {
                 var regex = new Regex("(?<=[A-Z])(?=[A-Z][a-z])|(?<=[^A-Z])(?=[A-Z])");
                 foreach (var key in _keys)
                 {
                     key.Text = regex.Replace(key.Name, " ");
-                    key.Size = new Size(1, 1);
+                    key.BackColor = Colors.DefaultKeyBackground;
+                    key.FlatAppearance.BorderColor = default;
+                    key.FlatStyle = default;
                 }
 
+                // Set the Text for keys that doesn't have a good/readable Name
                 Back.Text = "←";
                 Tab.Text = "⭾";
                 Enter.Text = "Enter";
