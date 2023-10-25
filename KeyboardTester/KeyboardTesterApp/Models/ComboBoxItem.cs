@@ -2,7 +2,7 @@
 {
     public class ComboBoxItem
     {
-        public KeyboardLayoutType KeyboardLayoutType { get; set; }
-        public string? KeyboardLayoutText { get; set; }
+        public KeyboardLayoutType KeyboardLayoutType { get; set; } = KeyboardLayoutType.None;
+        public string KeyboardLayoutText { get; set; } = string.Empty;
     }
 }

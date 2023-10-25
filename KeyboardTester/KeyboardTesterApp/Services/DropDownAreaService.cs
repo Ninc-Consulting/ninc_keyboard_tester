@@ -1,17 +1,17 @@
 ﻿namespace KeyboardTesterApp.Services
 {
-    public class DropDownMenuService
+    public class DropDownAreaService
     {
-        private readonly InformationBoxService _informationBoxService;
+        private readonly InformationAreaService _informationAreaService;
 
-        public DropDownMenuService()
+        public DropDownAreaService()
         {
-            _informationBoxService = new InformationBoxService();
+            _informationAreaService = new InformationAreaService();
         }
 
         public void ChangeLayout(KeyboardTesterForm form)
         {
-            var selectedValue = (KeyboardLayoutType)form.DropDownMenu.SelectedValue;
+            var selectedValue = (KeyboardLayoutType)form.DropDownArea.DropDownMenu.SelectedValue;
 
             if (selectedValue == KeyboardLayoutType.None)
             {
@@ -30,7 +30,7 @@
 
             Resources.Keys.SetDefaultValues();
             form.ReInitializeComponent(selectedValue);
-            _informationBoxService.ResetLayout(form);
+            _informationAreaService.ResetLayout(form);
             form.ActiveControl = null;
         }
     }

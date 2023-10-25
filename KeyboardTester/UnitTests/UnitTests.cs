@@ -10,15 +10,27 @@ namespace UnitTests
         private const byte _altFlag = 0b100000;
         private const byte _noFlag = 0;
 
-        private readonly KeyboardLayoutService _keyboardLayoutService = new KeyboardLayoutService();
-        private readonly InformationBoxService _informationBoxService = new InformationBoxService();
-        private readonly DropDownMenuService _downMenuService = new DropDownMenuService();
+        private readonly KeyboardLayoutService _keyboardLayoutService = new();
+        private readonly InformationAreaService _informationAreaService = new();
+        private readonly DropDownAreaService _dropDownAreaService = new();
+
+        [ClassCleanup]
+        public static void ClassCleanUp()
+        {
+            // Delete KeyboardLayoutState.txt after all tests are done
+            var folderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "KeyboardTester");
+            var file = Path.Combine(folderPath, "KeyboardLayoutState.txt");
+            if (File.Exists(file))
+            {
+                File.Delete(file);
+            }
+        }
 
         [TestMethod]
         public void U010_SendKeyDownA_ToKeyEvent_BackColorChanges()
         {
             // Arrange
-            var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105);
+            var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105_SE);
             var key = form.KeyboardLayout.LayoutKeys
                 .Select(x => x.Value)
                 .Single(x => x.KeyCode == Keys.A);
@@ -38,7 +50,7 @@ namespace UnitTests
         public void U020_SendKeyUpA_ToKeyEvent_BorderColorChanges()
         {
             // Arrange
-            var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105);
+            var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105_SE);
             var key = form.KeyboardLayout.LayoutKeys
                 .Select(x => x.Value)
                 .Single(x => x.KeyCode == Keys.A);
@@ -58,7 +70,7 @@ namespace UnitTests
         public void U030_SendKeyDownLControlWithAltFlag_ToKeyEvent_BackColorDoesNotChange()
         {
             // Arrange
-            var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105);
+            var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105_SE);
             var key = form.KeyboardLayout.LayoutKeys
                 .Select(x => x.Value)
                 .Single(x => x.KeyCode == Keys.LControlKey);
@@ -78,7 +90,7 @@ namespace UnitTests
         public void U040_SendKeyUpLControlWithAltFlag_ToKeyEvent_BorderColorDoesNotChange()
         {
             // Arrange
-            var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105);
+            var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105_SE);
 
             // Send AltGr to store as latest key down value
             var altGr = form.KeyboardLayout.LayoutKeys
@@ -107,7 +119,7 @@ namespace UnitTests
         public void U050_SendKeyDownDeleteWithExtendedFlag_ToKeyEvent_BackColorChanges()
         {
             // Arrange
-            var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105);
+            var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105_SE);
             var key = form.KeyboardLayout.LayoutKeys
                 .Select(x => x.Value)
                 .Single(x => x.KeyCode == Keys.Delete);
@@ -127,7 +139,7 @@ namespace UnitTests
         public void U060_SendKeyUpDeleteWithExtendedFlag_ToKeyEvent_BorderColorChanges()
         {
             // Arrange
-            var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105);
+            var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105_SE);
             var key = form.KeyboardLayout.LayoutKeys
                 .Select(x => x.Value)
                 .Single(x => x.KeyCode == Keys.Delete);
@@ -147,7 +159,7 @@ namespace UnitTests
         public void U070_SendKeyDownDeleteWithoutExtendedFlag_ToKeyEvent_BackColorDoesNotChange()
         {
             // Arrange
-            var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105);
+            var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105_SE);
             var key = form.KeyboardLayout.LayoutKeys
                 .Select(x => x.Value)
                 .Single(x => x.KeyCode == Keys.Delete);
@@ -167,7 +179,7 @@ namespace UnitTests
         public void U080_SendKeyUpDeleteWithoutExtendedFlag_ToKeyEvent_BorderColorDoesNotChange()
         {
             // Arrange
-            var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105);
+            var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105_SE);
             var key = form.KeyboardLayout.LayoutKeys
                 .Select(x => x.Value)
                 .Single(x => x.KeyCode == Keys.Delete);
@@ -187,79 +199,79 @@ namespace UnitTests
         public void U090_SendKeyDownControlWithAltFlag_ToSetTextBoxValues_TextChangesToCorrectValues()
         {
             // Arrange
-            var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105);
+            var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105_SE);
             var key = form.KeyboardLayout.LayoutKeys
                 .Select(x => x.Value)
                 .Single(x => x.KeyCode == Keys.LControlKey);
             var keyEventArgs = new KeyboardHookEventArgs(_keyDownEvent, key.KeyCodeValue, _altFlag);
-            var initialKeyCode = form.InformationBox.KeyCodeValue.Text;
-            var initialKeyName = form.InformationBox.KeyNameValue.Text;
-            var initialKeyFlags = form.InformationBox.KeyFlagsValue.Text;
+            var initialKeyCode = form.InformationArea.KeyCodeValue.Text;
+            var initialKeyName = form.InformationArea.KeyNameValue.Text;
+            var initialKeyFlags = form.InformationArea.KeyFlagsValue.Text;
 
             // Act
-            _informationBoxService.SetTextBoxValues(form.InformationBox, keyEventArgs);
+            _informationAreaService.SetTextBoxValues(form.InformationArea, keyEventArgs);
 
             // Assert
             Assert.AreNotEqual(
                 notExpected: initialKeyCode,
-                actual: form.InformationBox.KeyCodeValue.Text);
+                actual: form.InformationArea.KeyCodeValue.Text);
             Assert.AreNotEqual(
                 notExpected: initialKeyName,
-                actual: form.InformationBox.KeyNameValue.Text);
+                actual: form.InformationArea.KeyNameValue.Text);
             Assert.AreNotEqual(
                 notExpected: initialKeyFlags,
-                actual: form.InformationBox.KeyFlagsValue.Text);
+                actual: form.InformationArea.KeyFlagsValue.Text);
 
             Assert.AreEqual(
                 expected: "0x" + Convert.ToString((int)Keys.LControlKey, 16).PadLeft(2, '0').ToUpper(),
-                actual: form.InformationBox.KeyCodeValue.Text);
+                actual: form.InformationArea.KeyCodeValue.Text);
             Assert.AreEqual(
                 expected: Keys.LControlKey.ToString(),
-                actual: form.InformationBox.KeyNameValue.Text);
+                actual: form.InformationArea.KeyNameValue.Text);
             Assert.AreEqual(
                 expected: Convert.ToString(_altFlag, 2).PadLeft(8, '0'),
-                actual: form.InformationBox.KeyFlagsValue.Text);
+                actual: form.InformationArea.KeyFlagsValue.Text);
         }
 
         [TestMethod]
         public void U100_SendKeyboardLayout_ToResetLayouts_LayoutsAreReset()
         {
             // Arrange
-            var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105);
-            var previousCode = form.InformationBox.KeyCodeValue.Text = "0x41";
-            var previousName = form.InformationBox.KeyNameValue.Text = "A";
-            var previousFlag = form.InformationBox.KeyFlagsValue.Text = "00000000";
+            var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105_SE);
+            var previousCode = form.InformationArea.KeyCodeValue.Text = "0x41";
+            var previousName = form.InformationArea.KeyNameValue.Text = "A";
+            var previousFlag = form.InformationArea.KeyFlagsValue.Text = "00000000";
             form.KeyboardLayout.LayoutKeys
                 .Select(dict => dict.Value)
                 .Single(key => key.KeyCode == Keys.A)
                 .BackColor = Resources.Colors.NincPurple;
 
             // Act
-            _informationBoxService.ResetLayout(form);
+            _informationAreaService.ResetLayout(form);
 
             // Assert
             Assert.AreNotEqual(
                 notExpected: previousCode,
-                actual: form.InformationBox.KeyCodeValue.Text);
+                actual: form.InformationArea.KeyCodeValue.Text);
             Assert.AreNotEqual(
                 notExpected: previousName,
-                actual: form.InformationBox.KeyNameValue.Text);
+                actual: form.InformationArea.KeyNameValue.Text);
             Assert.AreNotEqual(
                 notExpected: previousFlag,
-                actual: form.InformationBox.KeyFlagsValue.Text);
+                actual: form.InformationArea.KeyFlagsValue.Text);
             Assert.AreNotEqual(
                 notExpected: Resources.Colors.NincPurple,
                 actual: form.KeyboardLayout.LayoutKeys.Select(dict => dict.Value).Single(key => key.KeyCode == Keys.A).BackColor);
 
             Assert.AreEqual(
                 expected: string.Empty,
-                actual: form.InformationBox.KeyCodeValue.Text);
+                actual: form.InformationArea.KeyCodeValue.Text);
             Assert.AreEqual(
                 expected: string.Empty,
-                actual: form.InformationBox.KeyNameValue.Text);
+                actual: form.InformationArea.KeyNameValue.Text);
             Assert.AreEqual(
                 expected: string.Empty,
-                actual: form.InformationBox.KeyFlagsValue.Text);
+                actual: form.InformationArea.KeyFlagsValue.Text);
             Assert.AreEqual(
                 expected: Resources.Colors.DefaultKeyBackground,
                 actual: form.KeyboardLayout.LayoutKeys.Select(dict => dict.Value).Single(key => key.KeyCode == Keys.A).BackColor);
@@ -269,20 +281,47 @@ namespace UnitTests
         public void U110_SendNewKeyboardLayoutType_ToChangeLayout_LayoutIsChanged()
         {
             // Arrange
-            var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105);
+            var form = new KeyboardTesterForm(KeyboardLayoutType.ISO_105_SE);
             var previousKeyboardLayoutType = form.KeyboardLayout.KeyboardLayoutType;
-            form.DropDownMenu.SelectedValue = KeyboardLayoutType.AllKeys;
+            PopulateDropDownMenu(form.DropDownArea.DropDownMenu);
+            form.DropDownArea.DropDownMenu.SelectedValue = KeyboardLayoutType.AllKeys;
 
             // Act
-            _downMenuService.ChangeLayout(form);
+            _dropDownAreaService.ChangeLayout(form);
 
             // Assert
             Assert.AreEqual(
-                expected: KeyboardLayoutType.ISO_105,
+                expected: KeyboardLayoutType.ISO_105_SE,
                 actual: previousKeyboardLayoutType);
             Assert.AreEqual(
                 expected: KeyboardLayoutType.AllKeys,
                 actual: form.KeyboardLayout.KeyboardLayoutType);
+        }
+
+        private void PopulateDropDownMenu(ComboBox dropDownMenu)
+        {
+            var comboBoxItemList = new List<ComboBoxItem>();
+            var toughbookItem = new ComboBoxItem()
+            {
+                KeyboardLayoutType = KeyboardLayoutType.Toughbook,
+                KeyboardLayoutText = "Toughbook"
+            };
+            comboBoxItemList.Add(toughbookItem);
+            var iso105Item = new ComboBoxItem()
+            {
+                KeyboardLayoutType = KeyboardLayoutType.ISO_105_SE,
+                KeyboardLayoutText = "ISO 105 - SE"
+            };
+            comboBoxItemList.Add(iso105Item);
+            var allKeys = new ComboBoxItem()
+            {
+                KeyboardLayoutType = KeyboardLayoutType.AllKeys,
+                KeyboardLayoutText = "All Keys"
+            };
+            comboBoxItemList.Add(allKeys);
+
+            dropDownMenu.DataSource = comboBoxItemList;
+            dropDownMenu.SelectedItem = iso105Item;
         }
     }
 }

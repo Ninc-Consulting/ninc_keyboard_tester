@@ -4,9 +4,9 @@
     {
         private static readonly int _baseKeyWidth = Screen.FromPoint(Cursor.Position).Bounds.Width / 25;
 
-        public InformationBox InformationBox { get; private set; }
+        public DropDownArea DropDownArea { get; private set; }
         public KeyboardLayout KeyboardLayout { get; private set; }
-        public ComboBox DropDownMenu { get; private set; }
+        public InformationArea InformationArea { get; private set; }
 
         /// <summary>
         ///  Required designer variable.
@@ -33,58 +33,11 @@
 
         private void InitiateDropDownMenu()
         {
-            DropDownMenu = new ComboBox();
-            Controls.Add(DropDownMenu);
+            DropDownArea = new DropDownArea(_baseKeyWidth, ScaledFont);
+            DropDownArea.DropDownMenu.SelectedValueChanged += DropDownMenu_SelectedValueChanged;
 
-            var comboBoxItems = new List<ComboBoxItem>();
-            var toughbookItem = new ComboBoxItem()
-            {
-                KeyboardLayoutType = KeyboardLayoutType.Toughbook,
-                KeyboardLayoutText = "Keyboard layout: 'Toughbook'"
-            };
-            comboBoxItems.Add(toughbookItem);
-            var iso105Item = new ComboBoxItem()
-            {
-                KeyboardLayoutType = KeyboardLayoutType.ISO_105,
-                KeyboardLayoutText = "Keyboard layout: 'ISO 105'"
-            };
-            comboBoxItems.Add(iso105Item);
-            var allKeys = new ComboBoxItem()
-            {
-                KeyboardLayoutType = KeyboardLayoutType.AllKeys,
-                KeyboardLayoutText = "Keyboard layout: 'All Keys'"
-            };
-            comboBoxItems.Add(allKeys);
-
-            DropDownMenu.Font = ScaledFont;
-            DropDownMenu.DataSource = comboBoxItems;
-            DropDownMenu.DisplayMember = "KeyboardLayoutText";
-            DropDownMenu.ValueMember = "KeyboardLayoutType";
-            DropDownMenu.SelectedItem = toughbookItem;
-            DropDownMenu.Name = "DropDownMenu";
-            DropDownMenu.Location = new Point(_baseKeyWidth, _baseKeyWidth / 4);
-            DropDownMenu.DropDownStyle = ComboBoxStyle.DropDownList;
-            DropDownMenu.TabStop = false;
-            DropDownMenu.Width = GetDropDownWidth();
-            DropDownMenu.SelectedValueChanged += DropDownMenu_SelectedValueChanged;
-        }
-
-        private int GetDropDownWidth()
-        {
-            int maxWidth = 0;
-            int temp = 0;
-
-            foreach (ComboBoxItem item in DropDownMenu.Items)
-            {
-                var text = item.KeyboardLayoutText;
-                Size size = TextRenderer.MeasureText(text, DropDownMenu.Font);
-                temp = size.Width;
-                if (temp > maxWidth)
-                {
-                    maxWidth = temp;
-                }
-            }
-            return maxWidth + Convert.ToInt32(_baseKeyWidth / 2); // Add _baseKeyWidth divided by 2 to account for the width of the dropdown button
+            Controls.Add(DropDownArea.DropDownMenu);
+            Controls.Add(DropDownArea.DropDownLabel);
         }
 
         private void CustomInitializeComponent(KeyboardLayoutType keyboarLayoutType)
@@ -93,15 +46,15 @@
 
             KeyboardLayout = keyboarLayoutType switch
             {
-                KeyboardLayoutType.ISO_105 => new Iso105KeyboardLayout(_baseKeyWidth),
-                KeyboardLayoutType.Toughbook => new ToughbookKeyboardLayout(_baseKeyWidth),
-                KeyboardLayoutType.AllKeys => new AllKeysLayout(_baseKeyWidth),
+                KeyboardLayoutType.ISO_105_SE => new Iso105KeyboardLayout(_baseKeyWidth, DropDownArea),
+                KeyboardLayoutType.Toughbook => new ToughbookKeyboardLayout(_baseKeyWidth, DropDownArea),
+                KeyboardLayoutType.AllKeys => new AllKeysLayout(_baseKeyWidth, DropDownArea),
                 _ => throw new ArgumentException($"Unknown keyboard layout: {keyboarLayoutType}"),
             };
 
-            InformationBox = new(KeyboardLayout.Size, _baseKeyWidth);
-            InformationBox.ResetButton.Click += ResetButton_Click;
-            InformationBox.ExitButton.Click += ExitButton_Click;
+            InformationArea = new(KeyboardLayout, _baseKeyWidth);
+            InformationArea.ResetButton.Click += ResetButton_Click;
+            InformationArea.ExitButton.Click += ExitButton_Click;
 
             AddLayoutsToControls();
 
@@ -120,23 +73,21 @@
         {
             Controls.AddRange(KeyboardLayout.LayoutKeys.Values.ToArray());
 
-            Controls.Add(InformationBox.KeyDownButtonExample);
-            Controls.Add(InformationBox.KeyUpButtonExample);
-            Controls.Add(InformationBox.KeyCodeValue);
-            Controls.Add(InformationBox.KeyNameValue);
-            Controls.Add(InformationBox.KeyFlagsValue);
-            Controls.Add(InformationBox.KeyCodeText);
-            Controls.Add(InformationBox.KeyNameText);
-            Controls.Add(InformationBox.KeyFlagsText);
-            Controls.Add(InformationBox.ResetButton);
-            Controls.Add(InformationBox.ExitButton);
+            Controls.Add(InformationArea.KeyDownButtonExample);
+            Controls.Add(InformationArea.KeyUpButtonExample);
+            Controls.Add(InformationArea.KeyCodeValue);
+            Controls.Add(InformationArea.KeyNameValue);
+            Controls.Add(InformationArea.KeyFlagsValue);
+            Controls.Add(InformationArea.KeyCodeText);
+            Controls.Add(InformationArea.KeyNameText);
+            Controls.Add(InformationArea.KeyFlagsText);
+            Controls.Add(InformationArea.ResetButton);
+            Controls.Add(InformationArea.ExitButton);
         }
 
         private Size GetTotalSize()
-                {
-            return new Size(
-                Math.Max(KeyboardLayout.Size.Width, InformationBox.Size.Width),
-                Math.Max(KeyboardLayout.Size.Height, InformationBox.Size.Height));
+        {
+            return new Size(Math.Max(KeyboardLayout.Size.Width, InformationArea.Size.Width), InformationArea.Location.Y + InformationArea.Size.Height);
         }
     }
 }

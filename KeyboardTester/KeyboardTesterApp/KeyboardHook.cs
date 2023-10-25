@@ -1,12 +1,5 @@
 // (c) 2006 by Emma Burrows
-// This file contains the following items:
-//  - KeyboardHook: class to enable low-level keyboard hook using
-//    the Windows API.
-//  - KeyboardHookEventHandler: delegate to handle the KeyIntercepted
-//    event raised by the KeyboardHook class.
-//  - KeyboardHookEventArgs: EventArgs class to contain the information
-//    returned by the KeyIntercepted event.
-//  - Original code: https://www.codeproject.com/Articles/14485/Low-level-Windows-API-hooks-from-C-to-stop-unwante
+// - Original code: https://www.codeproject.com/Articles/14485/Low-level-Windows-API-hooks-from-C-to-stop-unwante
 
 namespace KeyboardTesterApp
 {
@@ -62,8 +55,6 @@ namespace KeyboardTesterApp
                 }
             }
         }
-
-        #region Event Handling
 
         /// <summary>
         /// Raises the KeyIntercepted event.
@@ -152,7 +143,6 @@ namespace KeyboardTesterApp
                 }
             }
         }
-        #endregion Event Handling
 
         /// <summary>
         /// Releases the keyboard hook.

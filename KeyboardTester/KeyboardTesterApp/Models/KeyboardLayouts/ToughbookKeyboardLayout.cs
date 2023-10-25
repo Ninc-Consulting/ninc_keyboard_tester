@@ -3,7 +3,7 @@
     public class ToughbookKeyboardLayout : KeyboardLayout
     {
         // Sizes
-        private static readonly int _offset = Convert.ToInt32(BaseKeyWidth * 0.05);
+        private static readonly int _offset = BaseKeyWidth / 20;
 
         private static readonly Size _squareSize = new(BaseKeyWidth, BaseKeyWidth);
         private static readonly Size _squareSize0_8 = new(Convert.ToInt32(BaseKeyWidth * 0.8), Convert.ToInt32(BaseKeyWidth * 0.8));
@@ -19,14 +19,14 @@
         // Fn only alters the values of other keys when they are pressed. Adding dummy button for the GUI
         public Key Fn { get; set; } = new();
 
-        public ToughbookKeyboardLayout(int baseKeyWidth)
+        public ToughbookKeyboardLayout(int baseKeyWidth, DropDownArea dropDownArea)
             : base(baseKeyWidth)
         {
             KeyboardLayoutType = KeyboardLayoutType.Toughbook;
             InitiateKeys();
             SetCommonAttributes();
-            DoLayout();
-            SetKeyboardLayoutSize();
+            DoLayout(dropDownArea);
+            SetKeyboardLayoutLocationAndSize(dropDownArea);
         }
 
         private void InitiateKeys()
@@ -472,10 +472,10 @@
             AddKeyToLayout(Resources.Keys.RightArrow);
         }
 
-        private void DoLayout()
+        private void DoLayout(DropDownArea dropDownArea)
         {
             var xCoordinate = BaseKeyWidth / 2;
-            var yCoordinate = BaseKeyWidth;
+            var yCoordinate = dropDownArea.Location.Y + dropDownArea.Size.Height + (BaseKeyWidth / 4);
 
             foreach (var key in LayoutKeys.Values)
             {

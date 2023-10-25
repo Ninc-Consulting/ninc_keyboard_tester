@@ -38,7 +38,7 @@ namespace UITests
             // Act
             var comboBoxElement = Session.FindElementByAccessibilityId("DropDownMenu");
             comboBoxElement.Click();
-            comboBoxElement.FindElementByName("Keyboard layout: 'All Keys'").Click();
+            comboBoxElement.FindElementByName("All Keys").Click();
             Thread.Sleep(500);
 
             // Assert

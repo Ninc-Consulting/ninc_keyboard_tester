@@ -5,6 +5,7 @@
         public static int BaseKeyWidth { get; private set; }
         public Dictionary<int, Key> LayoutKeys { get; private set; } = new Dictionary<int, Key>();
         public Size Size { get; private set; }
+        public Point Location { get; private set; }
         public KeyboardLayoutType KeyboardLayoutType { get; protected set; }
 
         public KeyboardLayout(int baseKeyWidth)
@@ -28,10 +29,12 @@
             }
         }
 
-        protected void SetKeyboardLayoutSize()
+        protected void SetKeyboardLayoutLocationAndSize(DropDownArea dropDownArea)
         {
             var maxX = 0;
             var maxY = 0;
+
+            var startY = dropDownArea.Location.Y + dropDownArea.Size.Height;
 
             foreach (var key in LayoutKeys.Values)
             {
@@ -40,8 +43,10 @@
             }
 
             maxX += BaseKeyWidth / 2;
-            maxY += BaseKeyWidth;
+            maxY -= startY;
+
             Size = new Size(maxX, maxY);
+            Location = new Point(0, startY);
         }
     }
 }

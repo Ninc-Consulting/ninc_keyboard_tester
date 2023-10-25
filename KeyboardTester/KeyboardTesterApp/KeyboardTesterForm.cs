@@ -2,17 +2,17 @@ namespace KeyboardTesterApp
 {
     public partial class KeyboardTesterForm : Form
     {
-        private readonly InformationBoxService _informationBoxService;
+        private readonly InformationAreaService _informationAreaService;
         private readonly KeyboardLayoutService _keyboardLayoutService;
-        private readonly DropDownMenuService _dropDownMenuService;
+        private readonly DropDownAreaService _dropDownMenuService;
 
         public static Font? ScaledFont { get; private set; }
 
         public KeyboardTesterForm(KeyboardLayoutType keyboarLayoutEnum = KeyboardLayoutType.Toughbook)
         {
-            _informationBoxService = new InformationBoxService();
+            _informationAreaService = new InformationAreaService();
             _keyboardLayoutService = new KeyboardLayoutService();
-            _dropDownMenuService = new DropDownMenuService();
+            _dropDownMenuService = new DropDownAreaService();
 
             var scaleRate = DeviceDpi / 96f * 100;
             ScaledFont = new("Segoe UI", _baseKeyWidth * 0.14f / scaleRate * 100);
@@ -31,7 +31,7 @@ namespace KeyboardTesterApp
         private void Kh_KeyIntercepted(KeyboardHookEventArgs e)
         {
             _keyboardLayoutService.KeyEvent(KeyboardLayout, e);
-            _informationBoxService.SetTextBoxValues(InformationBox, e);
+            _informationAreaService.SetTextBoxValues(InformationArea, e);
 
             Logger.LogKeyboardLayoutState(KeyboardLayout);
         }
@@ -45,14 +45,14 @@ namespace KeyboardTesterApp
 
         private void ResetButton_Click(object? sender, EventArgs e)
         {
-            _informationBoxService.ResetLayout(this);
+            _informationAreaService.ResetLayout(this);
 
             Logger.LogKeyboardLayoutState(KeyboardLayout);
         }
 
         private void ExitButton_Click(object? sender, EventArgs e)
         {
-            _informationBoxService.Exit(this);
+            _informationAreaService.Exit(this);
         }
 
         private void KeyboardTesterForm_FormClosing(object sender, FormClosingEventArgs e)

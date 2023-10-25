@@ -3,7 +3,7 @@
     public enum KeyboardLayoutType
     {
         None,
-        ISO_105,
+        ISO_105_SE,
         Toughbook,
         AllKeys
     }

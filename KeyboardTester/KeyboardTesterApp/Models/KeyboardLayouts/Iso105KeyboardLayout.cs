@@ -3,7 +3,7 @@
     public class Iso105KeyboardLayout : KeyboardLayout
     {
         // Sizes
-        private static readonly int _offset = Convert.ToInt32(BaseKeyWidth * 0.05);
+        private static readonly int _offset = BaseKeyWidth / 20;
 
         private static readonly Size _squareSize = new(BaseKeyWidth, BaseKeyWidth);
         private static readonly Size _rectangleSize1_25 = new(Convert.ToInt32(BaseKeyWidth * 1.25) + _offset, BaseKeyWidth);
@@ -16,14 +16,14 @@
         private static readonly Size _spacebarSize = new(Convert.ToInt32(BaseKeyWidth * 5) + _offset, BaseKeyWidth);
         private static readonly Size _returnSize = new(Convert.ToInt32(BaseKeyWidth * 1.25), (BaseKeyWidth * 2) + _offset);
 
-        public Iso105KeyboardLayout(int baseKeyWidth)
+        public Iso105KeyboardLayout(int baseKeyWidth, DropDownArea dropDownArea)
             : base(baseKeyWidth)
         {
-            KeyboardLayoutType = KeyboardLayoutType.ISO_105;
+            KeyboardLayoutType = KeyboardLayoutType.ISO_105_SE;
             InitiateKeys();
             SetCommonAttributes();
-            DoLayout();
-            SetKeyboardLayoutSize();
+            DoLayout(dropDownArea);
+            SetKeyboardLayoutLocationAndSize(dropDownArea);
         }
 
         private void InitiateKeys()
@@ -452,10 +452,10 @@
             AddKeyToLayout(Resources.Keys.Clear);
         }
 
-        private void DoLayout()
+        private void DoLayout(DropDownArea dropDownArea)
         {
             var xCoordinate = BaseKeyWidth / 2;
-            var yCoordinate = BaseKeyWidth;
+            var yCoordinate = dropDownArea.Location.Y + dropDownArea.Size.Height + (BaseKeyWidth / 4);
 
             foreach (var key in LayoutKeys.Values)
             {

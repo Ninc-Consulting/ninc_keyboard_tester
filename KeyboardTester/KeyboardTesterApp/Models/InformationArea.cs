@@ -1,6 +1,6 @@
 ﻿namespace KeyboardTesterApp.Models
 {
-    public class InformationBox
+    public class InformationArea
     {
         public Button KeyDownButtonExample { get; private set; } = new();
         public Button KeyUpButtonExample { get; private set; } = new();
@@ -12,27 +12,30 @@
         public TextBox KeyFlagsValue { get; private set; } = new();
         public Button ResetButton { get; private set; } = new();
         public Button ExitButton { get; private set; } = new();
-        public Size Size { get; private set; }
+        public Size Size { get; private set; } = new();
+
+        public Point Location { get; private set; }
 
         private readonly int _offset;
         private readonly Size _textBoxSize;
         private readonly Size _buttonSize;
         private readonly Font? _font;
 
-        public InformationBox(Size keboardLayoutSize, int baseKeyWidth)
+        public InformationArea(KeyboardLayout keyboardLayout, int baseKeyWidth)
         {
             _offset = Convert.ToInt32(baseKeyWidth / 2);
             _textBoxSize = new(baseKeyWidth * 3, Convert.ToInt32(baseKeyWidth / 2));
             _buttonSize = new(Convert.ToInt32(baseKeyWidth * 1.5), Convert.ToInt32(baseKeyWidth / 2));
             _font = KeyboardTesterForm.ScaledFont;
 
-            DoLayout(keboardLayoutSize, baseKeyWidth);
+            DoLayout(keyboardLayout, baseKeyWidth);
         }
 
-        private void DoLayout(Size keboardLayoutSize, int baseKeyWidth)
+        private void DoLayout(KeyboardLayout keyboardLayout, int baseKeyWidth)
         {
-            var yCoordinate = keboardLayoutSize.Height;
-            var xCoordinate = baseKeyWidth;
+            var startingYPosition = keyboardLayout.Location.Y + keyboardLayout.Size.Height;
+            var yCoordinate = startingYPosition + (baseKeyWidth / 2);
+            var xCoordinate = baseKeyWidth / 2;
 
             KeyDownButtonExample.BackColor = Resources.Colors.NincPurple;
             KeyDownButtonExample.ForeColor = Resources.Colors.White;
@@ -55,7 +58,7 @@
             KeyUpButtonExample.TabStop = false;
             KeyUpButtonExample.Font = _font;
 
-            xCoordinate = baseKeyWidth;
+            xCoordinate = baseKeyWidth / 2;
             yCoordinate += baseKeyWidth + _offset;
 
             KeyCodeText.BackColor = Resources.Colors.DefaultControlBackground;
@@ -89,7 +92,7 @@
             KeyFlagsText.TabStop = false;
             KeyFlagsText.Font = _font;
 
-            xCoordinate = baseKeyWidth;
+            xCoordinate = baseKeyWidth / 2;
 
             KeyCodeValue.Location = new Point(xCoordinate, yCoordinate + _textBoxSize.Height);
             KeyCodeValue.Name = "KeyCodeValue";
@@ -113,7 +116,7 @@
             KeyFlagsValue.TabStop = false;
             KeyFlagsValue.Font = _font;
 
-            xCoordinate = keboardLayoutSize.Width - baseKeyWidth;
+            xCoordinate = keyboardLayout.Size.Width - (baseKeyWidth / 2);
 
             xCoordinate -= _buttonSize.Width;
             ExitButton.Location = new Point(xCoordinate, yCoordinate + _textBoxSize.Height);
@@ -133,7 +136,8 @@
             ResetButton.TabStop = false;
             ResetButton.Font = _font;
 
-            Size = new Size(xCoordinate + (baseKeyWidth / 2), yCoordinate + _textBoxSize.Height + baseKeyWidth);
+            Size = new Size(xCoordinate + (baseKeyWidth / 2), yCoordinate + _textBoxSize.Height + baseKeyWidth - (keyboardLayout.Location.Y + keyboardLayout.Size.Height));
+            Location = new Point(0, startingYPosition);
         }
     }
 }

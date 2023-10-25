@@ -10,7 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5A697254-F91D-4125-B198-8CAFBBB8F1E0}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
-		Dockerfile_lint = Dockerfile_lint
+		Dockerfile = Dockerfile
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UITests", "UITests\UITests.csproj", "{85D3D854-E555-41BB-9D01-B57152498554}"

@@ -2,14 +2,14 @@
 {
     public class AllKeysLayout : KeyboardLayout
     {
-        public AllKeysLayout(int baseKeyWidth)
+        public AllKeysLayout(int baseKeyWidth, DropDownArea dropDownArea)
            : base(baseKeyWidth)
         {
             KeyboardLayoutType = KeyboardLayoutType.AllKeys;
             InitiateKeys();
             SetCommonAttributes();
-            DoLayout();
-            SetKeyboardLayoutSize();
+            DoLayout(dropDownArea);
+            SetKeyboardLayoutLocationAndSize(dropDownArea);
         }
 
         private void InitiateKeys()
@@ -187,11 +187,11 @@
             }
         }
 
-        private void DoLayout()
+        private void DoLayout(DropDownArea dropDownArea)
         {
             var xCoordinate = BaseKeyWidth / 2;
-            var yCoordinate = BaseKeyWidth;
-            var offset = Convert.ToInt32(BaseKeyWidth * 0.05);
+            var yCoordinate = dropDownArea.Location.Y + dropDownArea.Size.Height + (BaseKeyWidth / 4);
+            var offset = BaseKeyWidth / 20;
             var columnCounter = 0;
 
             foreach (var key in LayoutKeys.Values.ToList())
