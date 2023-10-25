@@ -36,7 +36,7 @@ jobs:
       - name: Build solution
         run: dotnet build Keyboardtester/KeyboardTester.sln --no-restore
       - name: Set current date
-        run: echo "DATE=$(date +'%Y-%m-%d %H:%M:%S')" >> "$GITHUB_OUTPUT"
+        run: echo "DATE=$(date +'%Y-%m-%d %H:%M:%S')" >> $GITHUB_ENV
       - name: Test environment variable
         run: echo $DATE
       - name: Run unit tests
