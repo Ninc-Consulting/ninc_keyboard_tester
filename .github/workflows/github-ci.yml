@@ -36,7 +36,8 @@ jobs:
       - name: Build solution
         run: dotnet build Keyboardtester/KeyboardTester.sln --no-restore
       - name: Save current UTC time as an environment variable
-        run: | "utc_date=$(date +'%Y%m%d%H%M%S')" | Out-File -FilePath $env:GITHUB_ENV -Append
+        run: |
+          "utc_date=$(date +'%Y%m%d%H%M%S')" | Out-File -FilePath $env:GITHUB_ENV -Append
       - name: Run unit tests
         run: dotnet test Keyboardtester/UnitTests/UnitTests.csproj --no-build --logger "html;LogFileName=TestResults_$env:utc_date.html"
       - name: Upload test results to build
