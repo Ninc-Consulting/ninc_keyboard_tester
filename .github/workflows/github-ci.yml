@@ -59,9 +59,10 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '6.0.x'
-      - name: Create release and asset files
+      - name: Create standalone exe file
         run: dotnet publish KeyboardTester/KeyboardTesterApp/KeyboardTesterApp.csproj --self-contained --runtime win-x64 --output KeyboardTester/artifacts/
-      - uses: "marvinpinto/action-automatic-releases@latest"
+      - name: Create release
+        uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           prerelease: false
