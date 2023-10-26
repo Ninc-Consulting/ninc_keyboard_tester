@@ -43,9 +43,12 @@ jobs:
   #         path: Keyboardtester/UnitTests/TestResults/
   #       # Use always() to always run this step to publish test results when there are test failures
   #       if: ${{ always() }}
+
+  # actions/create-release@v1 and actions/upload-release-asset@v1 generate the following error
+  #Warning: The `set-output` command is deprecated and will be disabled soon. Please upgrade to using Environment Files. For more information see: https://github.blog/changelog/2022-10-11-github-actions-deprecating-save-state-and-set-output-commands/
   create-release:
-    permissions: write-all
     name: create release
+    if: ${{ startsWith(github.ref, 'refs/tags/') }}
     # needs: [lint, build-and-test]
     runs-on: windows-2019
     steps:
@@ -54,25 +57,11 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '6.0.x'
-      - name: Create exe file
+      - name: Create release and asset files
         run: dotnet publish KeyboardTester/KeyboardTesterApp/KeyboardTesterApp.csproj --self-contained --runtime win-x64 --output KeyboardTester/artifacts/
-      - name: Create release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: "marvinpinto/action-automatic-releases@latest"
         with:
-          tag_name: ${{github.run_number}}
-          release_name: Release ${{github.run_number}}
-          draft: false
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
           prerelease: false
-      - name: Upload Release Asset
-        id: upload-release-asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: KeyboardTester/artifacts/KeyboardTesterApp.exe
-          asset_name: KeyboardTesterApp.exe
-          asset_content_type: application/vnd.microsoft.portable-executable
+          files: |
+            KeyboardTester/artifacts/KeyboardTesterApp.exe
