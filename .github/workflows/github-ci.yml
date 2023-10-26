@@ -31,19 +31,19 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '6.0.x'
+      - name: Save current UTC time as an environment variable
+        run: |
+          "utc_date=$(date +'%Y%m%d%H%M%S')" | Out-File -FilePath $env:GITHUB_ENV -Append
       - name: Restore all projects
         run: dotnet restore Keyboardtester/KeyboardTester.sln
       - name: Build solution
         run: dotnet build Keyboardtester/KeyboardTester.sln --no-restore
-      - name: Save current UTC time as an environment variable
-        run: |
-          "utc_date=$(date +'%Y%m%d%H%M%S')" | Out-File -FilePath $env:GITHUB_ENV -Append
       - name: Run unit tests
         run: dotnet test Keyboardtester/UnitTests/UnitTests.csproj --no-build --logger "html;LogFileName=TestResults_$env:utc_date.html"
       - name: Upload test results to build
         uses: actions/upload-artifact@v3
         with:
           name: Test results
-          path: KeyboardTester/UnitTests/TestResults/TestResults_${{ env:utc_date }}.html
+          path: $env:utc_date
         # Use always() to always run this step to publish test results when there are test failures
         if: ${{ always() }}
