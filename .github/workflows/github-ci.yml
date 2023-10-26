@@ -4,8 +4,6 @@ on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: [ "main", "initial_commit" ]
-    tags:
-      - "*"
   pull_request:
     branches: [ "main" ]
   # Allows you to run this workflow manually from the Actions tab
@@ -61,7 +59,7 @@ jobs:
           dotnet-version: '6.0.x'
       - name: Create standalone exe file
         run: dotnet publish KeyboardTester/KeyboardTesterApp/KeyboardTesterApp.csproj --self-contained --runtime win-x64 --output KeyboardTester/artifacts/
-      - name: Create release
-        uses: softprops/action-gh-release@v1
+      - name: Create release and assets
+        uses: ncipollo/release-action@v1
         with:
-          files: KeyboardTester/artifacts/KeyboardTesterApp.exe
+          artifacts: "KeyboardTester/artifacts/KeyboardTesterApp.exe"
