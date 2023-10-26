@@ -4,13 +4,14 @@ on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: [ "main" ]
+    branches: [ "initial_commit" ]
   pull_request:
     branches: [ "main" ]
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 jobs:
-  lint-job:
+  lint:
     runs-on: windows-2019
     steps:
       - uses: actions/checkout@v4
@@ -20,7 +21,7 @@ jobs:
           dotnet-version: '6.0.x'
       - name: Check styling and linting
         run: dotnet format --verbosity normal --severity warn --verify-no-changes Keyboardtester/KeyboardTester.sln
-  build-and-test-job:
+  build-and-test:
     runs-on: windows-2019
     steps:
       - uses: actions/checkout@v4
@@ -41,3 +42,34 @@ jobs:
           path: Keyboardtester/UnitTests/TestResults/
         # Use always() to always run this step to publish test results when there are test failures
         if: ${{ always() }}
+  create-release:
+    needs: [lint, build-and-test]
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '6.0.x'
+      - name: Create exe file
+        run: dotnet publish KeyboardTester/KeyboardTesterApp/KeyboardTesterApp.csproj --self-contained --runtime win-x64 --output KeyboardTester/artifacts/
+      - name: Create release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          asset_path: KeyboardTester/artifacts/KeyboardTesterApp.exe
+          asset_name: KeyboardTesterApp.exe
+          asset_content_type: application/vnd.microsoft.portable-executable

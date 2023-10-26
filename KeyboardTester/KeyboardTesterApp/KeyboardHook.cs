@@ -1,5 +1,5 @@
 // (c) 2006 by Emma Burrows
-// - Original code: https://www.codeproject.com/Articles/14485/Low-level-Windows-API-hooks-from-C-to-stop-unwante
+// Original code: https://www.codeproject.com/Articles/14485/Low-level-Windows-API-hooks-from-C-to-stop-unwante
 
 namespace KeyboardTesterApp
 {
