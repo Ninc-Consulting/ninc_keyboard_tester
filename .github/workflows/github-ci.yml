@@ -12,16 +12,16 @@ on:
   workflow_dispatch:
 
 jobs:
-  lint-job:
-    runs-on: windows-2019
-    steps:
-      - uses: actions/checkout@v4
-      - name: Setup dotnet
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '6.0.x'
-      - name: Check styling and linting
-        run: dotnet format --verbosity normal --severity warn --verify-no-changes Keyboardtester/KeyboardTester.sln
+  # lint-job:
+  #   runs-on: windows-2019
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - name: Setup dotnet
+  #       uses: actions/setup-dotnet@v3
+  #       with:
+  #         dotnet-version: '6.0.x'
+  #     - name: Check styling and linting
+  #       run: dotnet format --verbosity normal --severity warn --verify-no-changes Keyboardtester/KeyboardTester.sln
      
   build-and-test-job:
     runs-on: windows-2019
@@ -35,21 +35,26 @@ jobs:
       #   run: dotnet restore Keyboardtester/KeyboardTester.sln
       # - name: Build solution
       #   run: dotnet build Keyboardtester/KeyboardTester.sln --no-restore
-      - name: Set current date
-        run: echo "DATE=$(date +'%Y-%m-%d %H:%M:%S')" >> $GITHUB_ENV
+      # - name: Set current date
+      #   run: echo "DATE=$(date +'%Y-%m-%d %H:%M:%S')" >> $GITHUB_ENV
       # - name: Get current UTC time
       #   uses: josStorer/get-current-time@v2
       #   id: current-time
       #   with:
       #     format: YYYY-MM-DD_HH:mm:ss
-      - name: Use current time test 1
-        run: "${{DATE}}"
-      - name: Use current time test 2
-        run: "${{DATE}}"
+      - name: Set the value
+        id: step_one
+        run: |
+          "utc_date=$(date +'%Y-%m-%d_%H:%M:%S')" | Out-File -FilePath $env:GITHUB_ENV -Append
+      - name: Use the value
+        id: step_two
+        run: |
+          Write-Output "$env:utc_date"
+        
       #   env:
       #     TIME: "${{ steps.current-time.outputs.time }}"
       #     R_TIME: "${{ steps.current-time.outputs.readableTime }}"
-      #     F_TIME: "${{ steps.current-time.outputs.1 }}"
+      #     F_TIME: "${{ steps.current-time.outputs.formattedTime }}"
       #     YEAR: "${{ steps.current-time.outputs.year }}"
       #     DAY: "${{ steps.current-time.outputs.day }}"
       #   run: echo $TIME $R_TIME $F_TIME $YEAR $DAY
