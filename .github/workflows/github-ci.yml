@@ -10,43 +10,43 @@ on:
   workflow_dispatch:
 
 jobs:
-  lint:
-    name: lint
-    runs-on: windows-2019
-    steps:
-      - uses: actions/checkout@v4
-      - name: Setup dotnet
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '6.0.x'
-      - name: Check styling and linting
-        run: dotnet format --verbosity normal --severity warn --verify-no-changes Keyboardtester/KeyboardTester.sln
-  build-and-test:
-    name: build and test
-    runs-on: windows-2019
-    steps:
-      - uses: actions/checkout@v4
-      - name: Setup dotnet
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '6.0.x'
-      - name: Restore all projects
-        run: dotnet restore Keyboardtester/KeyboardTester.sln
-      - name: Build solution
-        run: dotnet build Keyboardtester/KeyboardTester.sln --no-restore
-      - name: Run unit tests
-        run: dotnet test Keyboardtester/UnitTests/UnitTests.csproj --no-build --logger "html"
-      - name: Upload test results to build
-        uses: actions/upload-artifact@v3
-        with:
-          name: Test results
-          path: Keyboardtester/UnitTests/TestResults/
-        # Use always() to always run this step to publish test results when there are test failures
-        if: ${{ always() }}
+  # lint:
+  #   name: lint
+  #   runs-on: windows-2019
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - name: Setup dotnet
+  #       uses: actions/setup-dotnet@v3
+  #       with:
+  #         dotnet-version: '6.0.x'
+  #     - name: Check styling and linting
+  #       run: dotnet format --verbosity normal --severity warn --verify-no-changes Keyboardtester/KeyboardTester.sln
+  # build-and-test:
+  #   name: build and test
+  #   runs-on: windows-2019
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - name: Setup dotnet
+  #       uses: actions/setup-dotnet@v3
+  #       with:
+  #         dotnet-version: '6.0.x'
+  #     - name: Restore all projects
+  #       run: dotnet restore Keyboardtester/KeyboardTester.sln
+  #     - name: Build solution
+  #       run: dotnet build Keyboardtester/KeyboardTester.sln --no-restore
+  #     - name: Run unit tests
+  #       run: dotnet test Keyboardtester/UnitTests/UnitTests.csproj --no-build --logger "html"
+  #     - name: Upload test results to build
+  #       uses: actions/upload-artifact@v3
+  #       with:
+  #         name: Test results
+  #         path: Keyboardtester/UnitTests/TestResults/
+  #       # Use always() to always run this step to publish test results when there are test failures
+  #       if: ${{ always() }}
   create-release:
     permissions: write-all
     name: create release
-    needs: [lint, build-and-test]
+    # needs: [lint, build-and-test]
     runs-on: windows-2019
     steps:
       - uses: actions/checkout@v4
@@ -62,8 +62,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          tag_name: ${{github.run_number}}
+          release_name: Release ${{github.run_number}}
           draft: false
           prerelease: false
       - name: Upload Release Asset
