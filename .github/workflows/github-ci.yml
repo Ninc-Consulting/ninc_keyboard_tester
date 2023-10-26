@@ -1,5 +1,5 @@
 name: CI
-#
+
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
@@ -51,6 +51,7 @@ jobs:
   create-release:
     name: create release
     if: ${{ startsWith(github.ref, 'refs/tags/') }}
+    permissions: write-all
     # needs: [lint, build-and-test]
     runs-on: windows-2019
     steps:
