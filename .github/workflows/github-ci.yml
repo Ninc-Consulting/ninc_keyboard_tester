@@ -12,47 +12,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  # lint:
-  #   name: lint
-  #   runs-on: windows-2019
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - name: Setup dotnet
-  #       uses: actions/setup-dotnet@v3
-  #       with:
-  #         dotnet-version: '6.0.x'
-  #     - name: Check styling and linting
-  #       run: dotnet format --verbosity normal --severity warn --verify-no-changes Keyboardtester/KeyboardTester.sln
-  # build-and-test:
-  #   name: build and test
-  #   runs-on: windows-2019
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - name: Setup dotnet
-  #       uses: actions/setup-dotnet@v3
-  #       with:
-  #         dotnet-version: '6.0.x'
-  #     - name: Restore all projects
-  #       run: dotnet restore Keyboardtester/KeyboardTester.sln
-  #     - name: Build solution
-  #       run: dotnet build Keyboardtester/KeyboardTester.sln --no-restore
-  #     - name: Run unit tests
-  #       run: dotnet test Keyboardtester/UnitTests/UnitTests.csproj --no-build --logger "html"
-  #     - name: Upload test results to build
-  #       uses: actions/upload-artifact@v3
-  #       with:
-  #         name: Test results
-  #         path: Keyboardtester/UnitTests/TestResults/
-  #       # Use always() to always run this step to publish test results when there are test failures
-  #       if: ${{ always() }}
-
-  # actions/create-release@v1 and actions/upload-release-asset@v1 generate the following error
-  #Warning: The `set-output` command is deprecated and will be disabled soon. Please upgrade to using Environment Files. For more information see: https://github.blog/changelog/2022-10-11-github-actions-deprecating-save-state-and-set-output-commands/
-  create-release:
-    name: create release
-    if: ${{ startsWith(github.ref, 'refs/tags/') }}
-    permissions: write-all
-    # needs: [lint, build-and-test]
+  lint:
+    name: lint
     runs-on: windows-2019
     steps:
       - uses: actions/checkout@v4
@@ -60,9 +21,48 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '6.0.x'
-      - name: Create standalone exe file
-        run: dotnet publish KeyboardTester/KeyboardTesterApp/KeyboardTesterApp.csproj --self-contained --runtime win-x64 --output KeyboardTester/artifacts/
-      - name: Create release and assets
-        uses: ncipollo/release-action@v1
+      - name: Check styling and linting
+        run: dotnet format --verbosity normal --severity warn --verify-no-changes Keyboardtester/KeyboardTester.sln
+  build-and-test:
+    name: build and test
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v3
         with:
-          artifacts: "KeyboardTester/artifacts/KeyboardTesterApp.exe"
+          dotnet-version: '6.0.x'
+      - name: Restore all projects
+        run: dotnet restore Keyboardtester/KeyboardTester.sln
+      - name: Build solution
+        run: dotnet build Keyboardtester/KeyboardTester.sln --no-restore
+      - name: Run unit tests
+        run: dotnet test Keyboardtester/UnitTests/UnitTests.csproj --no-build --logger "html"
+      - name: Upload test results to build
+        uses: actions/upload-artifact@v3
+        with:
+          name: Test results
+          path: Keyboardtester/UnitTests/TestResults/
+        # Use always() to always run this step to publish test results when there are test failures
+        if: ${{ always() }}
+
+  # actions/create-release@v1 and actions/upload-release-asset@v1 generate the following error
+  #Warning: The `set-output` command is deprecated and will be disabled soon. Please upgrade to using Environment Files. For more information see: https://github.blog/changelog/2022-10-11-github-actions-deprecating-save-state-and-set-output-commands/
+  # create-release:
+  #   name: create release
+  #   if: ${{ startsWith(github.ref, 'refs/tags/') }}
+  #   permissions: write-all
+  #   # needs: [lint, build-and-test]
+  #   runs-on: windows-2019
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - name: Setup dotnet
+  #       uses: actions/setup-dotnet@v3
+  #       with:
+  #         dotnet-version: '6.0.x'
+  #     - name: Create standalone exe file
+  #       run: dotnet publish KeyboardTester/KeyboardTesterApp/KeyboardTesterApp.csproj --self-contained --runtime win-x64 --output KeyboardTester/artifacts/
+  #     - name: Create release and assets
+  #       uses: ncipollo/release-action@v1
+  #       with:
+  #         artifacts: "KeyboardTester/artifacts/KeyboardTesterApp.exe"

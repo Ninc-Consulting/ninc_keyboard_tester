@@ -3,7 +3,11 @@
 Tests the functionality of your keyboard.
 NINC Keboard Tester is a winforms application that listens for key strokes and displays which key was detected. This can be used to ensure that each key on a keyboard is functioning properly.
 
-## Usage
+### Download NINC Keyboard Tester
+
+Download the standalone exe file from https://github.com/Ninc-Consulting/ninc_keyboard_tester/releases
+
+### Usage
 
 When the application is running, pressing any key on the keyboard will make the background of the detected key turn purple. When the key then is released the border of the key is turned red.
 The layout of the keyboard can be changed with a drop-down menu in the application. Currently, only two keyboard layouts are supported, _Toughbook_ and _ISO 105 - SE_. _Toughbook_ is the specific keyboard layout for the Panasonic Toughbook CF-31 while _ISO 105 - SE_ is the layout of a standard ISO 105 Swedish keyboard. However, there is a third option in the drop-down menu, _All Keys_, which can be used if the keyboard is not one of the supported layouts.
@@ -12,9 +16,9 @@ The layout of the keyboard can be changed with a drop-down menu in the applicati
 
 The Fn key that is present on some keyboards does not trigger a key event on its own but only alters the key code of the key that is pressed together with it. Therefore, the logic for determining if the Fn key is used is specific for each keyboard layout. Which means that, while it is possible to check all other keys with the _All Keys_ layout, it is not possible to check the Fn key unless the keyboard layout is supported by the application.
 
-## Build a standalone exe file
+## Build a standalone exe file from the source code
 
-You can build a standalone exe file with either Docker or the .NET CLI. If you're using Visual Studio you already have the .NET CLI installed.
+If you have the source code locally, you can build a standalone exe file with either Docker or the .NET CLI. If you're using Visual Studio you already have the .NET CLI installed.
 
 ### Install .NET Command-Line Interface (CLI)
 
