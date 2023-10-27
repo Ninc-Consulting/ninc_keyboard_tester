@@ -1,13 +1,10 @@
-name: CI
+name: CD
 
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
+  # Triggers the workflow on pushing a tag that matches the pattern
   push:
-    branches: [ "main", ]
-  pull_request:
-    branches: [ "main" ]
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+    tags:
+      - "v.*.*"
 
 jobs:
   lint:
@@ -43,3 +40,21 @@ jobs:
           path: Keyboardtester/UnitTests/TestResults/
         # Use always() to always run this step to publish test results when there are test failures
         if: ${{ always() }}
+  create-release:
+    name: create release
+    needs: [lint, build-and-test]
+    runs-on: windows-2019
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '6.0.x'
+      - name: Create standalone exe file
+        run: dotnet publish KeyboardTester/KeyboardTesterApp/KeyboardTesterApp.csproj --self-contained --runtime win-x64 --output KeyboardTester/artifacts/
+      - name: Create release and assets
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "KeyboardTester/artifacts/KeyboardTesterApp.exe"
