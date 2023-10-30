@@ -4,7 +4,7 @@ on:
   # Triggers the workflow on pushing a tag that matches the pattern
   push:
     tags:
-      - "v*.*"
+      - "*"
 # test
 jobs:
   lint:
