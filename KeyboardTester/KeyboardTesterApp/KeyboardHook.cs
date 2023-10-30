@@ -29,7 +29,6 @@ namespace KeyboardTesterApp
             public int ScanCode;
             public int Flags;
             public int Time;
-
             public int DwExtraInfo;
         }
 
