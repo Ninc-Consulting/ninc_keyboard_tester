@@ -32,7 +32,7 @@
         private void InitiateKeys()
         {
             Resources.Keys.Escape.Size = _squareSize0_85;
-            Resources.Keys.Escape.Text = "ESC";
+            Resources.Keys.Escape.Text = "Esc";
             Resources.Keys.Escape.TextAlign = ContentAlignment.MiddleCenter;
             AddKeyToLayout(Resources.Keys.Escape);
 
