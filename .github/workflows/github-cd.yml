@@ -7,8 +7,8 @@ on:
       - "v*.*"
 # test
 jobs:
-  lint-build-and-test:
-    name: lint build and test
+  ci:
+    name: CI
     uses: Ninc-Consulting/ninc_keyboard_tester/.github/workflows/github-ci.yml@initial_commit
   # lint:
   #   name: lint
@@ -45,7 +45,7 @@ jobs:
   #       if: ${{ always() }}
   create-release:
     name: create release
-    # needs: [lint, build-and-test]
+    needs: [ ci ]
     runs-on: windows-2019
     permissions:
       contents: write
