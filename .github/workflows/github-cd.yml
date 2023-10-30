@@ -3,7 +3,6 @@ name: CD
 on:
   # Triggers the workflow on pushing a tag that matches the pattern
   push:
-    branches: [ "initial_commit" ]
     tags:
       - "v*.*"
 
