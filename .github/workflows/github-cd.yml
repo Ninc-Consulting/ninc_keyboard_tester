@@ -9,7 +9,7 @@ on:
 jobs:
   lint-build-and-test:
     name: lint build and test
-    uses: Ninc-Consulting/ninc_keyboard_tester/.github/workflows/github-ci.yml@main
+    uses: Ninc-Consulting/ninc_keyboard_tester/.github/workflows/github-ci.yml@initial_commit
   # lint:
   #   name: lint
   #   runs-on: windows-2019
