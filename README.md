@@ -5,7 +5,7 @@ NINC Keboard Tester is a winforms application that listens for key strokes and d
 
 ### Download NINC Keyboard Tester
 
-Download the standalone exe file from https://github.com/Ninc-Consulting/ninc_keyboard_tester/releases
+Download the latest version from https://github.com/Ninc-Consulting/ninc_keyboard_tester/releases. You only need to download the exe file.
 
 ### Usage
 
