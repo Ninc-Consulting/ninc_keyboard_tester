@@ -7,6 +7,7 @@ namespace KeyboardTesterApp
         private readonly DropDownAreaService _dropDownMenuService;
 
         public static Font? ScaledFont { get; private set; }
+        public const string Version = "1.0";
 
         public KeyboardTesterForm(KeyboardLayoutType keyboarLayoutEnum = KeyboardLayoutType.Toughbook)
         {
@@ -53,6 +54,11 @@ namespace KeyboardTesterApp
         private void ExitButton_Click(object? sender, EventArgs e)
         {
             _informationAreaService.Exit(this);
+        }
+
+        private void AboutButton_Click(object? sender, EventArgs e)
+        {
+            _informationAreaService.ShowAboutMessageBox();
         }
 
         private void KeyboardTesterForm_FormClosing(object sender, FormClosingEventArgs e)

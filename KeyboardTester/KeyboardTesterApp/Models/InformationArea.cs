@@ -10,6 +10,7 @@
         public TextBox KeyCodeValue { get; private set; } = new();
         public TextBox KeyNameValue { get; private set; } = new();
         public TextBox KeyFlagsValue { get; private set; } = new();
+        public Button AboutButton { get; private set; } = new();
         public Button ResetButton { get; private set; } = new();
         public Button ExitButton { get; private set; } = new();
         public Size Size { get; private set; } = new();
@@ -24,7 +25,7 @@
         public InformationArea(KeyboardLayout keyboardLayout, int baseKeyWidth)
         {
             _offset = Convert.ToInt32(baseKeyWidth / 2);
-            _textBoxSize = new(baseKeyWidth * 3, Convert.ToInt32(baseKeyWidth / 2));
+            _textBoxSize = new(baseKeyWidth * 2, Convert.ToInt32(baseKeyWidth / 2));
             _buttonSize = new(Convert.ToInt32(baseKeyWidth * 1.5), Convert.ToInt32(baseKeyWidth / 2));
             _font = KeyboardTesterForm.ScaledFont;
 
@@ -135,6 +136,15 @@
             ResetButton.UseVisualStyleBackColor = true;
             ResetButton.TabStop = false;
             ResetButton.Font = _font;
+
+            xCoordinate -= _buttonSize.Width + _offset;
+            AboutButton.Location = new Point(xCoordinate, yCoordinate + _textBoxSize.Height);
+            AboutButton.Name = "AboutButton";
+            AboutButton.Size = _buttonSize;
+            AboutButton.Text = "About";
+            AboutButton.UseVisualStyleBackColor = true;
+            AboutButton.TabStop = false;
+            AboutButton.Font = _font;
 
             Size = new Size(xCoordinate + (baseKeyWidth / 2), yCoordinate + _textBoxSize.Height + baseKeyWidth - (keyboardLayout.Location.Y + keyboardLayout.Size.Height));
             Location = new Point(0, startingYPosition);

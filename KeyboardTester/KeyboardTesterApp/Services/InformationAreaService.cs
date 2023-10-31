@@ -23,6 +23,13 @@
             }
         }
 
+        public void ShowAboutMessageBox()
+        {
+            var title = "About Ninc Keyboard Tester";
+            var message = $"Copyright © 2023 Ninc-Consulting\nLicense: MIT\nVersion: {KeyboardTesterForm.Version}\nRuntime identifier: {RuntimeInformation.RuntimeIdentifier}\n\nSource code: https://github.com/Ninc-Consulting/ninc_keyboard_tester";
+            MessageBox.Show(message, title, MessageBoxButtons.OK);
+        }
+
         public void Exit(KeyboardTesterForm form)
         {
             form.Close();

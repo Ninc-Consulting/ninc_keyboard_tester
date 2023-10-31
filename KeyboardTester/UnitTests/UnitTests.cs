@@ -358,7 +358,7 @@ namespace UnitTests
             var toughbookItem = new ComboBoxItem()
             {
                 KeyboardLayoutType = KeyboardLayoutType.Toughbook,
-                KeyboardLayoutText = "Toughbook"
+                KeyboardLayoutText = "Toughbook CF-31"
             };
             comboBoxItemList.Add(toughbookItem);
             var iso105Item = new ComboBoxItem()

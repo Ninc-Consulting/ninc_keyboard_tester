@@ -1,3 +1,3 @@
 FROM mcr.microsoft.com/dotnet/sdk:6.0-windowsservercore-ltsc2019
 WORKDIR /app
-CMD echo Static code analysis... && dotnet format KeyboardTester.sln --verbosity minimal --verify-no-changes && echo Code analysis OK! && dotnet test UnitTests/UnitTests.csproj --logger "html" && dotnet publish KeyboardTesterApp/KeyboardTesterApp.csproj --self-contained --runtime win-x64 --property WarningLevel=0 --configuration Release --output artifacts/
+CMD echo Static code analysis... && dotnet format KeyboardTester.sln --verbosity minimal --verify-no-changes && echo Code analysis OK! && dotnet test UnitTests/UnitTests.csproj --logger "html" && dotnet publish KeyboardTesterApp/KeyboardTesterApp.csproj --self-contained --runtime win-x64 --configuration Release --output artifacts/x64/ && dotnet publish KeyboardTesterApp/KeyboardTesterApp.csproj --self-contained --runtime win-x86 --configuration Release --output artifacts/x86

@@ -1,9 +1,9 @@
-# NINC Keyboard Tester
+# Ninc Keyboard Tester
 
 Tests the functionality of your keyboard.
-NINC Keboard Tester is a winforms application that listens for key strokes and displays which key was detected. This can be used to ensure that each key on a keyboard is functioning properly.
+Ninc Keyboard Tester is a winforms application that listens for key strokes and displays which key was detected. This can be used to ensure that each key on a keyboard is functioning properly.
 
-### Download NINC Keyboard Tester
+### Download Ninc Keyboard Tester
 
 Download the latest version from https://github.com/Ninc-Consulting/ninc_keyboard_tester/releases. You only need to download the exe file.
 

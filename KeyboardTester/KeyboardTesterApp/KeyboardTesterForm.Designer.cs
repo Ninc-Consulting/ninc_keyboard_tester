@@ -55,6 +55,7 @@
             InformationArea = new(KeyboardLayout, _baseKeyWidth);
             InformationArea.ResetButton.Click += ResetButton_Click;
             InformationArea.ExitButton.Click += ExitButton_Click;
+            InformationArea.AboutButton.Click += AboutButton_Click;
 
             AddLayoutsToControls();
 
@@ -81,6 +82,7 @@
             Controls.Add(InformationArea.KeyCodeText);
             Controls.Add(InformationArea.KeyNameText);
             Controls.Add(InformationArea.KeyFlagsText);
+            Controls.Add(InformationArea.AboutButton);
             Controls.Add(InformationArea.ResetButton);
             Controls.Add(InformationArea.ExitButton);
         }
