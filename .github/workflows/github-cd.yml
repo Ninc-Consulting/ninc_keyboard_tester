@@ -23,15 +23,15 @@ jobs:
       - name: Create standalone x64 exe file
         run: dotnet publish KeyboardTester/KeyboardTesterApp/KeyboardTesterApp.csproj --self-contained --runtime win-x64 --output KeyboardTester/artifacts/x64
       - name: Rename file
-        run: rename KeyboardTester/artifacts/x64/KeyboardTesterApp.exe KeyboardTester/artifacts/x64/KeyboardTesterAppx64.exe
+        run: ren KeyboardTester/artifacts/x64/KeyboardTesterApp.exe KeyboardTester/artifacts/x64/KeyboardTesterAppx64.exe
       - name: Create standalone x86 exe file
         run: dotnet publish KeyboardTester/KeyboardTesterApp/KeyboardTesterApp.csproj --self-contained --runtime win-x86 --output KeyboardTester/artifacts/x86
       - name: Rename file
-        run: rename KeyboardTester/artifacts/x86/KeyboardTesterApp.exe KeyboardTester/artifacts/x64/KeyboardTesterAppx86.exe LICENSE
+        run: ren KeyboardTester/artifacts/x86/KeyboardTesterApp.exe KeyboardTester/artifacts/x64/KeyboardTesterAppx86.exe
       - name: Zip exe files
         uses: vimtor/action-zip@v1.1
         with:
-          files: KeyboardTester/artifacts/x64/KeyboardTesterAppx64.exe KeyboardTester/artifacts/x86/KeyboardTesterAppx86.exe 
+          files: KeyboardTester/artifacts/x64/KeyboardTesterAppx64.exe KeyboardTester/artifacts/x86/KeyboardTesterAppx86.exe LICENSE
           dest: KeyboardTester/artifacts/KeyboardTesterApp.zip
       - name: Create release and assets
         uses: ncipollo/release-action@v1
