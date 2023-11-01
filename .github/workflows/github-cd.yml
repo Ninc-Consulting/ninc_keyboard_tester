@@ -7,7 +7,7 @@ on:
 jobs:
   ci:
     name: CI
-    uses: Ninc-Consulting/ninc_keyboard_tester/.github/workflows/github-ci.yml@initial_commit
+    uses: Ninc-Consulting/ninc_keyboard_tester/.github/workflows/github-ci.yml@main
   create-release:
     name: create release
     needs: [ ci ]
