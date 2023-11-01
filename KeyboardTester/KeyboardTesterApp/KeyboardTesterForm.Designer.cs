@@ -59,8 +59,11 @@
 
             AddLayoutsToControls();
 
+            var formResources = new ComponentResourceManager(typeof(KeyboardTesterForm));
+
             Name = "KeyboardTesterForm";
-            Text = "NINC Keyboard Tester";
+            Text = "Ninc Keyboard Tester";
+            Icon = (Icon)formResources.GetObject("$this.Icon");
             StartPosition = FormStartPosition.Manual;
             Rectangle screen = Screen.FromPoint(Cursor.Position).Bounds;
             ClientSize = GetTotalSize();
