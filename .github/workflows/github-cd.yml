@@ -23,11 +23,11 @@ jobs:
       - name: Create standalone x64 exe file
         run: dotnet publish KeyboardTester/KeyboardTesterApp/KeyboardTesterApp.csproj --self-contained --runtime win-x64 --output KeyboardTester/artifacts/x64
       - name: Rename file
-        run: ren KeyboardTester/artifacts/x64/KeyboardTesterApp.exe KeyboardTester/artifacts/x64/KeyboardTesterAppx64.exe
+        run: ren KeyboardTester/artifacts/x64/KeyboardTesterApp.exe KeyboardTesterAppx64.exe
       - name: Create standalone x86 exe file
         run: dotnet publish KeyboardTester/KeyboardTesterApp/KeyboardTesterApp.csproj --self-contained --runtime win-x86 --output KeyboardTester/artifacts/x86
       - name: Rename file
-        run: ren KeyboardTester/artifacts/x86/KeyboardTesterApp.exe KeyboardTester/artifacts/x64/KeyboardTesterAppx86.exe
+        run: ren KeyboardTester/artifacts/x86/KeyboardTesterApp.exe KeyboardTesterAppx86.exe
       - name: Zip exe files
         uses: vimtor/action-zip@v1.1
         with:
