@@ -36,4 +36,4 @@ jobs:
       - name: Create release and assets
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "KeyboardTester/artifacts/KeyboardTesterApp.zip"
+          artifacts: "KeyboardTester/artifacts/KeyboardTesterApp_${{ github.ref_name }}.zip"
