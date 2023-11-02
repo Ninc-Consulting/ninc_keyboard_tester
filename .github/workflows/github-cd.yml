@@ -7,7 +7,7 @@ on:
 jobs:
   ci:
     name: CI
-    uses: Ninc-Consulting/ninc_keyboard_tester/.github/workflows/github-ci.yml@main
+    uses: Ninc-Consulting/ninc_keyboard_tester/.github/workflows/github-ci.yml@initial_commit
   create-release:
     name: create release
     needs: [ ci ]
@@ -31,8 +31,8 @@ jobs:
       - name: Zip exe files
         uses: vimtor/action-zip@v1.1
         with:
-          files: KeyboardTester/artifacts/x64/KeyboardTesterAppx64.exe KeyboardTester/artifacts/x86/KeyboardTesterAppx86.exe LICENSE
-          dest: KeyboardTester/artifacts/KeyboardTesterApp.zip
+          files: KeyboardTester/artifacts/x64/KeyboardTesterAppx64.exe KeyboardTester/artifacts/x86/KeyboardTesterAppx86.exe LICENSE README.md
+          dest: KeyboardTester/artifacts/KeyboardTesterApp_${{ github.ref_name }}.zip
       - name: Create release and assets
         uses: ncipollo/release-action@v1
         with:
