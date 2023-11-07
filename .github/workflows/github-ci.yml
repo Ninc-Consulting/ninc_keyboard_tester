@@ -1,17 +1,16 @@
 name: CI
 
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-    
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+  workflow_call:
 
 jobs:
-  lint-job:
+  lint:
+    name: lint
     runs-on: windows-2019
     steps:
       - uses: actions/checkout@v4
@@ -20,8 +19,9 @@ jobs:
         with:
           dotnet-version: '6.0.x'
       - name: Check styling and linting
-        run: dotnet format --verbosity detailed --severity warn --verify-no-changes Keyboardtester/KeyboardTester.sln
-  build-job:
+        run: dotnet format --verbosity normal --severity warn --verify-no-changes Keyboardtester/KeyboardTester.sln
+  build-and-test:
+    name: build and test
     runs-on: windows-2019
     steps:
       - uses: actions/checkout@v4
@@ -29,5 +29,16 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '6.0.x'
+      - name: Restore all projects
+        run: dotnet restore Keyboardtester/KeyboardTester.sln
       - name: Build solution
-        run: dotnet build Keyboardtester/KeyboardTester.sln
+        run: dotnet build Keyboardtester/KeyboardTester.sln --no-restore
+      - name: Run unit tests
+        run: dotnet test Keyboardtester/UnitTests/UnitTests.csproj --no-build --logger "html"
+      - name: Upload test results to build
+        uses: actions/upload-artifact@v3
+        with:
+          name: Test results
+          path: Keyboardtester/UnitTests/TestResults/
+        # Use always() to always run this step to publish test results when there are test failures
+        if: ${{ always() }}
